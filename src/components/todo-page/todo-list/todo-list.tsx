@@ -1,8 +1,8 @@
-import React from "react";
-import { Todo } from "../../../models/todo.model";
+import * as React from 'react'
+import { Todo } from '../../../models/todo.model'
 
 export interface TodoListProps {
-  list: Todo[];
+  list: Todo[]
 }
 
 const todoList = (props: TodoListProps) => {
@@ -10,9 +10,9 @@ const todoList = (props: TodoListProps) => {
     <div key={data.id} className="flex-column">
       {data.value}
     </div>
-  ));
+  ))
 
-  return <div> {list} </div>;
-};
+  return <div> {list} </div>
+}
 
-export default todoList;
+export default todoList
