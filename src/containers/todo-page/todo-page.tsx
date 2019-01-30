@@ -15,7 +15,11 @@ class TodoPage extends React.Component {
     })
   }
 
-  onClick = () => {
+  onAddClick = () => {
+    const v = this.state.value
+    if (v.trim() === '') {
+      return
+    }
     const id = this.state.lastKey + 1
     const temp = [...this.state.list, { id, value: this.state.value }]
     this.setState({
@@ -25,9 +29,17 @@ class TodoPage extends React.Component {
     })
   }
 
+  onItemClick = (index: number) => {
+    const temp = [...this.state.list]
+    temp.splice(index, 1)
+    this.setState({
+      list: temp
+    })
+  }
+
   render() {
     return (
-      <div>
+      <div className="scroll-y page">
         <section className="hero is-info">
           <div className="hero-body">
             <div className="container">
@@ -38,11 +50,11 @@ class TodoPage extends React.Component {
         </section>
         <section className="m5">
           <div className="flex">
-            <TodoCaption click={this.onClick} change={this.onChange} value={this.state.value} />
+            <TodoCaption click={this.onAddClick} change={this.onChange} value={this.state.value} />
           </div>
         </section>
         <section>
-          <TodoList list={this.state.list} />
+          <TodoList itemClick={this.onItemClick} list={this.state.list} />
         </section>
       </div>
     )
