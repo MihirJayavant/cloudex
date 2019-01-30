@@ -1,6 +1,6 @@
 import * as React from 'react'
-import TodoCaption from './todo-caption/todo-caption'
-import TodoList from './todo-list/todo-list'
+import TodoCaption from '../../components/todo/todo-caption/todo-caption'
+import TodoList from '../../components/todo/todo-list/todo-list'
 
 class TodoPage extends React.Component {
   state = {

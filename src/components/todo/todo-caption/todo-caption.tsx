@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export interface TodoCaptionProps {
+interface TodoCaptionProps {
   value: string
   change: (event: React.ChangeEvent<HTMLInputElement>) => void
   click: () => void

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export interface TodoItemProps {
+interface TodoItemProps {
   title: string
 }
 

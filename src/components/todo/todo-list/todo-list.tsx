@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Todo } from '../../../models/todo.model'
 
-export interface TodoListProps {
+interface TodoListProps {
   list: Todo[]
 }
 
