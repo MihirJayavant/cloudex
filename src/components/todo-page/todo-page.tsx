@@ -9,7 +9,7 @@ class TodoPage extends Component {
     lastKey: -1
   };
 
-  onChange = event => {
+  onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       value: event.target.value
     });

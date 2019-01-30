@@ -1,10 +1,14 @@
 import React from "react";
+import { Todo } from "../../../models/todo.model";
 
-const todoList = props => {
+export interface TodoListProps {
+  list: Todo[];
+}
+
+const todoList = (props: TodoListProps) => {
   const list = props.list.map(data => (
     <div key={data.id} className="flex-column">
-      {" "}
-      {data.value}{" "}
+      {data.value}
     </div>
   ));
 

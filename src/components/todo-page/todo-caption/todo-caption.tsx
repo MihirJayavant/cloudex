@@ -1,6 +1,12 @@
-import React from "react";
+import React from 'react'
 
-const todoCaption = props => {
+export interface TodoCaptionProps {
+  value: string
+  change: (event: React.ChangeEvent<HTMLInputElement>) => void
+  click: () => void
+}
+
+const todoCaption = (props: TodoCaptionProps) => {
   return (
     <div className="field has-addons">
       <div className="control">
@@ -13,12 +19,12 @@ const todoCaption = props => {
         />
       </div>
       <div className="control">
-        <a className="button is-info" onClick={props.click}>
+        <button className="button is-info" onClick={props.click}>
           Add
-        </a>
+        </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default todoCaption;
+export default todoCaption
