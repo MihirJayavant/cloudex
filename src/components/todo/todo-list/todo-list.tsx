@@ -1,6 +1,6 @@
 import * as React from 'react'
 import TodoItem from '../todo-item/todo-item'
-import { Todo } from '../../../models/todo.model'
+import { Todo } from '../../../models'
 
 interface TodoListProps {
   list: Todo[]
@@ -8,6 +8,7 @@ interface TodoListProps {
 }
 
 const todoList = (props: TodoListProps) => {
+  console.log(props)
   const list = props.list.map((data, index) => (
     <TodoItem click={props.itemClick} data={data} index={index} key={data.id} />
   ))
@@ -19,4 +20,4 @@ const todoList = (props: TodoListProps) => {
   )
 }
 
-export default todoList
+export default React.memo(todoList)
