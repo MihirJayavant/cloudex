@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-interface TodoCaptionProps {
+interface ITodoCaptionProps {
   value: string
   change: (event: React.ChangeEvent<HTMLInputElement>) => void
   click: () => void
 }
 
-const todoCaption = (props: TodoCaptionProps) => {
+const todoCaption = (props: ITodoCaptionProps) => {
   return (
     <div className="field has-addons">
       <div className="control">

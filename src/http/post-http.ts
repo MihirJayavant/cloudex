@@ -5,6 +5,6 @@ export class PostHttp {
   private http = new Http()
 
   get() {
-    return this.http.get<Post>('posts')
+    return this.http.get<Post[]>('posts')
   }
 }

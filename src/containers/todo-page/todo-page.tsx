@@ -1,9 +1,16 @@
 import * as React from 'react'
 import { TodoCaption, TodoList } from '../../components/todo'
+import { Todo } from '../../models'
+import { List } from 'immutable'
 
-class TodoPage extends React.Component {
+interface ITodoPageState {
+  list: List<Todo>
+  value: string
+  lastKey: number
+}
+class TodoPage extends React.Component<{}, ITodoPageState> {
   state = {
-    list: [],
+    list: List<Todo>([]),
     value: '',
     lastKey: -1
   }
@@ -15,12 +22,12 @@ class TodoPage extends React.Component {
   }
 
   onAddClick = () => {
-    const v = this.state.value
-    if (v.trim() === '') {
+    const value = this.state.value
+    if (value.trim() === '') {
       return
     }
     const id = this.state.lastKey + 1
-    const temp = [...this.state.list, { id, value: this.state.value }]
+    const temp = this.state.list.push({ id, value: this.state.value })
     this.setState({
       list: temp,
       value: '',
@@ -29,8 +36,7 @@ class TodoPage extends React.Component {
   }
 
   onItemClick = (index: number) => {
-    const temp = [...this.state.list]
-    temp.splice(index, 1)
+    const temp = this.state.list.remove(index)
     this.setState({
       list: temp
     })

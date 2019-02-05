@@ -1,14 +1,20 @@
 import * as React from 'react'
 import { PostList } from '../../components/post'
 import { PostHttp } from '../../http'
+import { List } from 'immutable'
+import { Post } from '../../models'
 
-class PostPage extends React.Component {
+interface IPostPageState {
+  list: List<Post>
+}
+
+class PostPage extends React.Component<{}, IPostPageState> {
   state = {
-    list: []
+    list: List<Post>([])
   }
 
   componentDidMount() {
-    new PostHttp().get().then(post => this.setState({ list: post }))
+    new PostHttp().get().then(post => this.setState({ list: List(post) }))
   }
 
   render() {

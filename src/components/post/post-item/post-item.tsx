@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-interface PostItemProps {
+interface IPostItemProps {
   title: string
   body: string
 }
 
-const postItem = (props: PostItemProps) => (
+const postItem = (props: IPostItemProps) => (
   <div className="card">
     <div className="card-content">
       <p className="title">“{props.title}”</p>

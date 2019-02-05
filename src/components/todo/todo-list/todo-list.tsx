@@ -1,14 +1,14 @@
 import * as React from 'react'
 import TodoItem from '../todo-item/todo-item'
 import { Todo } from '../../../models'
+import { List } from 'immutable'
 
-interface TodoListProps {
-  list: Todo[]
+interface ITodoListProps {
+  list: List<Todo>
   itemClick: (index: number) => void
 }
 
-const todoList = (props: TodoListProps) => {
-  console.log(props)
+const todoList = (props: ITodoListProps) => {
   const list = props.list.map((data, index) => (
     <TodoItem click={props.itemClick} data={data} index={index} key={data.id} />
   ))
