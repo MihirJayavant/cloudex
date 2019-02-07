@@ -4,7 +4,15 @@ import './index.scss'
 import App from './containers/app/App'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
-import { store } from './store'
+import { compose, createStore, applyMiddleware } from 'redux'
+import { reducer, allSagas } from './store'
+import createSagaMiddleware from 'redux-saga'
+
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const sagaMiddleWare = createSagaMiddleware()
+
+export const store = createStore(reducer, composeEnhancers(applyMiddleware(sagaMiddleWare)))
+sagaMiddleWare.run(allSagas)
 
 ReactDOM.render(
   <Provider store={store}>

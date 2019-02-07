@@ -1,20 +1,19 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { PostList } from '../../components/post'
-import { PostHttp } from '../../http'
 import { List } from 'immutable'
-import { Post } from '../../models'
+import { Post, AsyncDataState } from '../../models'
+import { State, getPosts, getPostsDataState, loadPosts, LoadPostsAction } from '../../store'
 
-interface IPostPageState {
-  list: List<Post>
+interface Props {
+  posts: List<Post>
+  dataState: AsyncDataState
+  load: () => LoadPostsAction
 }
 
-class PostPage extends React.Component<{}, IPostPageState> {
-  state = {
-    list: List<Post>([])
-  }
-
+class PostPage extends React.Component<Props, {}> {
   componentDidMount() {
-    new PostHttp().get().then(post => this.setState({ list: List(post) }))
+    this.props.load()
   }
 
   render() {
@@ -29,11 +28,23 @@ class PostPage extends React.Component<{}, IPostPageState> {
           </div>
         </section>
         <section className="m5">
-          <PostList list={this.state.list} />
+          <PostList list={this.props.posts} />
         </section>
       </div>
     )
   }
 }
 
-export default PostPage
+const mapStateToProps = (state: State) => ({
+  posts: getPosts(state),
+  dataState: getPostsDataState(state)
+})
+
+const mapDispatchToProps = {
+  load: loadPosts
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostPage)
