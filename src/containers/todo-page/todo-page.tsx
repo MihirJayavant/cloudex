@@ -1,45 +1,26 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
 import { TodoCaption, TodoList } from '../../components/todo'
 import { Todo } from '../../models'
 import { List } from 'immutable'
+import { State, getTodos, addTodo, TodoAction, deleteTodo } from '../../store'
 
-interface ITodoPageState {
-  list: List<Todo>
-  value: string
-  lastKey: number
+interface ITodoPageProps {
+  todos: List<Todo>
+  add: (value: string) => TodoAction
+  delete: (id: number) => TodoAction
 }
-class TodoPage extends React.Component<{}, ITodoPageState> {
-  state = {
-    list: List<Todo>([]),
-    value: '',
-    lastKey: -1
-  }
 
-  onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      value: event.target.value
-    })
-  }
-
-  onAddClick = () => {
-    const value = this.state.value
+class TodoPage extends React.Component<ITodoPageProps> {
+  onAddClick = (value: string) => {
     if (value.trim() === '') {
       return
     }
-    const id = this.state.lastKey + 1
-    const temp = this.state.list.push({ id, value: this.state.value })
-    this.setState({
-      list: temp,
-      value: '',
-      lastKey: id
-    })
+    this.props.add(value)
   }
 
   onItemClick = (index: number) => {
-    const temp = this.state.list.remove(index)
-    this.setState({
-      list: temp
-    })
+    this.props.delete(index)
   }
 
   render() {
@@ -55,15 +36,27 @@ class TodoPage extends React.Component<{}, ITodoPageState> {
         </section>
         <section className="m5">
           <div className="flex">
-            <TodoCaption click={this.onAddClick} change={this.onChange} value={this.state.value} />
+            <TodoCaption onAdd={this.onAddClick} />
           </div>
         </section>
         <section>
-          <TodoList itemClick={this.onItemClick} list={this.state.list} />
+          <TodoList itemClick={this.onItemClick} list={this.props.todos} />
         </section>
       </div>
     )
   }
 }
 
-export default TodoPage
+const mapStateToProps = (state: State) => ({
+  todos: getTodos(state)
+})
+
+const mapDispatchToProps = {
+  add: addTodo,
+  delete: deleteTodo
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoPage)

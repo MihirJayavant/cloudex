@@ -5,9 +5,22 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className="home">
-        <div>Home page</div>
-        <Link to="/todo">Todo</Link>
-        <Link to="/posts">Posts</Link>
+        <section className="hero is-info">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">Posts Page</h1>
+              <h2 className="subtitle">see all the posts</h2>
+            </div>
+          </div>
+        </section>
+        <section className="m5">
+          <Link to="/todo">
+            <button className="button is-link">Todo</button>
+          </Link>
+          <Link to="/posts">
+            <button className="button is-link">Posts</button>
+          </Link>
+        </section>
       </div>
     )
   }
