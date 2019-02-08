@@ -8,7 +8,7 @@ class HomePage extends React.Component {
         <section className="hero is-info">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title">Posts Page</h1>
+              <h1 className="title">Home Page</h1>
               <h2 className="subtitle">see all the posts</h2>
             </div>
           </div>
