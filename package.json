@@ -34,5 +34,8 @@
     "reselect": "^4.0.0",
     "typescript": "^3.2.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "tslint-react": "^3.6.0"
+  }
 }
