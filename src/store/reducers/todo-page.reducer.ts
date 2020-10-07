@@ -1,13 +1,13 @@
-import { List } from 'immutable'
 import { Todo } from '../../models'
 import { TodoAction, TodoActionTypes } from '../actions'
+import { produce } from 'immer'
 
 export interface TodoState {
-  todos: List<Todo>
+  todos: Todo[]
 }
 
 export const initialState: TodoState = {
-  todos: List([])
+  todos: []
 }
 
 export function todoReducer(state = initialState, action: TodoAction): TodoState {
@@ -15,13 +15,15 @@ export function todoReducer(state = initialState, action: TodoAction): TodoState
     case TodoActionTypes.ADD:
       return {
         ...state,
-        todos: state.todos.push(action.payload.todo)
+        todos: produce(state.todos, draft => { draft.push(action.payload.todo) })
       }
 
     case TodoActionTypes.DELETE:
       return {
         ...state,
-        todos: state.todos.delete(action.payload.index)
+        todos: produce(state.todos, draft => {
+          draft.splice(action.payload.index, 1)
+        })
       }
     default:
       return state

@@ -1,13 +1,13 @@
 import { Todo } from '../../models'
 
-//Action Types
+// Action Types
 
 export enum TodoActionTypes {
   ADD = '[TodoPage] Add',
   DELETE = '[TodoPage] Delete'
 }
 
-//Action Interface
+// Action Interface
 
 export interface AddTodoAction {
   type: TodoActionTypes.ADD
@@ -19,7 +19,7 @@ export interface DeleteTodoAction {
   payload: { index: number }
 }
 
-//Action Creators
+// Action Creators
 
 export function addTodo(value: string): AddTodoAction {
   return {
@@ -27,7 +27,7 @@ export function addTodo(value: string): AddTodoAction {
     payload: {
       todo: {
         id: Math.random() * 1000,
-        value: value
+        value
       }
     }
   }
@@ -37,7 +37,7 @@ export function deleteTodo(index: number): DeleteTodoAction {
   return {
     type: TodoActionTypes.DELETE,
     payload: {
-      index: index
+      index
     }
   }
 }

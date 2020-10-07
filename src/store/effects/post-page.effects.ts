@@ -1,6 +1,5 @@
 import { put } from 'redux-saga/effects'
 import { PostsActionTypes, SuccessPostsAction, ErrorPostsAction } from '../actions'
-import { List } from 'immutable'
 import { Post } from '../../models'
 import { PostHttp } from '../../http'
 
@@ -10,14 +9,14 @@ export function* loadPostsEffect() {
     yield put<SuccessPostsAction>({
       type: PostsActionTypes.SUCCESS,
       payload: {
-        posts: List(data)
+        posts: data
       }
     })
   } catch (error) {
     yield put<ErrorPostsAction>({
       type: PostsActionTypes.ERROR,
       payload: {
-        error: error
+        error
       }
     })
   }

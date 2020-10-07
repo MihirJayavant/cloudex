@@ -1,14 +1,13 @@
-import { List } from 'immutable'
 import { Post, AsyncDataState } from '../../models'
 import { PostsAction, PostsActionTypes } from '../actions'
 
 export interface PostState {
-  posts: List<Post>
+  posts: Post[]
   dataState: AsyncDataState
 }
 
 export const initialState: PostState = {
-  posts: List([]),
+  posts: [],
   dataState: AsyncDataState.INITIAL
 }
 
@@ -23,7 +22,7 @@ export function postsReducer(state = initialState, action: PostsAction): PostSta
     case PostsActionTypes.SUCCESS:
       return {
         ...state,
-        posts: List(action.payload.posts),
+        posts: action.payload.posts,
         dataState: AsyncDataState.LOADED
       }
 

@@ -2,11 +2,10 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { TodoCaption, TodoList } from '../../components/todo'
 import { Todo } from '../../models'
-import { List } from 'immutable'
 import { State, getTodos, addTodo, TodoAction, deleteTodo } from '../../store'
 
 interface ITodoPageProps {
-  todos: List<Todo>
+  todos: Todo[]
   add: (value: string) => TodoAction
   delete: (id: number) => TodoAction
 }

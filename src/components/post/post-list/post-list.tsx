@@ -1,10 +1,9 @@
 import * as React from 'react'
 import PostItem from '../post-item/post-item'
 import { Post } from '../../../models'
-import { List } from 'immutable'
 
 interface IPostListProps {
-  list: List<Post>
+  list: Post[]
 }
 
 const postList = (props: IPostListProps) => {
