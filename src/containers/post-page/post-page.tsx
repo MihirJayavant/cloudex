@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { PostList } from '../../components/post'
-import { Post, AsyncDataState } from '../../models'
+import { Post, AsyncDataStateType } from '../../models'
 import { State, getPosts, getPostsDataState, loadPosts, LoadPostsAction } from '../../store'
 
 interface Props {
   posts: Post[]
-  dataState: AsyncDataState
+  dataState: AsyncDataStateType
   load: () => LoadPostsAction
 }
 

@@ -1,4 +1,4 @@
-import { Post } from '../../models'
+import { IAsyncDataErrorAction, IAsyncDataLoadAction, IAsyncDataSuccessAction, Post } from '../../models'
 
 // Action Types
 
@@ -10,18 +10,16 @@ export enum PostsActionTypes {
 
 // Action Interface
 
-export interface LoadPostsAction {
+export interface LoadPostsAction extends IAsyncDataLoadAction {
   type: PostsActionTypes.LOAD
 }
 
-export interface SuccessPostsAction {
+export interface SuccessPostsAction extends IAsyncDataSuccessAction<Post[]> {
   type: PostsActionTypes.SUCCESS
-  payload: { posts: Post[] }
 }
 
-export interface ErrorPostsAction {
+export interface ErrorPostsAction extends IAsyncDataErrorAction {
   type: PostsActionTypes.ERROR
-  payload: { error: string }
 }
 
 // Action Creators
@@ -35,18 +33,14 @@ export function loadPosts(): LoadPostsAction {
 export function successPosts(posts: Post[]): SuccessPostsAction {
   return {
     type: PostsActionTypes.SUCCESS,
-    payload: {
-      posts
-    }
+    data: posts
   }
 }
 
 export function errorPosts(error: string): ErrorPostsAction {
   return {
     type: PostsActionTypes.ERROR,
-    payload: {
-      error
-    }
+    error
   }
 }
 

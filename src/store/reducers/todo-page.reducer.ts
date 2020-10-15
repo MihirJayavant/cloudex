@@ -11,21 +11,15 @@ export const initialState: TodoState = {
 }
 
 export function todoReducer(state = initialState, action: TodoAction): TodoState {
-  switch (action.type) {
-    case TodoActionTypes.ADD:
-      return {
-        ...state,
-        todos: produce(state.todos, draft => { draft.push(action.payload.todo) })
-      }
+  return produce(state, draft => {
+    switch (action.type) {
+      case TodoActionTypes.ADD:
+        draft.todos.push(action.payload.todo)
+        break;
 
-    case TodoActionTypes.DELETE:
-      return {
-        ...state,
-        todos: produce(state.todos, draft => {
-          draft.splice(action.payload.index, 1)
-        })
-      }
-    default:
-      return state
-  }
+      case TodoActionTypes.DELETE:
+        draft.todos.splice(action.payload.index, 1)
+        break;
+    }
+  })
 }

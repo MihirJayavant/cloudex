@@ -8,16 +8,12 @@ export function* loadPostsEffect() {
     const data: Post[] = yield new PostHttp().get()
     yield put<SuccessPostsAction>({
       type: PostsActionTypes.SUCCESS,
-      payload: {
-        posts: data
-      }
+      data
     })
   } catch (error) {
     yield put<ErrorPostsAction>({
       type: PostsActionTypes.ERROR,
-      payload: {
-        error
-      }
+      error
     })
   }
 }
