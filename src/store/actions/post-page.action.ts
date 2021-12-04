@@ -1,7 +1,6 @@
-import { Post } from '../../models'
-import { List } from 'immutable'
+import { IAsyncDataErrorAction, IAsyncDataLoadAction, IAsyncDataSuccessAction, Post } from '../../models'
 
-//Action Types
+// Action Types
 
 export enum PostsActionTypes {
   LOAD = '[PostPage] Load',
@@ -9,23 +8,21 @@ export enum PostsActionTypes {
   ERROR = '[PostPage] Error'
 }
 
-//Action Interface
+// Action Interface
 
-export interface LoadPostsAction {
+export interface LoadPostsAction extends IAsyncDataLoadAction {
   type: PostsActionTypes.LOAD
 }
 
-export interface SuccessPostsAction {
+export interface SuccessPostsAction extends IAsyncDataSuccessAction<Post[]> {
   type: PostsActionTypes.SUCCESS
-  payload: { posts: List<Post> }
 }
 
-export interface ErrorPostsAction {
+export interface ErrorPostsAction extends IAsyncDataErrorAction {
   type: PostsActionTypes.ERROR
-  payload: { error: string }
 }
 
-//Action Creators
+// Action Creators
 
 export function loadPosts(): LoadPostsAction {
   return {
@@ -36,18 +33,14 @@ export function loadPosts(): LoadPostsAction {
 export function successPosts(posts: Post[]): SuccessPostsAction {
   return {
     type: PostsActionTypes.SUCCESS,
-    payload: {
-      posts: List(posts)
-    }
+    data: posts
   }
 }
 
 export function errorPosts(error: string): ErrorPostsAction {
   return {
     type: PostsActionTypes.ERROR,
-    payload: {
-      error: error
-    }
+    error
   }
 }
 

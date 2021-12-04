@@ -1,10 +1,9 @@
 import * as React from 'react'
 import TodoItem from '../todo-item/todo-item'
 import { Todo } from '../../../models'
-import { List } from 'immutable'
 
 interface ITodoListProps {
-  list: List<Todo>
+  list: Todo[]
   itemClick: (index: number) => void
 }
 

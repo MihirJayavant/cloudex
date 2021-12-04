@@ -5,7 +5,7 @@ const getPostsState = (state: State) => state.posts
 
 export const getPosts = createSelector(
   [getPostsState],
-  s => s.posts
+  s => s.data
 )
 
 export const getPostsDataState = createSelector(
