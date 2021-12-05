@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom'
+import { Route, BrowserRouter, Navigate, Routes } from 'react-router-dom'
 import { TodoPage } from '../todo-page'
 import { PostPage } from '../post-page'
 import { HomePage } from '../home-page'
@@ -9,12 +9,12 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Switch>
-            <Route path="/home" exact component={HomePage} />
-            <Route path="/todo" component={TodoPage} />
-            <Route path="/posts" component={PostPage} />
-            <Redirect from="/" to="/home" />
-          </Switch>
+          <Routes>
+            <Route path="/home" element={<HomePage />}/>
+            <Route path="/todo" element={<TodoPage/>}/>
+            <Route path="/posts" element={<PostPage/>}/>
+            <Route path="/" element={<Navigate to="/home" />} />
+          </Routes>
         </div>
       </BrowserRouter>
     )
