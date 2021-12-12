@@ -9,7 +9,7 @@ export const initialState: PostState = {
   ...getInitialState<Post[]>([])
 }
 
-function baseReducer(state = initialState, action: PostsAction): PostState {
+function baseReducer(state = initialState): PostState {
   return state;
 }
 

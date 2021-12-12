@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Todo } from '../../../models/todo.model'
+import { Todo } from '../../models/todo.model'
 
 interface ITodoItemProps {
   index: number

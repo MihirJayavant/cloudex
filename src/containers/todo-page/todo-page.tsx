@@ -4,58 +4,53 @@ import { TodoCaption, TodoList } from '../../components/todo'
 import { Todo } from '../../models'
 import { State, getTodos, addTodo, TodoAction, deleteTodo } from '../../store'
 
-interface ITodoPageProps {
+interface IProps {
   todos: Todo[]
   add: (value: string) => TodoAction
   delete: (id: number) => TodoAction
 }
 
-class TodoPage extends React.Component<ITodoPageProps> {
-  onAddClick = (value: string) => {
+function TodoPage(props: IProps) {
+  const onAddClick = (value: string) => {
     if (value.trim() === '') {
       return
     }
-    this.props.add(value)
+    props.add(value)
   }
 
-  onItemClick = (index: number) => {
-    this.props.delete(index)
+  const onItemClick = (index: number) => {
+    props.delete(index)
   }
 
-  render() {
-    return (
-      <div className="scroll-y page">
-        <section className="hero is-info">
-          <div className="hero-body">
-            <div className="container">
-              <h1 className="title">Todo Page</h1>
-              <h2 className="subtitle">create a todo list</h2>
-            </div>
+  return (
+    <div className="scroll-y page">
+      <section className="hero is-info">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">Todo Page</h1>
+            <h2 className="subtitle">create a todo list</h2>
           </div>
-        </section>
-        <section className="m5">
-          <div className="flex">
-            <TodoCaption onAdd={this.onAddClick} />
-          </div>
-        </section>
-        <section>
-          <TodoList itemClick={this.onItemClick} list={this.props.todos} />
-        </section>
-      </div>
-    )
-  }
+        </div>
+      </section>
+      <section className="m5">
+        <div className="flex">
+          <TodoCaption onAdd={onAddClick} />
+        </div>
+      </section>
+      <section>
+        <TodoList itemClick={onItemClick} list={props.todos} />
+      </section>
+    </div>
+  )
 }
 
 const mapStateToProps = (state: State) => ({
-  todos: getTodos(state)
+  todos: getTodos(state),
 })
 
 const mapDispatchToProps = {
   add: addTodo,
-  delete: deleteTodo
+  delete: deleteTodo,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoPage)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoPage)

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import PostItem from '../post-item/post-item'
-import { Post } from '../../../models'
+import PostItem from './post-item'
+import { Post } from '../../models'
 
 interface IPostListProps {
   list: Post[]

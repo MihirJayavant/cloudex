@@ -1,6 +1,6 @@
 import * as React from 'react'
-import TodoItem from '../todo-item/todo-item'
-import { Todo } from '../../../models'
+import TodoItem from './todo-item'
+import { Todo } from '../../models'
 
 interface ITodoListProps {
   list: Todo[]
