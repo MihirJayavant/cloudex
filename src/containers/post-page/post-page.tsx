@@ -10,7 +10,7 @@ interface Props {
   load: () => LoadPostsAction
 }
 
-class PostPage extends React.Component<Props, {}> {
+class PostPage extends React.Component<Props, unknown> {
   componentDidMount() {
     this.props.load()
   }

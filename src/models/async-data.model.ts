@@ -51,7 +51,7 @@ export interface IAsyncDataActionType {
   errorActionType: string
 }
 
-function updateObj(state: any, value: any): any {
+function updateObj<T,U>(state: T, value: U): T & U {
   return { ...state, ...value }
 }
 
