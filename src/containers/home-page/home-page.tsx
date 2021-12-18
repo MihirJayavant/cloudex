@@ -1,25 +1,31 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
 
 function HomePage() {
   return (
     <div className="home">
-      <section className="hero is-info">
+      <header className="hero is-info is-small">
         <div className="hero-body">
           <div className="container">
-            <h1 className="title">Home Page</h1>
-            <h2 className="subtitle">see all the posts</h2>
+            <h1 className="title">Cloudex</h1>
+            <h2 className="subtitle">Contiainerize your application</h2>
           </div>
         </div>
-      </section>
-      <section className="m5">
-        <Link to="/todo">
-          <button className="button is-link">Todo</button>
-        </Link>
-        <Link to="/posts">
-          <button className="button is-link">Posts</button>
-        </Link>
-      </section>
+      </header>
+      <main className="m5">
+        <div className="columns">
+          <div className="column is-3">
+            <div className="is-flex is-align-items-center is-flex-direction-column">
+              <figure className="image is-128x128">
+                <img
+                  src="https://angular.io/assets/images/logos/angular/angular.svg"
+                  alt="Angular"
+                />
+              </figure>
+              <div>Angular</div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   )
 }

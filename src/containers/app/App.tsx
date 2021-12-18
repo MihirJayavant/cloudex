@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Navigate, Routes } from 'react-router-dom'
 import { TodoPage } from '../todo-page'
 import { PostPage } from '../post-page'
 import { HomePage } from '../home-page'
+import { DockerPage } from '../docker-page'
 
 class App extends React.Component {
   render() {
@@ -10,9 +11,10 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="App">
           <Routes>
-            <Route path="/home" element={<HomePage />}/>
-            <Route path="/todo" element={<TodoPage/>}/>
-            <Route path="/posts" element={<PostPage/>}/>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/todo" element={<TodoPage />} />
+            <Route path="/posts" element={<PostPage />} />
+            <Route path="/docker" element={<DockerPage />} />
             <Route path="/" element={<Navigate to="/home" />} />
           </Routes>
         </div>
