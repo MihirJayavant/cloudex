@@ -1,9 +1,27 @@
 import * as React from 'react'
+import { AngularCreator } from '../../core/docker/angular-creator'
+
+declare const hljs: any
 
 function DockerPage() {
+  const [file, setFile] = React.useState<string[]>([])
+
+  const generateDockerfile = () => {
+    setFile(new AngularCreator().build())
+    setTimeout(() => hljs.highlightAll(), 0)
+  }
+
+  const lines = (file: string[]) => {
+    return file.map((p, i) => (
+      <div key={i}>
+        {p} {'\n'}
+      </div>
+    ))
+  }
+
   return (
     <div className="home">
-      <header className="hero is-info">
+      <header className="hero is-info is-small">
         <div className="hero-body">
           <div className="container">
             <h1 className="title">Cloudex</h1>
@@ -18,14 +36,26 @@ function DockerPage() {
           </article>
         </section>
         <section>
-          <form>
-            <div className="select is-primary">
-              <select>
-                <option selected>v16</option>
-                <option>v14</option>
-              </select>
+          <div className="columns is-centered">
+            <div className="column is-narrow">
+              <button className="button is-large is-primary" onClick={generateDockerfile}>
+                Generate docker files
+              </button>
             </div>
-          </form>
+          </div>
+        </section>
+        <section>
+          <div className="columns is-centered">
+            <div className="column is-four-fifths">
+              <div className="field">
+                <div className="control">
+                  <pre>
+                    <code className="language-dockerfile">{lines(file)}</code>
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </div>

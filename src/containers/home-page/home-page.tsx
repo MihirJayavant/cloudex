@@ -1,9 +1,15 @@
 import * as React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function HomePage() {
+  const navigate = useNavigate()
+  const gotoDockerPage = () => {
+    navigate('/docker')
+  }
+
   return (
     <div className="home">
-      <header className="hero is-info is-small">
+      <header className="hero is-info">
         <div className="hero-body">
           <div className="container">
             <h1 className="title">Cloudex</h1>
@@ -13,7 +19,7 @@ function HomePage() {
       </header>
       <main className="m5">
         <div className="columns">
-          <div className="column is-3">
+          <div className="column is-3" onClick={gotoDockerPage}>
             <div className="is-flex is-align-items-center is-flex-direction-column">
               <figure className="image is-128x128">
                 <img
