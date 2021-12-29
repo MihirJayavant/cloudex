@@ -14,7 +14,7 @@ class App extends React.Component {
             <Route path="/home" element={<HomePage />} />
             <Route path="/todo" element={<TodoPage />} />
             <Route path="/posts" element={<PostPage />} />
-            <Route path="/docker" element={<DockerPage />} />
+            <Route path="/docker/:application" element={<DockerPage />} />
             <Route path="/" element={<Navigate to="/home" />} />
           </Routes>
         </div>

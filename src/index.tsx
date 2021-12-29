@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import { compose, createStore, applyMiddleware } from 'redux'
 import { reducer, allSagas } from './store'
 import createSagaMiddleware from 'redux-saga'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
+import theme from './libs/theme'
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const sagaMiddleWare = createSagaMiddleware()
@@ -16,7 +18,12 @@ sagaMiddleWare.run(allSagas)
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ChakraProvider>
+      <>      
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <App />
+      </>
+    </ChakraProvider>
   </Provider>,
   document.getElementById('root')
 )

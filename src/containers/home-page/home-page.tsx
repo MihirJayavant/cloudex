@@ -1,38 +1,56 @@
+import { Box, Heading, Text, Flex, Grid, Image } from '@chakra-ui/react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
+import ReactLogo from '../../assets/ReactLogo.png'
+import AngularLogo from '../../assets/AngularLogo.png';
 
 function HomePage() {
   const navigate = useNavigate()
-  const gotoDockerPage = () => {
-    navigate('/docker')
+  function gotoDockerPage (application: string) {
+    navigate(`/docker/${application}`)
   }
 
   return (
-    <div className="home">
-      <header className="hero is-info">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="title">Cloudex</h1>
-            <h2 className="subtitle">Contiainerize your application</h2>
-          </div>
-        </div>
-      </header>
-      <main className="m5">
-        <div className="columns">
-          <div className="column is-3" onClick={gotoDockerPage}>
-            <div className="is-flex is-align-items-center is-flex-direction-column">
-              <figure className="image is-128x128">
-                <img
-                  src="https://angular.io/assets/images/logos/angular/angular.svg"
-                  alt="Angular"
-                />
-              </figure>
-              <div>Angular</div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    <Flex direction="column">
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" h="30%" py={8} px={10} backgroundColor="blue.400">
+        <Heading mb={4}>Cloudex</Heading>
+        <Text fontSize='xl'>
+          Containerized your Application
+        </Text>
+      </Box>
+      <Grid templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(5, 1fr)', md: 'repeat(3, 1fr)' }} gap={6} py={8} px={10}>
+        <Box style={{ cursor: "pointer", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} maxW="sm" borderWidth='1px' borderRadius='lg' onClick={() => gotoDockerPage('angular')}>
+            <Image src={AngularLogo} alt="Angular" height="150px" objectFit='cover' />
+            <Box p='6'>
+              <Box
+                textAlign="center"
+                mt='1'
+                fontWeight='semibold'
+                as='h4'
+                lineHeight='tight'
+                isTruncated
+              >
+                Angular
+              </Box>
+            </Box>
+          </Box>
+          <Box style={{ cursor: "pointer", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} maxW="sm" borderWidth='1px' borderRadius='lg' onClick={() => gotoDockerPage('react')}>
+            <Image src={ReactLogo} alt="React" height="150px" objectFit='cover' />
+            <Box p='6'>
+              <Box
+                textAlign="center"
+                mt='1'
+                fontWeight='semibold'
+                as='h4'
+                lineHeight='tight'
+                isTruncated
+              >
+                React
+              </Box>
+            </Box>
+          </Box>
+      </Grid>
+    </Flex>
   )
 }
 
