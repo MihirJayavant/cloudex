@@ -1,7 +1,7 @@
 
 import { IBuilder, DockerCreator } from "./docker-creator";
 
-export class AngularCreator implements IBuilder{
+export class AngularBuilder implements IBuilder {
   build() {
     return new DockerCreator()
       .from('node:12-alpine', 'builder')
