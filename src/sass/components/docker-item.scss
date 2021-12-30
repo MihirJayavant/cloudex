@@ -1,0 +1,11 @@
+.box {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition-duration: 0.5s;
+  &:hover {
+    transform: scale(0.9);
+  }
+}

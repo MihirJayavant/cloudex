@@ -1,8 +1,7 @@
 import * as React from 'react'
-import ReactLogo from '../../assets/ReactLogo.png'
-import AngularLogo from '../../assets/AngularLogo.png'
 import { Grid } from '@chakra-ui/react'
 import DockerItem from './dockeritem'
+import { dockerlistConfig } from '../../config/dockerlist.config'
 
 interface IProps {
   gotoDockerPage: (app: string) => void
@@ -10,6 +9,9 @@ interface IProps {
 
 const DockerList = (props: IProps) => {
   const { gotoDockerPage } = props
+
+  const list = () => dockerlistConfig.apps.map(p => <DockerItem key={p.name} name={p.name} title={p.title} icon={p.icon} onClick={gotoDockerPage} />)
+
   return (
     <Grid
       templateColumns={{
@@ -21,8 +23,7 @@ const DockerList = (props: IProps) => {
       py={8}
       px={10}
     >
-      <DockerItem name="angular" title="Angular" icon={AngularLogo} onClick={gotoDockerPage} />
-      <DockerItem name="react" title="React" icon={ReactLogo} onClick={gotoDockerPage} />
+      {list()}
     </Grid>
   )
 }

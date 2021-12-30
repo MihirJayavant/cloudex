@@ -1,17 +1,14 @@
 import * as React from 'react'
-import { Box, Heading, Text, Flex, FormControl, FormLabel, Select, Container } from '@chakra-ui/react'
+import { Box, Text, Flex, FormControl, FormLabel, Select, Container } from '@chakra-ui/react'
 // import { AngularCreator } from '../../core/docker/angular-creator'
 import { useParams } from 'react-router-dom'
+import { Header } from '../../components/Header'
 
 // declare const hljs: any
 
 function DockerPage() {
+  const params = useParams()
 
-
-  const params = useParams();
-
-  console.log(params.application);
- 
   // const [file, setFile] = React.useState<string[]>([])
 
   // const generateDockerfile = () => {
@@ -69,38 +66,32 @@ function DockerPage() {
     // </div>
 
     <Flex direction="column">
-      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" h="30%" py={8} px={10} backgroundColor="blue.400">
-        <Heading mb={4}>Cloudex</Heading>
-        <Text fontSize='xl'>
-          Containerized your Application
-        </Text>
-      </Box>
+      <Header />
       <Box py={8} px={10}>
-        <Text fontSize='xl' mb={4}>Generate dockerfile for {params.application} application</Text>
+        <Text fontSize="xl" mb={4}>
+          Generate dockerfile for {params.application} application
+        </Text>
 
         <Container>
           <Flex direction="column" justifyContent="space-between">
             <FormControl>
-              <FormLabel htmlFor='nodeVersion'>Node Version</FormLabel>
-              <Select id='nodeVersion' placeholder='Select Version'>
+              <FormLabel htmlFor="nodeVersion">Node Version</FormLabel>
+              <Select id="nodeVersion" placeholder="Select Version">
                 <option>Node 16</option>
                 <option>Node 14</option>
               </Select>
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor='packageRun'>Package</FormLabel>
-              <Select id='packageRun' placeholder='Select package'>
+              <FormLabel htmlFor="packageRun">Package</FormLabel>
+              <Select id="packageRun" placeholder="Select package">
                 <option>Yarn</option>
                 <option>Npm</option>
               </Select>
             </FormControl>
           </Flex>
         </Container>
-
-
       </Box>
     </Flex>
-
   )
 }
 

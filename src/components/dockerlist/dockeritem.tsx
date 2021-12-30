@@ -10,19 +10,7 @@ interface IProps {
 
 const DockerItem = (props: IProps) => {
   return (
-    <Box
-      style={{
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-      maxW="sm"
-      borderWidth="1px"
-      borderRadius="lg"
-      onClick={() => props.onClick(props.name)}
-    >
+    <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" onClick={() => props.onClick(props.name)}>
       <Image src={props.icon} alt="Angular" height="150px" objectFit="cover" />
       <Box p="6">
         <Box textAlign="center" mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
