@@ -1,78 +1,37 @@
 import * as React from 'react'
-import { Box, Text, Flex, FormControl, FormLabel, Select, Container } from '@chakra-ui/react'
-// import { AngularCreator } from '../../core/docker/angular-creator'
-import { useParams } from 'react-router-dom'
+import { Box, Flex, FormControl, FormLabel, Select, Button, Container } from '@chakra-ui/react'
+import { AngularBuilder, AngularComposeBuilder } from '../../core/docker'
+// import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
 
-// declare const hljs: any
+declare const hljs: any
 
 function DockerPage() {
-  const params = useParams()
+  // const params = useParams()
 
-  // const [file, setFile] = React.useState<string[]>([])
+  const [file, setFile] = React.useState<string[]>([])
+  const [compose, setCompose] = React.useState<string[]>([])
 
-  // const generateDockerfile = () => {
-  //   setFile(new AngularCreator().build())
-  //   setTimeout(() => hljs.highlightAll(), 0)
-  // }
+  const generateDockerfile = () => {
+    setFile(new AngularBuilder().build())
+    setCompose(new AngularComposeBuilder().build())
+    setTimeout(() => hljs.highlightAll(), 0)
+  }
 
-  // const lines = (file: string[]) => {
-  //   return file.map((p, i) => (
-  //     <div key={i}>
-  //       {p} {'\n'}
-  //     </div>
-  //   ))
-  // }
+  const lines = (file: string[]) => {
+    return file.map((p, i) => (
+      <div key={i}>
+        {p} {'\n'}
+      </div>
+    ))
+  }
 
   return (
-    // <div className="home">
-    //   <header className="hero is-info is-small">
-    //     <div className="hero-body">
-    //       <div className="container">
-    //         <h1 className="title">Cloudex</h1>
-    //         <h2 className="subtitle">Contiainerize your application</h2>
-    //       </div>
-    //     </div>
-    //   </header>
-    //   <main>
-    //     <section>
-    //       <article className="message">
-    //         <div className="message-body">Generate dockerfile for {params.application} application</div>
-    //       </article>
-    //     </section>
-    //     <section>
-    //       <div className="columns is-centered">
-    //         <div className="column is-narrow">
-    //           <button className="button is-large is-primary" onClick={generateDockerfile}>
-    //             Generate docker files
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </section>
-    //     <section>
-    //       <div className="columns is-centered">
-    //         <div className="column is-four-fifths">
-    //           <div className="field">
-    //             <div className="control">
-    //               <pre>
-    //                 <code className="language-dockerfile">{lines(file)}</code>
-    //               </pre>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </section>
-    //   </main>
-    // </div>
-
-    <Flex direction="column">
+    <div>
       <Header />
-      <Box py={8} px={10}>
-        <Text fontSize="xl" mb={4}>
-          Generate dockerfile for {params.application} application
-        </Text>
 
-        <Container>
+      <Container>
+        <Flex direction="column" justifyContent="space-between">
           <Flex direction="column" justifyContent="space-between">
             <FormControl>
               <FormLabel htmlFor="nodeVersion">Node Version</FormLabel>
@@ -88,10 +47,25 @@ function DockerPage() {
                 <option>Npm</option>
               </Select>
             </FormControl>
+            <FormControl mt={5}>
+              <Button colorScheme="teal" size="md" onClick={generateDockerfile}>
+                Generate
+              </Button>
+            </FormControl>
           </Flex>
-        </Container>
-      </Box>
-    </Flex>
+          <Box mt={5} mb={5}>
+            <pre>
+              <code className="language-dockerfile">{lines(file)}</code>
+            </pre>
+          </Box>
+          <Box mt={5} mb={5}>
+            <pre>
+              <code className="language-yml">{lines(compose)}</code>
+            </pre>
+          </Box>
+        </Flex>
+      </Container>
+    </div>
   )
 }
 

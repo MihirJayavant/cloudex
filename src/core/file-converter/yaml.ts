@@ -53,7 +53,7 @@ function convertArray(obj: any, ret: any[]) {
     const recurse: any = [];
     convert(ele, recurse);
 
-    for (var j = 0; j < recurse.length; j++) {
+    for (let j = 0; j < recurse.length; j++) {
       ret.push((j == 0 ? "- " : spacing) + recurse[j]);
     }
   }
@@ -62,7 +62,7 @@ function convertArray(obj: any, ret: any[]) {
 function convertHash(obj: any, ret: any[]) {
   for (const k in obj) {
     const recurse: any[] = [];
-    if (obj.hasOwnProperty(k)) {
+    if (obj[k]) {
       const ele = obj[k];
       convert(ele, recurse);
       const type = getType(ele);
@@ -82,7 +82,7 @@ function normalizeString(str: string) {
   if (str.match(/^[\w]+$/)) {
     return str;
   } else {
-    return '"' + escape(str).replace(/%u/g, '\\u').replace(/%U/g, '\\U').replace(/%/g, '\\x') + '"';
+    return '"' + str.replace(/%u/g, '\\u').replace(/%U/g, '\\U').replace(/%/g, '\\x') + '"';
   }
 }
 
