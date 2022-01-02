@@ -1,49 +1,36 @@
 import * as React from 'react'
-import { Box, Flex, FormControl, FormLabel, Select, Button, RadioGroup, Stack, Radio, Switch } from '@chakra-ui/react'
-import { AngularBuilder, AngularComposeBuilder } from '../../core/docker'
+import { Flex, FormControl, FormLabel, Select, Button, RadioGroup, Stack, Radio, Switch } from '@chakra-ui/react'
 // import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
-
-declare const hljs: any
+import { angularConfig } from '../../config/angular.config'
+import { CodeFileList } from '../../components/dockerlist'
 
 function DockerPage() {
   // const params = useParams()
 
-  const [file, setFile] = React.useState<string[]>([])
-  const [compose, setCompose] = React.useState<string[]>([])
+  const [files, setFiles] = React.useState<{ text: string[]; fileType: string }[]>([])
 
   const generateDockerfile = async () => {
     const w = window as any
+    const temp: any[] = []
     const dir = await w.showDirectoryPicker()
-    const file = await dir.getFileHandle('dockerfile', { create: true })
-    const file2 = await dir.getFileHandle('docker-compose.yml', { create: true })
-    const docker = new AngularBuilder().build()
-    const compose = new AngularComposeBuilder().build()
-    setFile(docker)
-    setCompose(compose)
-    const writable = await file.createWritable()
-    await writable.write(docker.join('\n'))
-    await writable.close()
-    const writable2 = await file2.createWritable()
-    await writable2.write(compose.join('\n'))
-    await writable2.close()
-    setTimeout(() => hljs.highlightAll(), 0)
-  }
-
-  const lines = (file: string[]) => {
-    return file.map((p, i) => (
-      <div key={i}>
-        {p} {'\n'}
-      </div>
-    ))
+    for (const step of angularConfig.builder) {
+      const file = await dir.getFileHandle(step.fileName, { create: true })
+      const docker = step.build().build() as string[]
+      temp.push({ text: docker, fileType: step.filetype })
+      const writable = await file.createWritable()
+      await writable.write(docker.join('\n'))
+      await writable.close()
+    }
+    setFiles(temp)
   }
 
   return (
     <div>
       <Header />
 
-      <Flex direction="column" justifyContent="space-between">
-        <Flex direction="column" justifyContent="space-between" maxWidth={500}>
+      <Flex direction="row" justifyContent="space-evenly">
+        <Flex direction="column" maxWidth={800} minWidth={300}>
           <FormControl display="flex" alignItems="center" margin={5}>
             <FormLabel htmlFor="nodeVersion">Node Version</FormLabel>
             <Select id="nodeVersion" defaultValue={16}>
@@ -54,9 +41,7 @@ function DockerPage() {
           <FormControl display="flex" alignItems="center" margin={5}>
             <RadioGroup defaultValue="npm">
               <Stack spacing={4} direction="row">
-                <Radio value="npm" isDisabled>
-                  npm
-                </Radio>
+                <Radio value="npm">npm</Radio>
                 <Radio value="yarn">yarn</Radio>
               </Stack>
             </RadioGroup>
@@ -73,16 +58,7 @@ function DockerPage() {
             </Button>
           </FormControl>
         </Flex>
-        <Box mt={5} mb={5}>
-          <pre>
-            <code className="language-dockerfile">{lines(file)}</code>
-          </pre>
-        </Box>
-        <Box mt={5} mb={5}>
-          <pre>
-            <code className="language-yml">{lines(compose)}</code>
-          </pre>
-        </Box>
+        <CodeFileList files={files} />
       </Flex>
     </div>
   )
