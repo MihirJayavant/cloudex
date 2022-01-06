@@ -1,4 +1,4 @@
-import { json2yaml } from "../file-converter/yaml";
+import { json2yaml } from "../files";
 import { IBuilder } from "./docker-creator";
 
 export class AngularComposeBuilder implements IBuilder {

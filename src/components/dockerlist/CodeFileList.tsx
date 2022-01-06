@@ -1,11 +1,12 @@
 import { Flex } from '@chakra-ui/react'
 import * as React from 'react'
+import { IFile } from '../../core/files'
 import CodeFile from './CodeFile'
 
 declare const hljs: any
 
 interface IProps {
-  files: { text: string[]; fileType: string }[]
+  files: IFile[]
 }
 
 const CodeFileList = (props: IProps) => {
