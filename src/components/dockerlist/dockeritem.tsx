@@ -11,7 +11,7 @@ interface IProps {
 const DockerItem = (props: IProps) => {
   return (
     <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" onClick={() => props.onClick(props.name)}>
-      <Image src={props.icon} alt="Angular" height="150px" objectFit="cover" />
+      <Image src={props.icon} alt="Angular" height="150px" />
       <Box p="6">
         <Box textAlign="center" mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
           {props.title}

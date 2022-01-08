@@ -18,7 +18,7 @@ function HomePage() {
           <Tab>Docker</Tab>
           <Tab>Kubernetes</Tab>
         </TabList>
-        <TabPanels>
+        <TabPanels marginTop={5}>
           <TabPanel>
             <DockerList gotoDockerPage={gotoDockerPage} />
           </TabPanel>

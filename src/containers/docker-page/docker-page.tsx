@@ -31,7 +31,7 @@ function DockerPage() {
     <div>
       <Header />
 
-      <Flex direction="row" justifyContent="space-evenly">
+      <Flex mt={10} direction="row" justifyContent="space-evenly">
         <FormBuilder generate={generateDockerfile} />
         <CodeFileList files={files} />
       </Flex>
