@@ -1,7 +1,7 @@
 import { AngularBuilder, AngularComposeBuilder } from "../core/docker";
-import { nodeVersions } from "./dockerlist.config";
+import { DockerAppConfig, nodeVersions } from "./config";
 
-export const angularConfig = {
+export const angularConfig: DockerAppConfig = {
   forms: {
     node: {
       label: '',
@@ -9,8 +9,9 @@ export const angularConfig = {
       list: nodeVersions
     },
     packageManager: {
+      label: '',
       type: 'radio',
-      list: [{ label: 'npm', value: 'npm' }, { label: 'yarn', value: 'yarn' }]
+      list: [{ display: 'npm', value: 'npm', isDefault: true }, { display: 'yarn', value: 'yarn', isDefault: false }]
     },
     ssr: {
       label: '',
@@ -27,4 +28,4 @@ export const angularConfig = {
     build: () => new AngularComposeBuilder(),
     filetype: 'language-yml'
   }]
-} as const
+}

@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react'
 import { Header } from '../../components/Header'
 import { angularConfig } from '../../config/angular.config'
 import { CodeFileList } from '../../components/dockerlist'
-import { FormBuilder } from '../../components/FormBuilder'
+import { FormBuilder } from '../../components/Forms/FormBuilder'
 import { IFile } from '../../core/files'
 
 function DockerPage() {
@@ -32,7 +32,7 @@ function DockerPage() {
       <Header />
 
       <Flex mt={10} direction="row" justifyContent="space-evenly">
-        <FormBuilder generate={generateDockerfile} />
+        <FormBuilder form={angularConfig.forms} generate={generateDockerfile} />
         <CodeFileList files={files} />
       </Flex>
     </div>
