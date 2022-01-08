@@ -9,7 +9,7 @@ export interface IProps {
   setFormValue: (name: string, value: string) => void
 }
 
-export function RadioControl(props: IProps) {
+export function RadioFormControl(props: IProps) {
   const { control, controlState, setFormValue, name } = props
   return (
     <FormControl display="flex" alignItems="center" margin={5}>

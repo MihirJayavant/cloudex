@@ -1,7 +1,9 @@
-import { Button, Flex, FormControl, FormLabel, Select, Switch } from '@chakra-ui/react'
+import { Button, Flex, FormControl } from '@chakra-ui/react'
 import * as React from 'react'
 import { Control } from '../../config/config'
-// import { RadioControl } from './Radio'
+import { RadioFormControl } from './Radio'
+import { SelectFormControl } from './Select'
+import { ToggleFormControl } from './Toggle'
 
 interface IProps {
   form: { [control: string]: Control }
@@ -16,11 +18,11 @@ export const FormBuilder = (props: IProps) => {
       const control = props.form[f]
       switch (control.type) {
         case 'select': {
-          newForm[f] = control.list.find(p => p.isDefault)?.value
+          newForm[f] = control.default
           break
         }
         case 'radio': {
-          newForm[f] = control.list.find(p => p.isDefault)?.value
+          newForm[f] = control.default
           break
         }
         case 'toggle': {
@@ -35,27 +37,33 @@ export const FormBuilder = (props: IProps) => {
     setForm(newForm)
   }, [])
 
-  // const setFormValue = (name: string, value: any) => {
-  //   const newForm = { ...formState }
-  //   newForm[name] = value
-  //   setForm(newForm)
-  // }
+  const setFormValue = (name: string, value: any) => {
+    const newForm = { ...formState }
+    newForm[name] = value
+    setForm(newForm)
+  }
+
+  const renderControl = (control: Control, name: string) => {
+    switch (control.type) {
+      case 'select': {
+        return <SelectFormControl controlState={formState[name]} control={control} name={name} setFormValue={setFormValue} />
+      }
+      case 'radio': {
+        return <RadioFormControl controlState={formState[name]} control={control} name={name} setFormValue={setFormValue} />
+      }
+      case 'toggle': {
+        return <ToggleFormControl controlState={formState[name]} control={control} name={name} setFormValue={setFormValue} />
+      }
+      default:
+        break
+    }
+  }
 
   return (
     <Flex direction="column" maxWidth={800} minWidth={300}>
-      <FormControl display="flex" alignItems="center" margin={5}>
-        <FormLabel htmlFor="nodeVersion">Node Version</FormLabel>
-        <Select id="nodeVersion" defaultValue={16}>
-          <option value={16}>v16</option>
-          <option value={14}>v14</option>
-        </Select>
-      </FormControl>
-      <FormControl display="flex" alignItems="center" margin={5}>
-        <FormLabel htmlFor="ssr-docker-id" mb="0">
-          Server side rendering enabled?
-        </FormLabel>
-        <Switch id="ssr-docker-id" />
-      </FormControl>
+      {Object.keys(props.form).map(k => (
+        <div key={k}>{renderControl(props.form[k], k)}</div>
+      ))}
       <FormControl margin={5}>
         <Button colorScheme="teal" size="md" onClick={props.generate}>
           Generate

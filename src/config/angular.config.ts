@@ -4,17 +4,19 @@ import { DockerAppConfig, nodeVersions } from "./config";
 export const angularConfig: DockerAppConfig = {
   forms: {
     node: {
-      label: '',
+      label: 'Node Version: ',
       type: 'select',
-      list: nodeVersions
+      list: nodeVersions,
+      default: 'node:16-alpine'
     },
     packageManager: {
       label: '',
       type: 'radio',
-      list: [{ display: 'npm', value: 'npm', isDefault: true }, { display: 'yarn', value: 'yarn', isDefault: false }]
+      list: [{ display: 'npm', value: 'npm'}, { display: 'yarn', value: 'yarn' }],
+      default: 'npm'
     },
     ssr: {
-      label: '',
+      label: 'Is server side rendering enabled?',
       type: 'toggle',
       default: false
     }
