@@ -12,7 +12,8 @@ function DockerPage() {
 
   const [files, setFiles] = React.useState<IFile[]>([])
 
-  const generateDockerfile = async () => {
+  const generateDockerfile = async (state: any) => {
+    console.log(state)
     const w = window as any
     const temp: IFile[] = []
     const dir = await w.showDirectoryPicker()

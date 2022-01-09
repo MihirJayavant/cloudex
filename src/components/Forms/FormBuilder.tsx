@@ -7,7 +7,7 @@ import { ToggleFormControl } from './Toggle'
 
 interface IProps {
   form: { [control: string]: Control }
-  generate: () => void
+  generate: (state: any) => void
 }
 
 export const FormBuilder = (props: IProps) => {
@@ -33,7 +33,6 @@ export const FormBuilder = (props: IProps) => {
           break
       }
     }
-    console.log(newForm)
     setForm(newForm)
   }, [])
 
@@ -65,7 +64,7 @@ export const FormBuilder = (props: IProps) => {
         <div key={k}>{renderControl(props.form[k], k)}</div>
       ))}
       <FormControl margin={5}>
-        <Button colorScheme="teal" size="md" onClick={props.generate}>
+        <Button colorScheme="teal" size="md" onClick={() => props.generate(formState)}>
           Generate
         </Button>
       </FormControl>

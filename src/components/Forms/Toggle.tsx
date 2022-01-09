@@ -6,17 +6,17 @@ export interface IProps {
   control: ToggleControl
   name: string
   controlState: any
-  setFormValue: (name: string, value: string) => void
+  setFormValue: (name: string, value: boolean) => void
 }
 
 export function ToggleFormControl(props: IProps) {
-  const { control } = props
+  const { control, name, setFormValue } = props
   return (
     <FormControl display="flex" alignItems="center" margin={5}>
-      <FormLabel htmlFor="ssr-docker-id" mb="0">
+      <FormLabel htmlFor={name} mb="0">
         {control.label}
       </FormLabel>
-      <Switch id="ssr-docker-id" defaultChecked={control.default} />
+      <Switch id={name} defaultChecked={control.default} onChange={e => setFormValue(name, e.target.checked)} />
     </FormControl>
   )
 }

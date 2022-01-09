@@ -10,11 +10,11 @@ export interface IProps {
 }
 
 export function SelectFormControl(props: IProps) {
-  const { control, controlState } = props
+  const { control, name, setFormValue } = props
   return (
     <FormControl display="flex" alignItems="center" margin={5}>
-      <FormLabel htmlFor="nodeVersion">{control.label}</FormLabel>
-      <Select id="nodeVersion" defaultValue={controlState}>
+      <FormLabel htmlFor={name}>{control.label}</FormLabel>
+      <Select id={name} defaultValue={control.default} onChange={e => setFormValue(name, e.target.value)}>
         {control.list.map(p => (
           <option key={p.value} value={p.value}>
             {p.display}
