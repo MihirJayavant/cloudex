@@ -1,31 +1,53 @@
 import * as React from 'react'
-import { Flex } from '@chakra-ui/react'
-// import { useParams } from 'react-router-dom'
+import { Flex, useToast } from '@chakra-ui/react'
+import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
 import { angularConfig } from '../../config/angular.config'
 import { CodeFileList } from '../../components/dockerlist'
 import { FormBuilder } from '../../components/Forms/FormBuilder'
-import { IFile } from '../../core/files'
+import { FS, IFile } from '../../core/files'
 
 function DockerPage() {
-  // const params = useParams()
+  const params = useParams()
 
   const [files, setFiles] = React.useState<IFile[]>([])
-
+  const toast = useToast()
+  console.log(params)
   const generateDockerfile = async (state: any) => {
-    console.log(state)
-    const w = window as any
-    const temp: IFile[] = []
-    const dir = await w.showDirectoryPicker()
-    for (const step of angularConfig.builder) {
-      const file = await dir.getFileHandle(step.fileName, { create: true })
-      const docker = step.build(state).build() as string[]
-      temp.push({ text: docker, fileType: step.filetype })
-      const writable = await file.createWritable()
-      await writable.write(docker.join('\n'))
-      await writable.close()
+    try {
+      const temp: IFile[] = []
+      const fs = new FS()
+      if (fs.isAvailable()) {
+        await fs.openOrCreateDir()
+      }
+      for (const step of angularConfig.builder) {
+        const docker = step.build(state).build()
+        temp.push({ text: docker, fileType: step.filetype })
+        if (fs.isAvailable()) {
+          await fs.fileWrite(step.fileName, docker)
+        }
+      }
+
+      if (fs.isAvailable()) {
+        toast({
+          title: 'Files created.',
+          description: "We've created docker files in your selected directory.",
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+      setFiles(temp)
+    } catch (error: any) {
+      console.log(error)
+      toast({
+        title: 'Error',
+        description: 'Try again later.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
     }
-    setFiles(temp)
   }
 
   return (

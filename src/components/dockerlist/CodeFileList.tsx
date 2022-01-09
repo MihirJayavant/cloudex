@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const CodeFileList = (props: IProps) => {
-  const files = (file: { text: string[]; fileType: string }[]) => {
+  const files = (file: IFile[]) => {
     return file.map(p => <CodeFile key={p.fileType} text={p.text} fileType={p.fileType} />)
   }
 

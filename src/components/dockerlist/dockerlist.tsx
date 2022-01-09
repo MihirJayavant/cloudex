@@ -10,14 +10,16 @@ interface IProps {
 const DockerList = (props: IProps) => {
   const { gotoDockerPage } = props
 
-  const frontEndList = () => dockerlistConfig.frontEndApps.map(p => <DockerItem key={p.name} name={p.name} title={p.title} icon={p.icon} onClick={gotoDockerPage} />)
+  const frontEndList = () =>
+    dockerlistConfig.frontEndApps.map(p => <DockerItem key={p.name} name={p.name} title={p.title} icon={p.icon} onClick={gotoDockerPage} />)
 
-  const backEndList = () => dockerlistConfig.backEndApps.map(p => <DockerItem key={p.name} name={p.name} title={p.title} icon={p.icon} onClick={gotoDockerPage} />)
+  const backEndList = () =>
+    dockerlistConfig.backEndApps.map(p => <DockerItem key={p.name} name={p.name} title={p.title} icon={p.icon} onClick={gotoDockerPage} />)
 
   return (
     <Flex width="100%">
       <Flex flexDirection="column" width="100%">
-        <Box mb={5}>Front End</Box>
+        <Box mb={5}>Frontend</Box>
         <Grid
           templateColumns={{
             base: 'repeat(1, 1fr)',
@@ -27,16 +29,16 @@ const DockerList = (props: IProps) => {
           gap={6}
           py={8}
           px={10}
-          style={{ height: "max-content" }}
+          style={{ height: 'max-content' }}
         >
           {frontEndList()}
         </Grid>
       </Flex>
       <Box>
-        <Divider orientation='vertical' borderColor="blue.400" />
+        <Divider orientation="vertical" borderColor="blue.400" />
       </Box>
       <Flex flexDirection="column" width="100%">
-        <Box mb={5}>Back End</Box>
+        <Box mb={5}>Backend</Box>
         <Grid
           templateColumns={{
             base: 'repeat(1, 1fr)',
@@ -46,7 +48,7 @@ const DockerList = (props: IProps) => {
           gap={6}
           py={8}
           px={10}
-          style={{ height: "max-content" }}
+          style={{ height: 'max-content' }}
         >
           {backEndList()}
         </Grid>
