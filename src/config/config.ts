@@ -1,4 +1,4 @@
-import { IBuilder } from "../core/docker";
+import { IBuilder } from '../core/docker'
 
 export type Control = SelectControl | RadioControl | ToggleControl
 
@@ -6,7 +6,7 @@ export interface SelectControl {
   readonly label: string
   readonly type: 'select'
   readonly list: {
-    readonly display: string,
+    readonly display: string
     readonly value: string
   }[]
   readonly default: string
@@ -16,7 +16,7 @@ export interface RadioControl {
   readonly label: string
   readonly type: 'radio'
   readonly list: {
-    readonly display: string,
+    readonly display: string
     readonly value: string
   }[]
   readonly default: string
@@ -28,9 +28,8 @@ export interface ToggleControl {
   readonly default: boolean
 }
 
-
 export interface DockerAppConfig {
-  readonly forms: { [control: string]: Control}
+  readonly form: { [control: string]: Control }
   readonly builder: {
     readonly fileName: string
     readonly build: (state: any) => IBuilder
@@ -38,11 +37,13 @@ export interface DockerAppConfig {
   }[]
 }
 
-export const nodeVersions = [{
-  display: 'v16',
-  value: 'node:16-alpine'
-}, {
-  display: 'v14',
-  value: 'node:14-alpine'
-}]
-
+export const nodeVersions = [
+  {
+    display: 'v16',
+    value: 'node:16-alpine',
+  },
+  {
+    display: 'v14',
+    value: 'node:14-alpine',
+  },
+]

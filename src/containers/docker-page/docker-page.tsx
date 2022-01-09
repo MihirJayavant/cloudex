@@ -6,13 +6,13 @@ import { angularConfig } from '../../config/angular.config'
 import { CodeFileList } from '../../components/dockerlist'
 import { FormBuilder } from '../../components/Forms/FormBuilder'
 import { FS, IFile } from '../../core/files'
+import { dockerlistConfig } from '../../config/dockerlist.config'
 
 function DockerPage() {
   const params = useParams()
 
   const [files, setFiles] = React.useState<IFile[]>([])
   const toast = useToast()
-  console.log(params)
   const generateDockerfile = async (state: any) => {
     try {
       const temp: IFile[] = []
@@ -50,12 +50,18 @@ function DockerPage() {
     }
   }
 
+  const getConfig = () => {
+    const all = [...dockerlistConfig.frontEndApps, ...dockerlistConfig.backEndApps]
+    const app = all.find(p => p.name === params.application)
+    return app ? app.option.form : all[0].option.form
+  }
+
   return (
     <div>
       <Header />
 
       <Flex mt={10} direction="row" justifyContent="space-evenly">
-        <FormBuilder form={angularConfig.forms} generate={generateDockerfile} />
+        <FormBuilder form={getConfig()} generate={generateDockerfile} />
         <CodeFileList files={files} />
       </Flex>
     </div>
