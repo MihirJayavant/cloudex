@@ -19,7 +19,7 @@ function DockerPage() {
     const dir = await w.showDirectoryPicker()
     for (const step of angularConfig.builder) {
       const file = await dir.getFileHandle(step.fileName, { create: true })
-      const docker = step.build().build() as string[]
+      const docker = step.build(state).build() as string[]
       temp.push({ text: docker, fileType: step.filetype })
       const writable = await file.createWritable()
       await writable.write(docker.join('\n'))

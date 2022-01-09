@@ -33,7 +33,7 @@ export interface DockerAppConfig {
   readonly forms: { [control: string]: Control}
   readonly builder: {
     readonly fileName: string
-    readonly build: () => IBuilder
+    readonly build: (state: any) => IBuilder
     readonly filetype: string
   }[]
 }

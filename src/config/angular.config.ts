@@ -23,7 +23,7 @@ export const angularConfig: DockerAppConfig = {
   },
   builder: [{
     fileName: 'dockerfile',
-    build: () => new AngularBuilder(),
+    build: (state: any) => new AngularBuilder(state),
     filetype: 'language-dockerfile'
   },{
     fileName: 'docker-compose.yml',
