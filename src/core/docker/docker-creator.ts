@@ -2,8 +2,8 @@ export class DockerCreator {
   file: string[] = []
 
   from(image: string, as?: string) {
-    let temp =  `FROM ${image}`
-    if(as) {
+    let temp = `FROM ${image}`
+    if (as) {
       temp += ` as ${as}`
     }
     this.file.push(temp)
@@ -16,8 +16,8 @@ export class DockerCreator {
   }
 
   copy(from: string, to: string, fromContainer?: string) {
-    let temp =  "COPY"
-    if(fromContainer) {
+    let temp = "COPY"
+    if (fromContainer) {
       temp += ` --from=${fromContainer}`
     }
     this.file.push(`${temp} ${from} ${to}`)
@@ -26,6 +26,16 @@ export class DockerCreator {
 
   run(command: string) {
     this.file.push(`RUN ${command}`)
+    return this
+  }
+
+  expose(port: number) {
+    this.file.push(`EXPOSE ${port}`)
+    return this
+  }
+
+  arg(variable: string) {
+    this.file.push(`ARG ${variable}`)
     return this
   }
 

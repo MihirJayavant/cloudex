@@ -39,7 +39,6 @@ function DockerPage() {
       }
       setFiles(temp)
     } catch (error: any) {
-      console.log(error)
       toast({
         title: 'Error',
         description: 'Try again later.',
