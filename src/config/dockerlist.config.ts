@@ -4,6 +4,7 @@ import NodeLogo from '../assets/NodeLogo.png'
 import JavaLogo from '../assets/JavaLogo.png'
 import PhpLogo from '../assets/PhpLogo.png'
 import { angularConfig } from './angular.config'
+import { reactConfig } from './react.config'
 
 export const dockerlistConfig = {
   frontEndApps: [
@@ -17,7 +18,7 @@ export const dockerlistConfig = {
       name: 'react',
       title: 'React',
       icon: ReactLogo,
-      option: angularConfig,
+      option: reactConfig,
     },
   ],
   backEndApps: [
