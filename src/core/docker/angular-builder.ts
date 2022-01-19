@@ -9,8 +9,33 @@ interface IOption {
 export class AngularBuilder implements IBuilder {
   constructor(private option: IOption) { }
 
-  build() {
-    const d = new DockerCreator().from(this.option.node, 'builder').workDir('/app').copy('package.json', '.')
+  ssrBuild() {
+    const d = new DockerCreator()
+      .from(this.option.node, 'builder')
+      .workDir('/app').copy('package.json', '.')
+
+    if (this.option.packageManager === 'npm') {
+      d.copy('package-lock.json', '.').run('npm install')
+    } else {
+      d.copy('yarn.lock', '.').run('yarn')
+    }
+
+    d.copy('.', '.')
+      .arg('APP_ENV')
+      .run('npm run build:${APP_ENV}')
+      .from(this.option.node)
+      .workDir('/app')
+      .copy('/app/dist', '/app/dist', 'builder')
+      .expose(80)
+      .cmd("node", "dist/server.js")
+
+    return d.create()
+  }
+
+  spaBuild() {
+    const d = new DockerCreator()
+      .from(this.option.node, 'builder')
+      .workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
       d.copy('package-lock.json', '.').run('npm install')
@@ -27,6 +52,10 @@ export class AngularBuilder implements IBuilder {
       .expose(80)
 
     return d.create()
+  }
+
+  build() {
+    return this.option.ssr ? this.ssrBuild() : this.spaBuild()
   }
 }
 

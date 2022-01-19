@@ -39,6 +39,12 @@ export class DockerCreator {
     return this
   }
 
+  cmd(...commands: string[]) {
+    const temp = commands.map(p => `"${p}"`).join(", ")
+    this.file.push(`CMD [${temp}]`)
+    return this
+  }
+
   create() {
     return this.file
   }

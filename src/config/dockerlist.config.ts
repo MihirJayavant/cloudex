@@ -3,6 +3,7 @@ import AngularLogo from '../assets/AngularLogo.png'
 import NodeLogo from '../assets/NodeLogo.png'
 import JavaLogo from '../assets/JavaLogo.png'
 import PhpLogo from '../assets/PhpLogo.png'
+import NextLogo from '../assets/NextLogo.png'
 import { angularConfig } from './angular.config'
 import { reactConfig } from './react.config'
 
@@ -18,6 +19,12 @@ export const dockerlistConfig = {
       name: 'react',
       title: 'React',
       icon: ReactLogo,
+      option: reactConfig,
+    },
+    {
+      name: 'nextjs',
+      title: 'Next Js',
+      icon: NextLogo,
       option: reactConfig,
     },
   ],
