@@ -7,6 +7,7 @@ import NextLogo from '../assets/NextLogo.png'
 import { angularConfig } from './angular.config'
 import { reactConfig } from './react.config'
 import { nextjsConfig } from './nextjs.config'
+import { nodeConfig } from './node.config'
 
 export const dockerlistConfig = {
   frontEndApps: [
@@ -46,7 +47,7 @@ export const dockerlistConfig = {
       name: 'node',
       title: 'Node',
       icon: NodeLogo,
-      option: angularConfig,
+      option: nodeConfig,
     },
   ],
 } as const
