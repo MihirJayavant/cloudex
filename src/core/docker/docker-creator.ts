@@ -45,6 +45,11 @@ export class DockerCreator {
     return this
   }
 
+  env(variable: string) {
+    this.file.push(`ENV ${variable}`)
+    return this
+  }
+
   create() {
     return this.file
   }

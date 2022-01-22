@@ -15,9 +15,9 @@ export class AngularBuilder implements IBuilder {
       .workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
-      d.copy('package-lock.json', '.').run('npm install')
+      d.copy('package-lock.json', '.').run('npm ci')
     } else {
-      d.copy('yarn.lock', '.').run('yarn')
+      d.copy('yarn.lock', '.').run('yarn install --immutable --immutable-cache')
     }
 
     d.copy('.', '.')
@@ -38,9 +38,9 @@ export class AngularBuilder implements IBuilder {
       .workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
-      d.copy('package-lock.json', '.').run('npm install')
+      d.copy('package-lock.json', '.').run('npm ci')
     } else {
-      d.copy('yarn.lock', '.').run('yarn')
+      d.copy('yarn.lock', '.').run('yarn install --immutable --immutable-cache')
     }
 
     d.copy('.', '.')
