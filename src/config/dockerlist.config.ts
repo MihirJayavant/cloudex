@@ -6,6 +6,7 @@ import PhpLogo from '../assets/PhpLogo.png'
 import NextLogo from '../assets/NextLogo.png'
 import { angularConfig } from './angular.config'
 import { reactConfig } from './react.config'
+import { nextjsConfig } from './nextjs.config'
 
 export const dockerlistConfig = {
   frontEndApps: [
@@ -25,7 +26,7 @@ export const dockerlistConfig = {
       name: 'nextjs',
       title: 'Next Js',
       icon: NextLogo,
-      option: reactConfig,
+      option: nextjsConfig,
     },
   ],
   backEndApps: [

@@ -16,7 +16,7 @@ export class DockerCreator {
   }
 
   copy(from: string, to: string, fromContainer?: string) {
-    let temp = "COPY"
+    let temp = 'COPY'
     if (fromContainer) {
       temp += ` --from=${fromContainer}`
     }
@@ -40,7 +40,7 @@ export class DockerCreator {
   }
 
   cmd(...commands: string[]) {
-    const temp = commands.map(p => `"${p}"`).join(", ")
+    const temp = commands.map(p => `"${p}"`).join(', ')
     this.file.push(`CMD [${temp}]`)
     return this
   }
@@ -50,11 +50,15 @@ export class DockerCreator {
     return this
   }
 
+  user(user: string) {
+    this.file.push(`USER ${user}`)
+    return this
+  }
+
   create() {
     return this.file
   }
 }
-
 
 export interface IBuilder {
   build: () => string[]

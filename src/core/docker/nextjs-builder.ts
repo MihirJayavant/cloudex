@@ -5,14 +5,11 @@ interface IOption {
   node: string
   packageManager: 'npm' | 'yarn'
 }
-export class ReactBuilder implements IBuilder {
-  constructor(private option: IOption) { }
+export class NextjsBuilder implements IBuilder {
+  constructor(private option: IOption) {}
 
   build() {
-    const d = new DockerCreator().from(this.option.node, 'deps')
-      .run('apk add --no-cache libc6-compat')
-      .workDir('/app')
-      .copy('package.json', '.')
+    const d = new DockerCreator().from(this.option.node, 'deps').run('apk add --no-cache libc6-compat').workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
       d.copy('package-lock.json', '.').run('npm ci')
@@ -31,14 +28,21 @@ export class ReactBuilder implements IBuilder {
       .env('NODE_ENV production')
       .run('addgroup -g 1001 -S nodejs')
       .run('adduser -S nextjs -u 1001')
-
+      .copy('/app/public', './public', 'builder')
+      .copy('/app/package.json', './package.json', 'builder')
+      .copy('/app/.next/standalone', './', 'builder --chown=nextjs:nodejs')
+      .copy('/app/.next/static', './.next/static', 'builder --chown=nextjs:nodejs')
+      .user('nextjs')
+      .expose(3000)
+      .env('PORT 3000')
+      .env('NEXT_TELEMETRY_DISABLED 1')
+      .cmd('node', 'server.js')
 
     return d.create()
   }
 }
 
-
-export class ReactComposeBuilder implements IBuilder {
+export class NextjsComposeBuilder implements IBuilder {
   build() {
     const json = {
       version: '3',
@@ -47,12 +51,12 @@ export class ReactComposeBuilder implements IBuilder {
           restart: 'always',
           build: {
             context: '.',
-            dockerfile: 'Dockerfile'
+            dockerfile: 'Dockerfile',
           },
-          ports: ['5100:80']
-        }
-      }
+          ports: ['3000:80'],
+        },
+      },
     }
-    return json2yaml(json);
+    return json2yaml(json)
   }
 }
