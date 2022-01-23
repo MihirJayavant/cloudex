@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, useToast } from '@chakra-ui/react'
+import { Grid, useToast } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
 import { CodeFileList } from '../../components/dockerlist'
@@ -54,7 +54,6 @@ function DockerPage() {
   const getConfig = () => {
     const all = [...dockerlistConfig.frontEndApps, ...dockerlistConfig.backEndApps]
     const app = all.find(p => p.name === params.application)
-    console.log(app ? app.option.form : all[0].option.form)
     return app ? app.option.form : all[0].option.form
   }
 
@@ -62,10 +61,10 @@ function DockerPage() {
     <div>
       <Header />
 
-      <Flex mt={10} direction="row" justifyContent="space-evenly">
+      <Grid templateColumns="0.5fr 1fr" gap={10}>
         <FormBuilder form={getConfig()} generate={generateDockerfile} />
         <CodeFileList files={files} />
-      </Flex>
+      </Grid>
     </div>
   )
 }

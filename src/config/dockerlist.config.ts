@@ -33,7 +33,7 @@ export const dockerlistConfig = {
   backEndApps: [
     {
       name: 'aspdotnet',
-      title: 'ASP Dotnet',
+      title: 'ASP.NET',
       icon: DotnetLogo,
       option: aspConfig,
     },
