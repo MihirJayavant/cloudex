@@ -1,13 +1,13 @@
 import ReactLogo from '../assets/ReactLogo.png'
 import AngularLogo from '../assets/AngularLogo.png'
 import NodeLogo from '../assets/NodeLogo.png'
-import JavaLogo from '../assets/JavaLogo.png'
-import PhpLogo from '../assets/PhpLogo.png'
+import DotnetLogo from '../assets/DotnetLogo.png'
 import NextLogo from '../assets/NextLogo.png'
 import { angularConfig } from './angular.config'
 import { reactConfig } from './react.config'
 import { nextjsConfig } from './nextjs.config'
 import { nodeConfig } from './node.config'
+import { aspConfig } from './dotnet.config'
 
 export const dockerlistConfig = {
   frontEndApps: [
@@ -32,16 +32,10 @@ export const dockerlistConfig = {
   ],
   backEndApps: [
     {
-      name: 'java',
-      title: 'Java',
-      icon: JavaLogo,
-      option: angularConfig,
-    },
-    {
-      name: 'php',
-      title: 'PHP',
-      icon: PhpLogo,
-      option: angularConfig,
+      name: 'aspdotnet',
+      title: 'ASP Dotnet',
+      icon: DotnetLogo,
+      option: aspConfig,
     },
     {
       name: 'node',

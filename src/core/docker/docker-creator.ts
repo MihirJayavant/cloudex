@@ -45,6 +45,12 @@ export class DockerCreator {
     return this
   }
 
+  entrypoint(...commands: string[]) {
+    const temp = commands.map(p => `"${p}"`).join(', ')
+    this.file.push(`ENTRYPOINT [${temp}]`)
+    return this
+  }
+
   env(variable: string) {
     this.file.push(`ENV ${variable}`)
     return this

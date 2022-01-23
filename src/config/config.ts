@@ -47,3 +47,14 @@ export const nodeVersions = [
     value: 'node:14-alpine',
   },
 ]
+
+export const aspdotnetVersions = [
+  {
+    display: 'dotnet 6',
+    value: '6.0',
+  },
+  {
+    display: 'dotnet 5',
+    value: '5.0',
+  },
+]
