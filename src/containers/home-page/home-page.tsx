@@ -1,4 +1,5 @@
-import { Flex, Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react'
+import { AddIcon } from '@chakra-ui/icons'
+import { Flex, Tabs, TabList, Tab, TabPanels, TabPanel, Box } from '@chakra-ui/react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DockerList } from '../../components/dockerlist'
@@ -22,7 +23,15 @@ function HomePage() {
           <TabPanel>
             <DockerList gotoDockerPage={gotoDockerPage} />
           </TabPanel>
-          <TabPanel>Kubs</TabPanel>
+          <TabPanel>
+            <div>
+              <Flex>
+                <Box className="box" borderWidth="1px" borderRadius="lg">
+                  <AddIcon w={6} h={6} margin={20} />
+                </Box>
+              </Flex>
+            </div>
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </Flex>
