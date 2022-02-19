@@ -14,9 +14,20 @@ import {
   Input,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
+import { kubProjectAddProject, KubProjectAddProjectAction } from '../../store'
+import { connect } from 'react-redux'
 
-export function KubernetesList() {
+interface IProps {
+  addProject: (name: string) => KubProjectAddProjectAction
+}
+
+export function kubernetesList(props: IProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [name, setName] = React.useState('')
+  const create = () => {
+    props.addProject(name)
+    onClose()
+  }
   return (
     <div>
       <Flex>
@@ -30,14 +41,26 @@ export function KubernetesList() {
           <ModalHeader>Create New Kubernetes Project</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input placeholder="Project Name" />
+            <Input placeholder="Project Name" value={name} onChange={e => setName(e.target.value)} />
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue">Create</Button>
+            <Button colorScheme="blue" onClick={() => create()}>
+              Create
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </div>
   )
 }
+
+// const mapStateToProps = (state: State) => ({
+//   kubs: getTodos(state),
+// })
+
+const mapDispatchToProps = {
+  addProject: kubProjectAddProject,
+}
+
+export const KubernetesList = connect(undefined, mapDispatchToProps)(kubernetesList)
