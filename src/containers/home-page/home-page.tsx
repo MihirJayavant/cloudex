@@ -1,12 +1,13 @@
-import { AddIcon } from '@chakra-ui/icons'
-import { Flex, Tabs, TabList, Tab, TabPanels, TabPanel, Box } from '@chakra-ui/react'
+import { Flex, Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DockerList } from '../../components/dockerlist'
 import { Header } from '../../components/Header'
+import { KubernetesList } from './kubernetes-list'
 
 function HomePage() {
   const navigate = useNavigate()
+
   function gotoDockerPage(application: string) {
     navigate(`/docker/${application}`)
   }
@@ -24,13 +25,7 @@ function HomePage() {
             <DockerList gotoDockerPage={gotoDockerPage} />
           </TabPanel>
           <TabPanel>
-            <div>
-              <Flex>
-                <Box className="box" borderWidth="1px" borderRadius="lg">
-                  <AddIcon w={6} h={6} margin={20} />
-                </Box>
-              </Flex>
-            </div>
+            <KubernetesList />
           </TabPanel>
         </TabPanels>
       </Tabs>
