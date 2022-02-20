@@ -5,5 +5,5 @@ import { loadPostsEffect } from './post-page.effects'
 
 export function* allSagas() {
   yield takeLatest(actions.PostsActionTypes.LOAD, loadPostsEffect)
-  yield takeLatest(actions.KubProjectTypes.ADD_NEW_Project, addNewKubsProjectEffect)
+  yield takeLatest(actions.KubProjectTypes.ADD_NEW_PROJECT, addNewKubsProjectEffect)
 }

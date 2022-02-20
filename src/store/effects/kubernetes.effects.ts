@@ -1,7 +1,7 @@
 import { Database } from '../../db'
-import { KubProjectAddProjectAction } from '../actions'
+import { KubNewProjectAction } from '../actions'
 
-export function* addNewKubsProjectEffect(action: KubProjectAddProjectAction) {
+export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
   const database: Database = yield new Database()
   if (database.isAvailable) {
     yield database.open()
