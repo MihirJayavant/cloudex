@@ -29,4 +29,15 @@ export class Database {
       request.onerror = event => reject(event)
     })
   }
+
+  getAll<T>(storeName: string) {
+    return new Promise<T[]>((resolve, reject) => {
+      if (!this.db) {
+        return reject()
+      }
+      const request = this.db.transaction([storeName], 'readwrite').objectStore(storeName).getAll()
+      request.onsuccess = () => resolve(request.result)
+      request.onerror = event => reject(event)
+    })
+  }
 }
