@@ -19,6 +19,7 @@ import { getprojects, kubAddProject, kubLoadProject, KubLoadProjectAction, KubNe
 import { connect } from 'react-redux'
 import { KubernetesProject } from '../../models/kubernetes/project'
 import KubernetesLogo from '../../assets/KubernetesLogo.png'
+import { useNavigate } from 'react-router'
 
 interface IProps {
   addProject: (name: string) => KubNewProjectAction
@@ -29,6 +30,8 @@ interface IProps {
 export function kubernetesList(props: IProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [name, setName] = React.useState('')
+  const navigate = useNavigate()
+
   const create = () => {
     props.addProject(name)
     onClose()
@@ -38,9 +41,13 @@ export function kubernetesList(props: IProps) {
     props.loadProject()
   }, [])
 
+  function gotoKubsPage(id: number) {
+    navigate(`/kubernetes/${id}`)
+  }
+
   const list = () =>
     props.projects.map(p => (
-      <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" maxWidth="220px" key={p.id}>
+      <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" maxWidth="220px" key={p.id} onClick={() => gotoKubsPage(p.id)}>
         <Image fit="cover" src={KubernetesLogo} alt="Angular" height="125px" width="125px" margin={'5px'} />
         <Box margin={'5px'}>
           <Box textAlign="center" mt="1" fontWeight="bold" as="h4" lineHeight="tight" isTruncated>

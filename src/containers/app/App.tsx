@@ -4,6 +4,7 @@ import { TodoPage } from '../todo-page'
 import { PostPage } from '../post-page'
 import { HomePage } from '../home-page'
 import { DockerPage } from '../docker-page'
+import { KuberentesPage } from '../kubernetes-page'
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
             <Route path="/todo" element={<TodoPage />} />
             <Route path="/posts" element={<PostPage />} />
             <Route path="/docker/:application" element={<DockerPage />} />
+            <Route path="/kubernetes/:id" element={<KuberentesPage />} />
             <Route path="/" element={<Navigate to="/home" />} />
           </Routes>
         </div>
