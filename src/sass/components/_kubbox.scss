@@ -1,0 +1,22 @@
+.kubbox {
+  .ingress {
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+  .deployments {
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+  .ip-clusters {
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
+  .secrets {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .volumes {
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+}

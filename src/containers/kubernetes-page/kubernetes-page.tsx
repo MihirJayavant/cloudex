@@ -1,33 +1,32 @@
-import { AddIcon } from '@chakra-ui/icons'
 import { Box, Grid } from '@chakra-ui/react'
 import * as React from 'react'
 // import { useParams } from 'react-router'
 import { Header } from '../../components/Header'
+import { KubBox } from '../../components/kubernetes'
 
 function KuberentesPage() {
   // const params = useParams()
   return (
-    <div>
+    <div className="kubbox">
       <Header />
-      <Grid templateColumns="1fr" gap={10} padding={10}>
-        <Box borderWidth="2px" borderRadius="lg" borderStyle="dashed">
-          <Grid
-            templateColumns={{
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(4, 1fr)',
-              lg: 'repeat(5, 1fr)',
-              xl: 'repeat(6, 1fr)',
-            }}
-            gap={6}
-            py={10}
-            px={10}
-            style={{ height: 'max-content' }}
-          >
-            <Box className="box" borderWidth="1px" borderRadius="lg">
-              <AddIcon w={6} h={6} margin={20} key={-1} />
-            </Box>
-          </Grid>
-        </Box>
+      <Grid templateColumns="repeat(4, 1fr)" gap={5} padding={10}>
+        <div className="ingress">
+          <Box bgColor="gray.200" p={5} borderRadius="md" textAlign={'center'} fontWeight="bold" fontSize={20}>
+            Ingress
+          </Box>
+        </div>
+        <div className="ip-clusters">
+          <KubBox title="IP Clusters" />
+        </div>
+        <div className="deployments">
+          <KubBox title="Deploments" />
+        </div>
+        <div className="secrets">
+          <KubBox title="Secrets" />
+        </div>
+        <div className="volumes">
+          <KubBox title="Volumes" />
+        </div>
       </Grid>
     </div>
   )
