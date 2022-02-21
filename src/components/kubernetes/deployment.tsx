@@ -1,4 +1,4 @@
-import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
+import { Button, Input, FormLabel, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Divider } from '@chakra-ui/react'
 import * as React from 'react'
 
 interface IProps {
@@ -24,25 +24,39 @@ export function Deployment(props: IProps) {
       <ModalContent>
         <ModalHeader>Deployment</ModalHeader>
         <ModalCloseButton />
+        <Divider />
         <ModalBody>
-          <Input placeholder="Metadata Name" value={state.metadataName} onChange={e => setState({ ...state, metadataName: e.target.value })} />
+          <FormLabel>Metadata Name</FormLabel>
+          <Input mb={2} placeholder="Metadata Name" value={state.metadataName} onChange={e => setState({ ...state, metadataName: e.target.value })} />
+
+          <FormLabel>Replicas</FormLabel>
           <Input
+            mb={2}
             type="number"
             placeholder="Replicas"
             value={state.replicas}
             onChange={e => setState({ ...state, replicas: Number(e.target.value) })}
           />
-          <Input placeholder="Component Label" value={state.componentLabel} onChange={e => setState({ ...state, componentLabel: e.target.value })} />
-          <Input placeholder="Container Name" value={state.containerName} onChange={e => setState({ ...state, containerName: e.target.value })} />
-          <Input placeholder="Container Image" value={state.containerImage} onChange={e => setState({ ...state, containerImage: e.target.value })} />
+
+          <FormLabel>Component Label</FormLabel>
+          <Input mb={2} placeholder="Component Label" value={state.componentLabel} onChange={e => setState({ ...state, componentLabel: e.target.value })} />
+
+          <FormLabel>Container Name</FormLabel>
+          <Input mb={2} placeholder="Container Name" value={state.containerName} onChange={e => setState({ ...state, containerName: e.target.value })} />
+
+          <FormLabel>Container Image</FormLabel>
+          <Input mb={2} placeholder="Container Image" value={state.containerImage} onChange={e => setState({ ...state, containerImage: e.target.value })} />
+
+          <FormLabel>Container Port</FormLabel>
           <Input
+            mb={2}
             type="number"
             placeholder="Container Port"
             value={state.containerPort}
             onChange={e => setState({ ...state, containerPort: Number(e.target.value) })}
           />
         </ModalBody>
-
+        <Divider />
         <ModalFooter>
           <Button colorScheme="blue" onClick={() => props.onSubmit(state)}>
             Save
