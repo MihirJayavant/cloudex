@@ -15,7 +15,7 @@ import {
   Grid,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { getprojects, kubAddProject, kubLoadProject, KubLoadProjectAction, KubNewProjectAction, State } from '../../store'
+import { getProjects, kubAddProject, kubLoadProject, KubLoadProjectAction, KubNewProjectAction, State } from '../../store'
 import { connect } from 'react-redux'
 import { KubernetesProject } from '../../models/kubernetes/project'
 import KubernetesLogo from '../../assets/KubernetesLogo.png'
@@ -96,7 +96,7 @@ export function kubernetesList(props: IProps) {
 }
 
 const mapStateToProps = (state: State) => ({
-  projects: getprojects(state),
+  projects: getProjects(state),
 })
 
 const mapDispatchToProps = {

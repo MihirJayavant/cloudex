@@ -6,7 +6,7 @@ import { Header } from '../../components/Header'
 import { KubBox } from '../../components/kubernetes'
 import { Deployment } from '../../components/kubernetes/deployment'
 import { KubernetesProject } from '../../models/kubernetes'
-import { getprojects, kubAddDeployment, KubAddDeploymentAction, kubLoadProject, KubLoadProjectAction, State } from '../../store'
+import { getProjects, kubAddDeployment, KubAddDeploymentAction, kubLoadProject, KubLoadProjectAction, State } from '../../store'
 
 interface IProps {
   projects: KubernetesProject[]
@@ -62,7 +62,7 @@ function kuberentesPage(props: IProps) {
 }
 
 const mapStateToProps = (state: State) => ({
-  projects: getprojects(state),
+  projects: getProjects(state),
 })
 
 const mapDispatchToProps = {

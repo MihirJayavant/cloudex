@@ -1,7 +1,8 @@
-import { put } from 'redux-saga/effects'
+import { put, select } from 'redux-saga/effects'
+import { getProjects } from '../selectors'
 import { Database } from '../../db'
 import { Ingress, KubernetesProject } from '../../models/kubernetes'
-import { KubLoadProjectSuccessAction, KubNewProjectAction, KubNewProjectEffectAction, KubProjectTypes } from '../actions'
+import { KubAddDeploymentAction, KubLoadProjectSuccessAction, KubNewProjectAction, KubNewProjectEffectAction, KubProjectTypes } from '../actions'
 
 export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
   const database: Database = yield new Database()
@@ -33,5 +34,15 @@ export function* loadKubsProjectEffect() {
     yield database.open()
     const result: KubernetesProject[] = yield database.getAll('kubernetes')
     yield put<KubLoadProjectSuccessAction>({ type: KubProjectTypes.LOAD_PROJECTS_SUCCESS, data: result })
+  }
+}
+
+export function* KubsAllUpdateEffect(action: KubAddDeploymentAction) {
+  const database: Database = yield new Database()
+  if (database.isAvailable) {
+    yield database.open()
+    const projects: KubernetesProject[] = yield select(getProjects)
+    const data = projects.find(p => p.id === action.id)
+    yield database.update('kubernetes', data)
   }
 }

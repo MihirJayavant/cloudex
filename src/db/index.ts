@@ -19,8 +19,8 @@ export class Database {
     })
   }
 
-  add<T>(storeName: string, data: T): Promise<IDBValidKey> {
-    return new Promise((resolve, reject) => {
+  add<T>(storeName: string, data: T) {
+    return new Promise<IDBValidKey>((resolve, reject) => {
       if (!this.db) {
         return reject()
       }
@@ -36,6 +36,17 @@ export class Database {
         return reject()
       }
       const request = this.db.transaction([storeName], 'readwrite').objectStore(storeName).getAll()
+      request.onsuccess = () => resolve(request.result)
+      request.onerror = event => reject(event)
+    })
+  }
+
+  update<T>(storeName: string, data: T) {
+    return new Promise<IDBValidKey>((resolve, reject) => {
+      if (!this.db) {
+        return reject()
+      }
+      const request = this.db.transaction([storeName], 'readwrite').objectStore(storeName).put(data)
       request.onsuccess = () => resolve(request.result)
       request.onerror = event => reject(event)
     })
