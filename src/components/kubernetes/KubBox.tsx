@@ -5,9 +5,19 @@ import * as React from 'react'
 interface IProps {
   title: string
   onAdd?: () => void
+  items?: any[]
 }
 
 export function KubBox(props: IProps) {
+  const itemList = () => {
+    if (props.items) {
+      return props.items.map(p => (
+        <Box key={p.metadataName} className="box" borderWidth="1px" borderRadius="lg" margin={10} onClick={props.onAdd} width="100%">
+          <span>{p.metadataName}</span>
+        </Box>
+      ))
+    }
+  }
   return (
     <Box borderWidth="2px" borderRadius="lg" borderStyle="dashed">
       <Flex direction="column" alignItems="center">
@@ -18,6 +28,7 @@ export function KubBox(props: IProps) {
           <Box className="box" borderWidth="1px" borderRadius="lg" margin={10} onClick={props.onAdd}>
             <AddIcon w={6} h={6} margin={10} />
           </Box>
+          {itemList()}
         </Grid>
       </Flex>
     </Box>

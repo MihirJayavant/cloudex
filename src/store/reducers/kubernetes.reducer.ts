@@ -3,7 +3,7 @@ import { produce } from 'immer'
 import { KubernetesProject } from '../../models/kubernetes/project'
 import { getInitialState, IAsyncData, withReducer } from '../../models'
 
-export interface KubernetesState extends IAsyncData<KubernetesProject[]> {}
+export interface KubernetesState extends IAsyncData<KubernetesProject[]> { }
 
 export const initialState: KubernetesState = {
   ...getInitialState<KubernetesProject[]>([]),
@@ -13,7 +13,12 @@ function baseReducer(state = initialState, action: KubProjectAction): Kubernetes
   return produce(state, draft => {
     switch (action.type) {
       case KubProjectTypes.ADD_NEW_PROJECT:
-        draft.data.push({ id: 0, name: action.name })
+        draft.data.push({ id: 0, name: action.name, deployment: [] })
+        break
+      case KubProjectTypes.ADD_DEPLOYMENT: {
+        const index = draft.data.findIndex(p => p.id === action.id)
+        draft.data[index].deployment.push(action.data)
+      }
         break
       default:
         return state

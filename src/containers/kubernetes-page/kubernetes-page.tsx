@@ -1,17 +1,27 @@
 import { Box, Grid, useDisclosure } from '@chakra-ui/react'
 import * as React from 'react'
-// import { useParams } from 'react-router'
+import { connect } from 'react-redux'
+import { useParams } from 'react-router'
 import { Header } from '../../components/Header'
 import { KubBox } from '../../components/kubernetes'
 import { Deployment } from '../../components/kubernetes/deployment'
+import { KubernetesProject } from '../../models/kubernetes'
+import { getprojects, kubAddDeployment, KubAddDeploymentAction, State } from '../../store'
 
-function KuberentesPage() {
+interface IProps {
+  projects: KubernetesProject[]
+  addDeployment: (id: number, data: any) => KubAddDeploymentAction
+}
+
+function kuberentesPage(props: IProps) {
   const deploymentModel = useDisclosure()
+  const params = useParams()
+  const project = props.projects.find(p => p.id === Number(params.id))!
   const deploymentSubmit = (data: any) => {
-    console.log(data)
+    props.addDeployment(Number(params.id), data)
     deploymentModel.onClose()
   }
-  // const params = useParams()
+
   return (
     <div className="kubbox">
       <Header />
@@ -22,10 +32,10 @@ function KuberentesPage() {
           </Box>
         </div>
         <div className="ip-clusters">
-          <KubBox title="IP Clusters" onAdd={deploymentModel.onOpen} />
+          <KubBox title="IP Clusters" items={project.deployment} onAdd={deploymentModel.onOpen} />
         </div>
         <div className="deployments">
-          <KubBox title="Deploments" onAdd={deploymentModel.onOpen} />
+          <KubBox title="Deploments" items={project.deployment} onAdd={deploymentModel.onOpen} />
         </div>
         <div className="secrets">
           <KubBox title="Secrets" />
@@ -38,5 +48,15 @@ function KuberentesPage() {
     </div>
   )
 }
+
+const mapStateToProps = (state: State) => ({
+  projects: getprojects(state),
+})
+
+const mapDispatchToProps = {
+  addDeployment: kubAddDeployment,
+}
+
+const KuberentesPage = connect(mapStateToProps, mapDispatchToProps)(kuberentesPage)
 
 export default KuberentesPage

@@ -6,6 +6,7 @@ export enum KubProjectTypes {
   LOAD_PROJECTS = '[kuberentes] Load Projects',
   LOAD_PROJECTS_SUCCESS = '[kuberentes] Load Projects Success',
   LOAD_PROJECTS_ERROR = '[kuberentes] Load Projects Error',
+  ADD_DEPLOYMENT = '[kuberentes] Add Deployment'
 }
 
 export interface KubNewProjectAction {
@@ -21,6 +22,12 @@ export interface KubLoadProjectSuccessAction extends IAsyncDataSuccessAction<Kub
 }
 export interface KubLoadProjectErrorAction extends IAsyncDataErrorAction {
   type: KubProjectTypes.LOAD_PROJECTS_ERROR
+}
+
+export interface KubAddDeploymentAction {
+  id: number
+  data: any
+  type: KubProjectTypes.ADD_DEPLOYMENT
 }
 
 export function kubAddProject(name: string): KubNewProjectAction {
@@ -48,4 +55,12 @@ export function kubLoadProjectError(error: string): KubLoadProjectErrorAction {
   }
 }
 
-export type KubProjectAction = KubNewProjectAction | KubLoadProjectAction | KubLoadProjectSuccessAction | KubLoadProjectErrorAction
+export function kubAddDeployment(id: number, data: any): KubAddDeploymentAction {
+  return {
+    id,
+    data,
+    type: KubProjectTypes.ADD_DEPLOYMENT,
+  }
+}
+
+export type KubProjectAction = KubNewProjectAction | KubLoadProjectAction | KubLoadProjectSuccessAction | KubLoadProjectErrorAction | KubAddDeploymentAction
