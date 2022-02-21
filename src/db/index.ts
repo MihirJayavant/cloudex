@@ -19,13 +19,13 @@ export class Database {
     })
   }
 
-  add<T>(storeName: string, data: T) {
+  add<T>(storeName: string, data: T): Promise<IDBValidKey> {
     return new Promise((resolve, reject) => {
       if (!this.db) {
         return reject()
       }
       const request = this.db.transaction([storeName], 'readwrite').objectStore(storeName).add(data)
-      request.onsuccess = () => resolve(undefined)
+      request.onsuccess = () => resolve(request.result)
       request.onerror = event => reject(event)
     })
   }

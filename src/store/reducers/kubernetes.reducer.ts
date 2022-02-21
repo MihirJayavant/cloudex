@@ -12,8 +12,8 @@ export const initialState: KubernetesState = {
 function baseReducer(state = initialState, action: KubProjectAction): KubernetesState {
   return produce(state, draft => {
     switch (action.type) {
-      case KubProjectTypes.ADD_NEW_PROJECT:
-        draft.data.push({ id: 0, name: action.name, deployment: [] })
+      case KubProjectTypes.ADD_NEW_PROJECT_EFFECT:
+        draft.data.push(action.data)
         break
       case KubProjectTypes.ADD_DEPLOYMENT: {
         const index = draft.data.findIndex(p => p.id === action.id)

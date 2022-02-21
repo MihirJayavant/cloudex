@@ -3,6 +3,7 @@ import { KubernetesProject } from '../../models/kubernetes/project'
 
 export enum KubProjectTypes {
   ADD_NEW_PROJECT = '[kuberentes] Add New Project',
+  ADD_NEW_PROJECT_EFFECT = '[kuberentes] Add New Project Effect',
   LOAD_PROJECTS = '[kuberentes] Load Projects',
   LOAD_PROJECTS_SUCCESS = '[kuberentes] Load Projects Success',
   LOAD_PROJECTS_ERROR = '[kuberentes] Load Projects Error',
@@ -12,6 +13,11 @@ export enum KubProjectTypes {
 export interface KubNewProjectAction {
   name: string
   type: KubProjectTypes.ADD_NEW_PROJECT
+}
+
+export interface KubNewProjectEffectAction {
+  data: any
+  type: KubProjectTypes.ADD_NEW_PROJECT_EFFECT
 }
 
 export interface KubLoadProjectAction extends IAsyncDataLoadAction {
@@ -34,6 +40,13 @@ export function kubAddProject(name: string): KubNewProjectAction {
   return {
     name,
     type: KubProjectTypes.ADD_NEW_PROJECT,
+  }
+}
+
+export function kubAddProjectEffect(data: any): KubNewProjectEffectAction {
+  return {
+    data,
+    type: KubProjectTypes.ADD_NEW_PROJECT_EFFECT,
   }
 }
 
@@ -63,4 +76,4 @@ export function kubAddDeployment(id: number, data: any): KubAddDeploymentAction 
   }
 }
 
-export type KubProjectAction = KubNewProjectAction | KubLoadProjectAction | KubLoadProjectSuccessAction | KubLoadProjectErrorAction | KubAddDeploymentAction
+export type KubProjectAction = KubNewProjectAction | KubNewProjectEffectAction | KubLoadProjectAction | KubLoadProjectSuccessAction | KubLoadProjectErrorAction | KubAddDeploymentAction

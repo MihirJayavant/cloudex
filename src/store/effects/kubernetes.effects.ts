@@ -1,7 +1,7 @@
 import { put } from 'redux-saga/effects'
 import { Database } from '../../db'
 import { Ingress, KubernetesProject } from '../../models/kubernetes'
-import { KubLoadProjectSuccessAction, KubNewProjectAction, KubProjectTypes } from '../actions'
+import { KubLoadProjectSuccessAction, KubNewProjectAction, KubNewProjectEffectAction, KubProjectTypes } from '../actions'
 
 export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
   const database: Database = yield new Database()
@@ -21,7 +21,9 @@ export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
         rules: [{ http: { paths: [] } }],
       },
     }
-    yield database.add('kubernetes', { name: action.name, ingress })
+    const data = { name: action.name, ingress, deployment: [] }
+    const id: IDBValidKey = yield database.add('kubernetes', data)
+    yield put<KubNewProjectEffectAction>({ type: KubProjectTypes.ADD_NEW_PROJECT_EFFECT, data: { id, ...data } })
   }
 }
 

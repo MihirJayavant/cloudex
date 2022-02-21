@@ -6,20 +6,32 @@ import { Header } from '../../components/Header'
 import { KubBox } from '../../components/kubernetes'
 import { Deployment } from '../../components/kubernetes/deployment'
 import { KubernetesProject } from '../../models/kubernetes'
-import { getprojects, kubAddDeployment, KubAddDeploymentAction, State } from '../../store'
+import { getprojects, kubAddDeployment, KubAddDeploymentAction, kubLoadProject, KubLoadProjectAction, State } from '../../store'
 
 interface IProps {
   projects: KubernetesProject[]
   addDeployment: (id: number, data: any) => KubAddDeploymentAction
+  loadProject: () => KubLoadProjectAction
 }
 
 function kuberentesPage(props: IProps) {
   const deploymentModel = useDisclosure()
   const params = useParams()
-  const project = props.projects.find(p => p.id === Number(params.id))!
+  const project = props.projects.find(p => p.id === Number(params.id))
+
+  React.useEffect(() => {
+    if (!project) {
+      props.loadProject()
+    }
+  }, [])
+
   const deploymentSubmit = (data: any) => {
     props.addDeployment(Number(params.id), data)
     deploymentModel.onClose()
+  }
+
+  if (!project) {
+    return <div></div>
   }
 
   return (
@@ -55,6 +67,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   addDeployment: kubAddDeployment,
+  loadProject: kubLoadProject,
 }
 
 const KuberentesPage = connect(mapStateToProps, mapDispatchToProps)(kuberentesPage)
