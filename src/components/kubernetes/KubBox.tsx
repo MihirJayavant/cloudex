@@ -4,6 +4,7 @@ import * as React from 'react'
 
 interface IProps {
   title: string
+  onAdd?: () => void
 }
 
 export function KubBox(props: IProps) {
@@ -14,7 +15,7 @@ export function KubBox(props: IProps) {
           <span>{props.title}</span>
         </Box>
         <Grid templateColumns={'repeat(6, 1fr)'} gap={6} style={{ height: 'max-content' }}>
-          <Box className="box" borderWidth="1px" borderRadius="lg" margin={10}>
+          <Box className="box" borderWidth="1px" borderRadius="lg" margin={10} onClick={props.onAdd}>
             <AddIcon w={6} h={6} margin={10} />
           </Box>
         </Grid>

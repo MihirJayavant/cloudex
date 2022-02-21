@@ -1,10 +1,16 @@
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Grid, useDisclosure } from '@chakra-ui/react'
 import * as React from 'react'
 // import { useParams } from 'react-router'
 import { Header } from '../../components/Header'
 import { KubBox } from '../../components/kubernetes'
+import { Deployment } from '../../components/kubernetes/deployment'
 
 function KuberentesPage() {
+  const deploymentModel = useDisclosure()
+  const deploymentSubmit = (data: any) => {
+    console.log(data)
+    deploymentModel.onClose()
+  }
   // const params = useParams()
   return (
     <div className="kubbox">
@@ -16,10 +22,10 @@ function KuberentesPage() {
           </Box>
         </div>
         <div className="ip-clusters">
-          <KubBox title="IP Clusters" />
+          <KubBox title="IP Clusters" onAdd={deploymentModel.onOpen} />
         </div>
         <div className="deployments">
-          <KubBox title="Deploments" />
+          <KubBox title="Deploments" onAdd={deploymentModel.onOpen} />
         </div>
         <div className="secrets">
           <KubBox title="Secrets" />
@@ -28,6 +34,7 @@ function KuberentesPage() {
           <KubBox title="Volumes" />
         </div>
       </Grid>
+      <Deployment onClose={deploymentModel.onClose} isOpen={deploymentModel.isOpen} onSubmit={deploymentSubmit} />
     </div>
   )
 }
