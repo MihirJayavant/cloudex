@@ -115,6 +115,12 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
       yield fs.fileWrite(`${item.metadataName}-deployment.yaml`, json2yaml(depData))
       yield fs.fileWrite(`${item.metadataName}-ip-cluster-service.yaml`, json2yaml(ipData))
     }
+    const cloudex = {
+      version: 1,
+      kind: 'kubernetes',
+      kubernetes: project
+    }
+    yield fs.fileWrite(`cloudex.json`, [JSON.stringify(cloudex, undefined, 2)])
   }
 }
 

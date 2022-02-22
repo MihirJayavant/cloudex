@@ -34,6 +34,14 @@ export function Deployment(props: IProps) {
   React.useEffect(() => {
     const { data } = props
     if (!data) {
+      setState({
+        metadataName: '',
+        replicas: 1,
+        componentLabel: '',
+        containerName: '',
+        containerImage: '',
+        containerPort: 80,
+      })
       return
     }
     setState({
