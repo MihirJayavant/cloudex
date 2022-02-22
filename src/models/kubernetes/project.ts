@@ -9,6 +9,11 @@ export interface KubernetesProject {
     containerImage: string,
     containerPort: number,
   }[],
+  secrets: {
+    envName: string,
+    secretName: string,
+    secretKey: string,
+  }[]
   ingress: {
     redirects: { path: string, serviceName: '', servicePort: number }[]
   }

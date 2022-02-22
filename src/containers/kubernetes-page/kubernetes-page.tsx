@@ -3,13 +3,15 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
 import { Header } from '../../components/Header'
-import { KubBox } from '../../components/kubernetes'
+import { KubBox, Secrets } from '../../components/kubernetes'
 import { Deployment } from '../../components/kubernetes/deployment'
 import { KubernetesProject } from '../../models/kubernetes'
 import {
   getProjects,
   kubAddDeployment,
   KubAddDeploymentAction,
+  kubAddSecret,
+  KubAddSecretAction,
   kubGenerateFiles,
   KubGenerateFilesAction,
   kubLoadProject,
@@ -21,13 +23,16 @@ interface IProps {
   projects: KubernetesProject[]
   addDeployment: (id: number, data: any, index?: number) => KubAddDeploymentAction
   loadProject: () => KubLoadProjectAction
+  addSecret: (id: number, data: any, index?: number | undefined) => KubAddSecretAction
   generate: (data: any) => KubGenerateFilesAction
 }
 
 function kuberentesPage(props: IProps) {
   const deploymentModel = useDisclosure()
+  const secretModel = useDisclosure()
   const params = useParams()
   const [deploymentIndex, setDeploymentIndex] = React.useState<number | number>()
+  const [secretIndex, setSecretIndex] = React.useState<number | number>()
   const project = props.projects.find(p => p.id === Number(params.id))
 
   React.useEffect(() => {
@@ -41,9 +46,19 @@ function kuberentesPage(props: IProps) {
     deploymentModel.onClose()
   }
 
+  const secretSubmit = (data: any) => {
+    props.addSecret(Number(params.id), data, deploymentIndex)
+    secretModel.onClose()
+  }
+
   const deploymentOpen = (index?: number) => {
     setDeploymentIndex(index)
     deploymentModel.onOpen()
+  }
+
+  const secretOpen = (index?: number) => {
+    setSecretIndex(index)
+    secretModel.onOpen()
   }
 
   if (!project) {
@@ -66,7 +81,7 @@ function kuberentesPage(props: IProps) {
           <KubBox title="Deployments" items={project.deployment} onAdd={deploymentOpen} />
         </div>
         <div className="secrets">
-          <KubBox title="Secrets" />
+          <KubBox title="Secrets" items={project.secrets} onAdd={secretOpen} />
         </div>
         <div className="volumes">
           <KubBox title="Volumes" />
@@ -78,6 +93,7 @@ function kuberentesPage(props: IProps) {
         isOpen={deploymentModel.isOpen}
         onSubmit={deploymentSubmit}
       />
+      <Secrets data={project.secrets[secretIndex ?? -1]} isOpen={secretModel.isOpen} onClose={secretModel.onClose} onSubmit={secretSubmit} />
       <Button colorScheme="blue" onClick={() => props.generate(project)} mb={5} ml={5}>
         Generate Files
       </Button>
@@ -91,6 +107,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   addDeployment: kubAddDeployment,
+  addSecret: kubAddSecret,
   loadProject: kubLoadProject,
   generate: kubGenerateFiles,
 }

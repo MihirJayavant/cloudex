@@ -13,7 +13,7 @@ export function KubBox(props: IProps) {
     if (props.items) {
       return props.items.map((p, i) => (
         <Box
-          key={p.metadataName}
+          key={p.metadataName ?? p.secretName}
           className="box"
           borderWidth="2px"
           borderRadius="lg"
@@ -22,7 +22,7 @@ export function KubBox(props: IProps) {
           onClick={() => (props.onAdd ? props.onAdd(i) : undefined)}
           width="100%"
         >
-          <span>{p.metadataName}</span>
+          <span>{p.metadataName ?? p.secretName}</span>
         </Box>
       ))
     }

@@ -24,6 +24,15 @@ function baseReducer(state = initialState, action: KubProjectAction): Kubernetes
         }
       }
         break
+      case KubProjectTypes.ADD_SECRETS: {
+        const index = draft.data.findIndex(p => p.id === action.id)
+        if (action.index !== undefined) {
+          draft.data[index].secrets[action.index] = action.data
+        } else {
+          draft.data[index].secrets.push(action.data)
+        }
+      }
+        break
       default:
         return state
     }

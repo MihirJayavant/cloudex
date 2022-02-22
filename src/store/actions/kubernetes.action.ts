@@ -8,6 +8,7 @@ export enum KubProjectTypes {
   LOAD_PROJECTS_SUCCESS = '[kuberentes] Load Projects Success',
   LOAD_PROJECTS_ERROR = '[kuberentes] Load Projects Error',
   ADD_DEPLOYMENT = '[kuberentes] Add Deployment',
+  ADD_SECRETS = '[kuberentes] Add Secrets',
   GENERATE_FILES = '[kuberentes] Generate Files'
 }
 
@@ -41,6 +42,13 @@ export interface KubAddDeploymentAction {
   data: any
   index?: number
   type: KubProjectTypes.ADD_DEPLOYMENT
+}
+
+export interface KubAddSecretAction {
+  id: number
+  data: any
+  index?: number
+  type: KubProjectTypes.ADD_SECRETS
 }
 
 export function kubAddProject(name: string): KubNewProjectAction {
@@ -84,6 +92,15 @@ export function kubAddDeployment(id: number, data: any, index?: number): KubAddD
   }
 }
 
+export function kubAddSecret(id: number, data: any, index?: number): KubAddSecretAction {
+  return {
+    id,
+    data,
+    index,
+    type: KubProjectTypes.ADD_SECRETS,
+  }
+}
+
 export function kubGenerateFiles(data: any): KubGenerateFilesAction {
   return {
     data,
@@ -98,4 +115,5 @@ export type KubProjectAction = KubNewProjectAction |
   KubLoadProjectSuccessAction |
   KubLoadProjectErrorAction |
   KubAddDeploymentAction |
-  KubGenerateFilesAction
+  KubGenerateFilesAction |
+  KubAddSecretAction

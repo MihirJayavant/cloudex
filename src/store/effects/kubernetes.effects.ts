@@ -12,7 +12,7 @@ export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
     const ingress = {
       redirects: []
     }
-    const data = { name: action.name, ingress, deployment: [] }
+    const data = { name: action.name, ingress, deployment: [], secrets: [] }
     const id: IDBValidKey = yield database.add('kubernetes', data)
     yield put<KubNewProjectEffectAction>({ type: KubProjectTypes.ADD_NEW_PROJECT_EFFECT, data: { id, ...data } })
   }
