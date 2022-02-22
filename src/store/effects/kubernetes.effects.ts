@@ -9,19 +9,8 @@ export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
   const database: Database = yield new Database()
   if (database.isAvailable) {
     yield database.open()
-    const ingress: Ingress = {
-      apiVersion: 'networking.k8s.io/v1',
-      kind: 'Ingress',
-      metadata: {
-        name: 'main-ingress',
-        annotations: {
-          'nginx.ingress.kubernetes.io/rewrite-target': '/',
-        },
-      },
-      spec: {
-        ingressClassName: 'nginx-gateway',
-        rules: [{ http: { paths: [] } }],
-      },
+    const ingress = {
+      redirects: []
     }
     const data = { name: action.name, ingress, deployment: [] }
     const id: IDBValidKey = yield database.add('kubernetes', data)
@@ -53,6 +42,21 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
   const fs = new FS()
   if (fs.isAvailable()) {
     yield fs.openOrCreateDir()
+    const ingress: Ingress = {
+      apiVersion: 'networking.k8s.io/v1',
+      kind: 'Ingress',
+      metadata: {
+        name: 'main-ingress',
+        annotations: {
+          'nginx.ingress.kubernetes.io/rewrite-target': '/',
+        },
+      },
+      spec: {
+        ingressClassName: 'nginx-gateway',
+        rules: [{ http: { paths: [] } }],
+      },
+    }
+    yield fs.fileWrite(`ingress-service.yaml`, json2yaml(ingress))
     for (const item of project.deployment) {
       const depData = {
         "apiVersion": "apps/v1",

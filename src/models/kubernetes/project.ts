@@ -8,7 +8,10 @@ export interface KubernetesProject {
     containerName: string,
     containerImage: string,
     containerPort: number,
-  }[]
+  }[],
+  ingress: {
+    redirects: { path: string, serviceName: '', servicePort: number }[]
+  }
 }
 
 export interface KubernetesProjectMini {

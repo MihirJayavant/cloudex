@@ -15,8 +15,9 @@ export function KubBox(props: IProps) {
         <Box
           key={p.metadataName}
           className="box"
-          borderWidth="1px"
+          borderWidth="2px"
           borderRadius="lg"
+          borderColor="skyblue"
           margin={10}
           onClick={() => (props.onAdd ? props.onAdd(i) : undefined)}
           width="100%"
@@ -33,7 +34,14 @@ export function KubBox(props: IProps) {
           <span>{props.title}</span>
         </Box>
         <Grid templateColumns={'repeat(6, 1fr)'} gap={6} style={{ height: 'max-content' }}>
-          <Box className="box" borderWidth="1px" borderRadius="lg" margin={10} onClick={() => (props.onAdd ? props.onAdd() : undefined)}>
+          <Box
+            className="box"
+            borderWidth="2px"
+            borderColor="blackAlpha.400"
+            borderRadius="lg"
+            margin={10}
+            onClick={() => (props.onAdd ? props.onAdd() : undefined)}
+          >
             <AddIcon w={6} h={6} margin={10} />
           </Box>
           {itemList()}
