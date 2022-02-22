@@ -19,7 +19,7 @@ import {
 
 interface IProps {
   projects: KubernetesProject[]
-  addDeployment: (id: number, data: any) => KubAddDeploymentAction
+  addDeployment: (id: number, data: any, index?: number) => KubAddDeploymentAction
   loadProject: () => KubLoadProjectAction
   generate: (data: any) => KubGenerateFilesAction
 }
@@ -27,6 +27,7 @@ interface IProps {
 function kuberentesPage(props: IProps) {
   const deploymentModel = useDisclosure()
   const params = useParams()
+  const [deploymentIndex, setDeploymentIndex] = React.useState<number | number>()
   const project = props.projects.find(p => p.id === Number(params.id))
 
   React.useEffect(() => {
@@ -36,8 +37,13 @@ function kuberentesPage(props: IProps) {
   }, [])
 
   const deploymentSubmit = (data: any) => {
-    props.addDeployment(Number(params.id), data)
+    props.addDeployment(Number(params.id), data, deploymentIndex)
     deploymentModel.onClose()
+  }
+
+  const deploymentOpen = (index?: number) => {
+    setDeploymentIndex(index)
+    deploymentModel.onOpen()
   }
 
   if (!project) {
@@ -54,10 +60,10 @@ function kuberentesPage(props: IProps) {
           </Box>
         </div>
         <div className="ip-clusters">
-          <KubBox title="IP Clusters" items={project.deployment} onAdd={deploymentModel.onOpen} />
+          <KubBox title="IP Clusters" items={project.deployment} onAdd={deploymentOpen} />
         </div>
         <div className="deployments">
-          <KubBox title="Deploments" items={project.deployment} onAdd={deploymentModel.onOpen} />
+          <KubBox title="Deployments" items={project.deployment} onAdd={deploymentOpen} />
         </div>
         <div className="secrets">
           <KubBox title="Secrets" />
@@ -66,7 +72,12 @@ function kuberentesPage(props: IProps) {
           <KubBox title="Volumes" />
         </div>
       </Grid>
-      <Deployment onClose={deploymentModel.onClose} isOpen={deploymentModel.isOpen} onSubmit={deploymentSubmit} />
+      <Deployment
+        data={project.deployment[deploymentIndex ?? -1]}
+        onClose={deploymentModel.onClose}
+        isOpen={deploymentModel.isOpen}
+        onSubmit={deploymentSubmit}
+      />
       <Button colorScheme="blue" onClick={() => props.generate(project)} mb={5} ml={5}>
         Generate Files
       </Button>

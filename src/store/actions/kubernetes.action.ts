@@ -39,6 +39,7 @@ export interface KubGenerateFilesAction {
 export interface KubAddDeploymentAction {
   id: number
   data: any
+  index?: number
   type: KubProjectTypes.ADD_DEPLOYMENT
 }
 
@@ -74,10 +75,11 @@ export function kubLoadProjectError(error: string): KubLoadProjectErrorAction {
   }
 }
 
-export function kubAddDeployment(id: number, data: any): KubAddDeploymentAction {
+export function kubAddDeployment(id: number, data: any, index?: number): KubAddDeploymentAction {
   return {
     id,
     data,
+    index,
     type: KubProjectTypes.ADD_DEPLOYMENT,
   }
 }

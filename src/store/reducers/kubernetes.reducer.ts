@@ -17,7 +17,11 @@ function baseReducer(state = initialState, action: KubProjectAction): Kubernetes
         break
       case KubProjectTypes.ADD_DEPLOYMENT: {
         const index = draft.data.findIndex(p => p.id === action.id)
-        draft.data[index].deployment.push(action.data)
+        if (action.index !== undefined) {
+          draft.data[index].deployment[action.index] = action.data
+        } else {
+          draft.data[index].deployment.push(action.data)
+        }
       }
         break
       default:
