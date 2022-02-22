@@ -2,7 +2,8 @@ import { put, select } from 'redux-saga/effects'
 import { getProjects } from '../selectors'
 import { Database } from '../../db'
 import { Ingress, KubernetesProject } from '../../models/kubernetes'
-import { KubAddDeploymentAction, KubLoadProjectSuccessAction, KubNewProjectAction, KubNewProjectEffectAction, KubProjectTypes } from '../actions'
+import { KubAddDeploymentAction, KubGenerateFilesAction, KubLoadProjectSuccessAction, KubNewProjectAction, KubNewProjectEffectAction, KubProjectTypes } from '../actions'
+import { FS, json2yaml } from '../../core/files'
 
 export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
   const database: Database = yield new Database()
@@ -46,3 +47,70 @@ export function* KubsAllUpdateEffect(action: KubAddDeploymentAction) {
     yield database.update('kubernetes', data)
   }
 }
+
+export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
+  const project: KubernetesProject = yield action.data
+  const fs = new FS()
+  if (fs.isAvailable()) {
+    yield fs.openOrCreateDir()
+    for (const item of project.deployment) {
+      const depData = {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "metadata": {
+          "name": `${item.metadataName}-deployment`
+        },
+        "spec": {
+          "replicas": item.replicas,
+          "selector": {
+            "matchLabels": {
+              "component": item.componentLabel
+            }
+          },
+          "template": {
+            "metadata": {
+              "labels": {
+                "component": item.componentLabel
+              }
+            },
+            "spec": {
+              "containers": [
+                {
+                  "name": item.containerName,
+                  "image": item.containerImage,
+                  "ports": [
+                    {
+                      "containerPort": item.containerPort
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+      const ipData = {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "metadata": {
+          "name": `${item.metadataName}-cluster-ip-service`
+        },
+        "spec": {
+          "type": "ClusterIP",
+          "selector": {
+            "component": item.componentLabel
+          },
+          "ports": [
+            {
+              "port": item.containerPort,
+              "targetPort": item.containerPort
+            }
+          ]
+        }
+      }
+      yield fs.fileWrite(`${item.metadataName}-deployment.yaml`, json2yaml(depData))
+      yield fs.fileWrite(`${item.metadataName}-ip-cluster-service.yaml`, json2yaml(ipData))
+    }
+  }
+}
+

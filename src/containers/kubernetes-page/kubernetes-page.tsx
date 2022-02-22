@@ -1,4 +1,4 @@
-import { Box, Grid, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Grid, useDisclosure } from '@chakra-ui/react'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
@@ -6,12 +6,22 @@ import { Header } from '../../components/Header'
 import { KubBox } from '../../components/kubernetes'
 import { Deployment } from '../../components/kubernetes/deployment'
 import { KubernetesProject } from '../../models/kubernetes'
-import { getProjects, kubAddDeployment, KubAddDeploymentAction, kubLoadProject, KubLoadProjectAction, State } from '../../store'
+import {
+  getProjects,
+  kubAddDeployment,
+  KubAddDeploymentAction,
+  kubGenerateFiles,
+  KubGenerateFilesAction,
+  kubLoadProject,
+  KubLoadProjectAction,
+  State,
+} from '../../store'
 
 interface IProps {
   projects: KubernetesProject[]
   addDeployment: (id: number, data: any) => KubAddDeploymentAction
   loadProject: () => KubLoadProjectAction
+  generate: (data: any) => KubGenerateFilesAction
 }
 
 function kuberentesPage(props: IProps) {
@@ -57,6 +67,9 @@ function kuberentesPage(props: IProps) {
         </div>
       </Grid>
       <Deployment onClose={deploymentModel.onClose} isOpen={deploymentModel.isOpen} onSubmit={deploymentSubmit} />
+      <Button colorScheme="blue" onClick={() => props.generate(project)} mb={5} ml={5}>
+        Generate Files
+      </Button>
     </div>
   )
 }
@@ -68,6 +81,7 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = {
   addDeployment: kubAddDeployment,
   loadProject: kubLoadProject,
+  generate: kubGenerateFiles,
 }
 
 const KuberentesPage = connect(mapStateToProps, mapDispatchToProps)(kuberentesPage)
