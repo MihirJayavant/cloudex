@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import './index.scss'
 import App from './containers/app/App'
 import * as serviceWorker from './serviceWorker'
@@ -16,16 +16,17 @@ const sagaMiddleWare = createSagaMiddleware()
 export const store = createStore(reducer, composeEnhancers(applyMiddleware(sagaMiddleWare)))
 sagaMiddleWare.run(allSagas)
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root')!)
+
+root.render(
   <Provider store={store}>
     <ChakraProvider>
-      <>      
+      <>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
       </>
     </ChakraProvider>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 )
 
 // If you want your app to work offline and load faster, you can change

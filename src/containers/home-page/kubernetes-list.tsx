@@ -50,7 +50,7 @@ export function kubernetesList(props: IProps) {
       <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" maxWidth="220px" key={p.id} onClick={() => gotoKubsPage(p.id)}>
         <Image fit="cover" src={KubernetesLogo} alt="Angular" height="125px" width="125px" margin={'5px'} />
         <Box margin={'5px'}>
-          <Box textAlign="center" mt="1" fontWeight="bold" as="h4" lineHeight="tight" isTruncated>
+          <Box textAlign="center" mt="1" fontWeight="bold" as="h4" lineHeight="tight" noOfLines={1}>
             {p.name}
           </Box>
         </Box>
