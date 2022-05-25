@@ -1,28 +1,28 @@
-import { Box, Code } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import * as React from 'react'
 
+declare const hljs: any
 interface IProps {
   text: string[]
   fileType: string
 }
 
 const CodeFile = (props: IProps) => {
-  const lines = (file: string[]) => {
-    return (
-      <div>
-        {file.map(p => (
-          <div key={p}>
-            {p} {'\n'}
-          </div>
-        ))}
-      </div>
-    )
-  }
+  const codeRef = React.useRef<HTMLPreElement>(null)
+
+  React.useEffect(() => {
+    if (codeRef.current) {
+      hljs.highlightElement(codeRef.current)
+    }
+  }, [props.text])
+
   return (
     <Box mt={5} mb={5}>
-      <Code p={5} w="100%" fontSize={18} className={props.fileType}>
-        {lines(props.text)}
-      </Code>
+      <pre>
+        <code className={props.fileType} ref={codeRef}>
+          <div>{props.text.join('\n')}</div>
+        </code>
+      </pre>
     </Box>
   )
 }

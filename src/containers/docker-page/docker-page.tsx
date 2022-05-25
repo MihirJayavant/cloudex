@@ -51,6 +51,10 @@ function DockerPage() {
     }
   }
 
+  const clearFiles = () => {
+    setFiles([])
+  }
+
   const getConfig = () => {
     const all = [...dockerlistConfig.frontEndApps, ...dockerlistConfig.backEndApps]
     const app = all.find(p => p.name === params.application)
@@ -62,7 +66,7 @@ function DockerPage() {
       <Header />
 
       <Grid templateColumns="0.5fr 1fr" gap={10}>
-        <FormBuilder form={getConfig()} generate={generateDockerfile} />
+        <FormBuilder form={getConfig()} generate={generateDockerfile} clear={clearFiles} />
         <CodeFileList files={files} />
       </Grid>
     </div>

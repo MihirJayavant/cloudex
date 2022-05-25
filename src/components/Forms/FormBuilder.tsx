@@ -8,6 +8,7 @@ import { ToggleFormControl } from './Toggle'
 interface IProps {
   form: { [control: string]: Control }
   generate: (state: any) => void
+  clear: () => void
 }
 
 export const FormBuilder = (props: IProps) => {
@@ -66,6 +67,9 @@ export const FormBuilder = (props: IProps) => {
       <FormControl margin={5}>
         <Button colorScheme="teal" size="md" onClick={() => props.generate(formState)}>
           Generate
+        </Button>
+        <Button colorScheme="blue" size="md" ml={5} onClick={() => props.clear()}>
+          Clear
         </Button>
       </FormControl>
     </Flex>
