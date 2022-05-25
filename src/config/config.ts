@@ -34,6 +34,7 @@ export interface DockerAppConfig {
     readonly fileName: string
     readonly build: (state: any) => IBuilder
     readonly filetype: string
+    readonly title: string
   }[]
 }
 

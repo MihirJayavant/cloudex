@@ -1,6 +1,7 @@
 export interface IFile {
   text: string[]
   fileType: string
+  title: string
 }
 
 export class FS {

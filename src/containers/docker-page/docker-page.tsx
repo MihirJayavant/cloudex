@@ -24,7 +24,7 @@ function DockerPage() {
       }
       for (const step of builders) {
         const docker = step.build(state).build()
-        temp.push({ text: docker, fileType: step.filetype })
+        temp.push({ text: docker, fileType: step.filetype, title: step.title })
         if (fs.isAvailable()) {
           await fs.fileWrite(step.fileName, docker)
         }

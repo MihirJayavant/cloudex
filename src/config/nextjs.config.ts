@@ -24,11 +24,13 @@ export const nextjsConfig: DockerAppConfig = {
       fileName: 'dockerfile',
       build: (state: any) => new NextjsBuilder(state),
       filetype: 'language-dockerfile',
+      title: 'DockerFile'
     },
     {
       fileName: 'docker-compose.yml',
       build: () => new NextjsComposeBuilder(),
       filetype: 'language-yml',
+      title: 'DockerFile'
     },
   ],
 }

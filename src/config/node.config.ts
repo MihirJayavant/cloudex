@@ -24,11 +24,13 @@ export const nodeConfig: DockerAppConfig = {
       fileName: 'dockerfile',
       build: (state: any) => new NodeBuilder(state),
       filetype: 'language-dockerfile',
+      title: 'DockerFile'
     },
     {
       fileName: 'docker-compose.yml',
       build: () => new NodeComposeBuilder(),
       filetype: 'language-yml',
+      title: 'DockerFile'
     },
   ],
 }
