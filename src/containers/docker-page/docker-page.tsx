@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Grid, useToast } from '@chakra-ui/react'
+import { Flex, Grid, Stack, useToast } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
 import { CodeFileList } from '../../components/dockerlist'
 import { FormBuilder } from '../../components/Forms/FormBuilder'
 import { FS, IFile } from '../../core/files'
-import { dockerlistConfig } from '../../config/dockerlist.config'
+import { devDependecyConfig, dockerlistConfig } from '../../config/dockerlist.config'
+import { DevDependency } from '../../components/dockerlist/DevDependecy'
 
 function DockerPage() {
   const params = useParams()
@@ -66,7 +67,14 @@ function DockerPage() {
       <Header />
 
       <Grid templateColumns="0.5fr 1fr" gap={10}>
-        <FormBuilder form={getConfig()} generate={generateDockerfile} clear={clearFiles} />
+        <Stack>
+          <FormBuilder form={getConfig()} generate={generateDockerfile} clear={clearFiles} />
+          <Flex p={5} justifyContent="space-evenly">
+            {devDependecyConfig.map(p => (
+              <DevDependency title={p.title} url={p.url} key={p.title} />
+            ))}
+          </Flex>
+        </Stack>
         <CodeFileList files={files} />
       </Grid>
     </div>

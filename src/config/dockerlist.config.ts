@@ -3,6 +3,9 @@ import AngularLogo from '../assets/AngularLogo.png'
 import NodeLogo from '../assets/NodeLogo.png'
 import DotnetLogo from '../assets/DotnetLogo.png'
 import NextLogo from '../assets/NextLogo.png'
+import MongoLogo from '../assets/MongoLogo.png'
+import RabbitLogo from '../assets/RabbitLogo.png'
+
 import { angularConfig } from './angular.config'
 import { reactConfig } from './react.config'
 import { nextjsConfig } from './nextjs.config'
@@ -45,3 +48,12 @@ export const dockerlistConfig = {
     },
   ],
 } as const
+
+
+export const devDependecyConfig = [{
+  url: MongoLogo,
+  title: 'MongoDB'
+}, {
+  url: RabbitLogo,
+  title: 'RabbitMQ'
+}] as const
