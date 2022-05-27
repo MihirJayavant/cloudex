@@ -1,6 +1,8 @@
 import { Button, Flex, FormControl } from '@chakra-ui/react'
 import * as React from 'react'
 import { Control } from '../../config/config'
+import { devDependecyConfig } from '../../config/dockerlist.config'
+import { DevDependency } from '../dockerlist/DevDependecy'
 import { RadioFormControl } from './Radio'
 import { SelectFormControl } from './Select'
 import { ToggleFormControl } from './Toggle'
@@ -34,6 +36,7 @@ export const FormBuilder = (props: IProps) => {
           break
       }
     }
+    devDependecyConfig.forEach(p => (newForm[p.field] = false))
     setForm(newForm)
   }, [])
 
@@ -59,11 +62,23 @@ export const FormBuilder = (props: IProps) => {
     }
   }
 
+  const onDevChange = (field: string, isChecked: boolean) => {
+    const newForm = { ...formState }
+    newForm[field] = isChecked
+    setForm(newForm)
+  }
+  console.log(formState)
   return (
     <Flex direction="column" maxWidth={800} minWidth={300}>
       {Object.keys(props.form).map(k => (
         <div key={k}>{renderControl(props.form[k], k)}</div>
       ))}
+
+      <Flex p={5} justifyContent="space-evenly" wrap="wrap">
+        {devDependecyConfig.map(p => (
+          <DevDependency title={p.title} url={p.url} key={p.title} field={p.field} onChange={onDevChange} isChecked={formState[p.field]} />
+        ))}
+      </Flex>
       <FormControl margin={5}>
         <Button colorScheme="teal" size="md" onClick={() => props.generate(formState)}>
           Generate

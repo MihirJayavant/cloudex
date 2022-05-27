@@ -4,12 +4,15 @@ import * as React from 'react'
 interface IProps {
   url: string
   title: string
+  field: string
+  isChecked: boolean
+  onChange: (field: string, isChecked: boolean) => void
 }
 
 export function DevDependency(props: IProps) {
   return (
     <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" p={5}>
-      <Checkbox>
+      <Checkbox onChange={e => props.onChange(props.field, e.target.checked)}>
         <Flex>
           <Image fit="cover" src={props.url} alt={props.title} height="30px" width="30px" margin={'5px'} />
           <Box margin={'5px'}>

@@ -19,7 +19,7 @@ const CodeFile = (props: IProps) => {
   return (
     <Box mt={5} mb={5}>
       <pre>
-        <code className={props.fileType} ref={codeRef}>
+        <code className={props.fileType} ref={codeRef} style={{ width: '700px' }}>
           <div>{props.text.join('\n')}</div>
         </code>
       </pre>

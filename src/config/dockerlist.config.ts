@@ -51,9 +51,11 @@ export const dockerlistConfig = {
 
 
 export const devDependecyConfig = [{
+  field: 'mongo',
   url: MongoLogo,
   title: 'MongoDB'
 }, {
+  field: 'rabbitmq',
   url: RabbitLogo,
   title: 'RabbitMQ'
 }] as const
