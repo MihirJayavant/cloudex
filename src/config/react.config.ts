@@ -1,4 +1,4 @@
-import { ReactBuilder, ReactComposeBuilder } from '../core/docker'
+import { JSDockerIgnore, ReactBuilder, ReactComposeBuilder } from '../core/docker'
 import { DockerAppConfig, nodeVersions } from './config'
 
 export const reactConfig: DockerAppConfig = {
@@ -31,6 +31,11 @@ export const reactConfig: DockerAppConfig = {
       build: () => new ReactComposeBuilder(),
       filetype: 'language-yml',
       title: 'Docker Compose File'
-    },
+    }, {
+      fileName: '.dockerignore',
+      build: () => new JSDockerIgnore(),
+      filetype: '',
+      title: 'Docker ignore'
+    }
   ],
 }

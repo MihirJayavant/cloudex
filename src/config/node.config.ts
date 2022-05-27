@@ -1,4 +1,4 @@
-import { NodeBuilder, NodeComposeBuilder } from '../core/docker'
+import { JSDockerIgnore, NodeBuilder, NodeComposeBuilder } from '../core/docker'
 import { DockerAppConfig, nodeVersions } from './config'
 
 export const nodeConfig: DockerAppConfig = {
@@ -31,6 +31,11 @@ export const nodeConfig: DockerAppConfig = {
       build: () => new NodeComposeBuilder(),
       filetype: 'language-yml',
       title: 'DockerFile'
-    },
+    }, {
+      fileName: '.dockerignore',
+      build: () => new JSDockerIgnore(),
+      filetype: '',
+      title: 'Docker ignore'
+    }
   ],
 }

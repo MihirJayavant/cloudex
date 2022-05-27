@@ -1,4 +1,4 @@
-import { NextjsBuilder, NextjsComposeBuilder } from '../core/docker'
+import { JSDockerIgnore, NextjsBuilder, NextjsComposeBuilder } from '../core/docker'
 import { DockerAppConfig, nodeVersions } from './config'
 
 export const nextjsConfig: DockerAppConfig = {
@@ -31,6 +31,11 @@ export const nextjsConfig: DockerAppConfig = {
       build: () => new NextjsComposeBuilder(),
       filetype: 'language-yml',
       title: 'DockerFile'
-    },
+    }, {
+      fileName: '.dockerignore',
+      build: () => new JSDockerIgnore(),
+      filetype: '',
+      title: 'Docker ignore'
+    }
   ],
 }
