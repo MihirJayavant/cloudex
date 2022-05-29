@@ -122,6 +122,26 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
       yield fs.fileWrite(`${item.metadataName}-deployment.yaml`, json2yaml(depData))
       yield fs.fileWrite(`${item.metadataName}-ip-cluster-service.yaml`, json2yaml(ipData))
     }
+
+    for (const volume of project.volumeClaims) {
+      const volData = {
+        apiVersion: 'v1',
+        kind: 'PersistentVolumeClaim',
+        metadata: {
+          name: volume.metadataName,
+        },
+        spec: {
+          accessModes: [volume.accessMode],
+          resources: {
+            requests: {
+              storage: `${volume.storageAmount}Gi`,
+            },
+          },
+        },
+      }
+      yield fs.fileWrite(`${volume.metadataName}-volume-claim.yaml`, json2yaml(volData))
+    }
+
     const cloudex = {
       version: 1,
       kind: 'kubernetes',
