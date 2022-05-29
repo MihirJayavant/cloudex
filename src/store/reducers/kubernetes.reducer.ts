@@ -3,7 +3,7 @@ import { produce } from 'immer'
 import { KubernetesProject } from '../../models/kubernetes/project'
 import { getInitialState, IAsyncData, withReducer } from '../../models'
 
-export interface KubernetesState extends IAsyncData<KubernetesProject[]> { }
+export interface KubernetesState extends IAsyncData<KubernetesProject[]> {}
 
 export const initialState: KubernetesState = {
   ...getInitialState<KubernetesProject[]>([]),
@@ -15,23 +15,35 @@ function baseReducer(state = initialState, action: KubProjectAction): Kubernetes
       case KubProjectTypes.ADD_NEW_PROJECT_EFFECT:
         draft.data.push(action.data)
         break
-      case KubProjectTypes.ADD_DEPLOYMENT: {
-        const index = draft.data.findIndex(p => p.id === action.id)
-        if (action.index !== undefined) {
-          draft.data[index].deployment[action.index] = action.data
-        } else {
-          draft.data[index].deployment.push(action.data)
+      case KubProjectTypes.ADD_DEPLOYMENT:
+        {
+          const index = draft.data.findIndex(p => p.id === action.id)
+          if (action.index !== undefined) {
+            draft.data[index].deployment[action.index] = action.data
+          } else {
+            draft.data[index].deployment.push(action.data)
+          }
         }
-      }
         break
-      case KubProjectTypes.ADD_SECRETS: {
-        const index = draft.data.findIndex(p => p.id === action.id)
-        if (action.index !== undefined) {
-          draft.data[index].secrets[action.index] = action.data
-        } else {
-          draft.data[index].secrets.push(action.data)
+      case KubProjectTypes.ADD_SECRETS:
+        {
+          const index = draft.data.findIndex(p => p.id === action.id)
+          if (action.index !== undefined) {
+            draft.data[index].secrets[action.index] = action.data
+          } else {
+            draft.data[index].secrets.push(action.data)
+          }
         }
-      }
+        break
+      case KubProjectTypes.ADD_VOLUMES:
+        {
+          const index = draft.data.findIndex(p => p.id === action.id)
+          if (action.index !== undefined) {
+            draft.data[index].volumeClaims[action.index] = action.data
+          } else {
+            draft.data[index].volumeClaims.push(action.data)
+          }
+        }
         break
       default:
         return state

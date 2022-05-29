@@ -9,7 +9,8 @@ export enum KubProjectTypes {
   LOAD_PROJECTS_ERROR = '[kuberentes] Load Projects Error',
   ADD_DEPLOYMENT = '[kuberentes] Add Deployment',
   ADD_SECRETS = '[kuberentes] Add Secrets',
-  GENERATE_FILES = '[kuberentes] Generate Files'
+  ADD_VOLUMES = '[kuberentes] Add Volumes',
+  GENERATE_FILES = '[kuberentes] Generate Files',
 }
 
 export interface KubNewProjectAction {
@@ -33,7 +34,7 @@ export interface KubLoadProjectErrorAction extends IAsyncDataErrorAction {
 }
 
 export interface KubGenerateFilesAction {
-  data: any,
+  data: any
   type: KubProjectTypes.GENERATE_FILES
 }
 
@@ -49,6 +50,13 @@ export interface KubAddSecretAction {
   data: any
   index?: number
   type: KubProjectTypes.ADD_SECRETS
+}
+
+export interface KubAddVolumeClaimsAction {
+  id: number
+  data: any
+  index?: number
+  type: KubProjectTypes.ADD_VOLUMES
 }
 
 export function kubAddProject(name: string): KubNewProjectAction {
@@ -101,6 +109,15 @@ export function kubAddSecret(id: number, data: any, index?: number): KubAddSecre
   }
 }
 
+export function kubAddVolumeClaims(id: number, data: any, index?: number): KubAddVolumeClaimsAction {
+  return {
+    id,
+    data,
+    index,
+    type: KubProjectTypes.ADD_VOLUMES,
+  }
+}
+
 export function kubGenerateFiles(data: any): KubGenerateFilesAction {
   return {
     data,
@@ -108,12 +125,13 @@ export function kubGenerateFiles(data: any): KubGenerateFilesAction {
   }
 }
 
-
-export type KubProjectAction = KubNewProjectAction |
-  KubNewProjectEffectAction |
-  KubLoadProjectAction |
-  KubLoadProjectSuccessAction |
-  KubLoadProjectErrorAction |
-  KubAddDeploymentAction |
-  KubGenerateFilesAction |
-  KubAddSecretAction
+export type KubProjectAction =
+  | KubNewProjectAction
+  | KubNewProjectEffectAction
+  | KubLoadProjectAction
+  | KubLoadProjectSuccessAction
+  | KubLoadProjectErrorAction
+  | KubAddDeploymentAction
+  | KubGenerateFilesAction
+  | KubAddSecretAction
+  | KubAddVolumeClaimsAction

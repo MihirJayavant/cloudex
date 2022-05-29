@@ -2,7 +2,14 @@ import { put, select } from 'redux-saga/effects'
 import { getProjects } from '../selectors'
 import { Database } from '../../db'
 import { Ingress, KubernetesProject } from '../../models/kubernetes'
-import { KubAddDeploymentAction, KubGenerateFilesAction, KubLoadProjectSuccessAction, KubNewProjectAction, KubNewProjectEffectAction, KubProjectTypes } from '../actions'
+import {
+  KubAddDeploymentAction,
+  KubGenerateFilesAction,
+  KubLoadProjectSuccessAction,
+  KubNewProjectAction,
+  KubNewProjectEffectAction,
+  KubProjectTypes,
+} from '../actions'
 import { FS, json2yaml } from '../../core/files'
 
 export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
@@ -10,9 +17,9 @@ export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
   if (database.isAvailable) {
     yield database.open()
     const ingress = {
-      redirects: []
+      redirects: [],
     }
-    const data = { name: action.name, ingress, deployment: [], secrets: [] }
+    const data = { name: action.name, ingress, deployment: [], secrets: [], volumeClaims: [] }
     const id: IDBValidKey = yield database.add('kubernetes', data)
     yield put<KubNewProjectEffectAction>({ type: KubProjectTypes.ADD_NEW_PROJECT_EFFECT, data: { id, ...data } })
   }
@@ -59,58 +66,58 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
     yield fs.fileWrite(`ingress-service.yaml`, json2yaml(ingress))
     for (const item of project.deployment) {
       const depData = {
-        "apiVersion": "apps/v1",
-        "kind": "Deployment",
-        "metadata": {
-          "name": `${item.metadataName}-deployment`
+        apiVersion: 'apps/v1',
+        kind: 'Deployment',
+        metadata: {
+          name: `${item.metadataName}-deployment`,
         },
-        "spec": {
-          "replicas": item.replicas,
-          "selector": {
-            "matchLabels": {
-              "component": item.componentLabel
-            }
-          },
-          "template": {
-            "metadata": {
-              "labels": {
-                "component": item.componentLabel
-              }
+        spec: {
+          replicas: item.replicas,
+          selector: {
+            matchLabels: {
+              component: item.componentLabel,
             },
-            "spec": {
-              "containers": [
+          },
+          template: {
+            metadata: {
+              labels: {
+                component: item.componentLabel,
+              },
+            },
+            spec: {
+              containers: [
                 {
-                  "name": item.containerName,
-                  "image": item.containerImage,
-                  "ports": [
+                  name: item.containerName,
+                  image: item.containerImage,
+                  ports: [
                     {
-                      "containerPort": item.containerPort
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
+                      containerPort: item.containerPort,
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
       }
       const ipData = {
-        "apiVersion": "v1",
-        "kind": "Service",
-        "metadata": {
-          "name": `${item.metadataName}-cluster-ip-service`
+        apiVersion: 'v1',
+        kind: 'Service',
+        metadata: {
+          name: `${item.metadataName}-cluster-ip-service`,
         },
-        "spec": {
-          "type": "ClusterIP",
-          "selector": {
-            "component": item.componentLabel
+        spec: {
+          type: 'ClusterIP',
+          selector: {
+            component: item.componentLabel,
           },
-          "ports": [
+          ports: [
             {
-              "port": item.containerPort,
-              "targetPort": item.containerPort
-            }
-          ]
-        }
+              port: item.containerPort,
+              targetPort: item.containerPort,
+            },
+          ],
+        },
       }
       yield fs.fileWrite(`${item.metadataName}-deployment.yaml`, json2yaml(depData))
       yield fs.fileWrite(`${item.metadataName}-ip-cluster-service.yaml`, json2yaml(ipData))
@@ -118,9 +125,8 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
     const cloudex = {
       version: 1,
       kind: 'kubernetes',
-      kubernetes: project
+      kubernetes: project,
     }
     yield fs.fileWrite(`cloudex.json`, [JSON.stringify(cloudex, undefined, 2)])
   }
 }
-
