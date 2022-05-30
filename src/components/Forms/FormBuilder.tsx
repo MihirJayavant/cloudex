@@ -67,7 +67,6 @@ export const FormBuilder = (props: IProps) => {
     newForm[field] = isChecked
     setForm(newForm)
   }
-  console.log(formState)
   return (
     <Flex direction="column" maxWidth={800} minWidth={300}>
       {Object.keys(props.form).map(k => (

@@ -1,4 +1,4 @@
-import { AngularBuilder, AngularComposeBuilder, JSDockerIgnore } from '../core/docker'
+import { AngularBuilder, AngularComposeBuilder, AngularDevBuilder, AngularDevComposeBuilder, JSDockerIgnore } from '../core/docker'
 import { DockerAppConfig, nodeVersions } from './config'
 
 export const angularConfig: DockerAppConfig = {
@@ -41,6 +41,16 @@ export const angularConfig: DockerAppConfig = {
       build: () => new JSDockerIgnore(),
       filetype: '',
       title: 'Docker ignore'
+    }, {
+      fileName: 'Dockerfile_dev',
+      build: (state) => new AngularDevBuilder(state),
+      filetype: '',
+      title: 'Dockerfile for dev'
+    }, {
+      fileName: 'docker-compose-dev.yml',
+      build: (state) => new AngularDevComposeBuilder(state),
+      filetype: 'language-yml',
+      title: 'Docker Compose for dev'
     }
   ],
 }
