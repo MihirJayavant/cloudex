@@ -12,12 +12,13 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="App">
           <Routes>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/todo" element={<TodoPage />} />
-            <Route path="/posts" element={<PostPage />} />
-            <Route path="/docker/:application" element={<DockerPage />} />
-            <Route path="/kubernetes/:id" element={<KuberentesPage />} />
-            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/react-demo/home" element={<HomePage />} />
+            <Route path="/react-demo/todo" element={<TodoPage />} />
+            <Route path="/react-demo/posts" element={<PostPage />} />
+            <Route path="/react-demo/docker/:application" element={<DockerPage />} />
+            <Route path="/react-demo/kubernetes/:id" element={<KuberentesPage />} />
+            <Route path="/" element={<Navigate to="/react-demo/home" />} />
+            <Route path="/react-demo" element={<Navigate to="/react-demo/home" />} />
           </Routes>
         </div>
       </BrowserRouter>
