@@ -1,13 +1,18 @@
 {
-  "main.css": "/react-demo/static/css/main.8d4e0ecd.chunk.css",
-  "main.js": "/react-demo/static/js/main.916d4560.chunk.js",
-  "main.js.map": "/react-demo/static/js/main.916d4560.chunk.js.map",
-  "static/js/1.1fa1b67c.chunk.js": "/react-demo/static/js/1.1fa1b67c.chunk.js",
-  "static/js/1.1fa1b67c.chunk.js.map": "/react-demo/static/js/1.1fa1b67c.chunk.js.map",
-  "runtime~main.js": "/react-demo/static/js/runtime~main.d6d27c32.js",
-  "runtime~main.js.map": "/react-demo/static/js/runtime~main.d6d27c32.js.map",
-  "static/css/main.8d4e0ecd.chunk.css.map": "/react-demo/static/css/main.8d4e0ecd.chunk.css.map",
-  "index.html": "/react-demo/index.html",
-  "precache-manifest.05f890211cf94ae3a553838c9d40ea01.js": "/react-demo/precache-manifest.05f890211cf94ae3a553838c9d40ea01.js",
-  "service-worker.js": "/react-demo/service-worker.js"
+  "files": {
+    "main.css": "./static/css/main.8f74351e.css",
+    "main.js": "./static/js/main.e5ea57ce.js",
+    "static/media/DotnetLogo.png": "./static/media/DotnetLogo.8109d0f4dd5e0d50980f.png",
+    "static/media/RabbitLogo.png": "./static/media/RabbitLogo.3f24ddbd195b57c777f8.png",
+    "static/media/NodeLogo.png": "./static/media/NodeLogo.efa9c0b4c365a0f266f1.png",
+    "static/media/ReactLogo.png": "./static/media/ReactLogo.ad5bf3e17b12c42673aa.png",
+    "static/media/AngularLogo.png": "./static/media/AngularLogo.938385b28ec2eae4eede.png",
+    "index.html": "./index.html",
+    "main.8f74351e.css.map": "./static/css/main.8f74351e.css.map",
+    "main.e5ea57ce.js.map": "./static/js/main.e5ea57ce.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8f74351e.css",
+    "static/js/main.e5ea57ce.js"
+  ]
 }
