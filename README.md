@@ -1,3 +1,9 @@
-# React Demo Website
+# Cloudex: generate dockerfile with ease
 
-### Using react 16.6, react-router, redux and typescript
+## Checkout out our website:
+
+http://mihirjayavant.github.io/react-demo
+
+### Create dockerfile in 5 mins for different frameworks
+
+### Create kubernetes files in 5 mins
