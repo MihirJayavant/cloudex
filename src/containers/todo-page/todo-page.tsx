@@ -1,25 +1,21 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { TodoCaption, TodoList } from '../../components/todo'
-import { Todo } from '../../models'
-import { State, getTodos, addTodo, TodoAction, deleteTodo } from '../../store'
+import { todo } from '../../store'
+import { useDispatch, useSelector } from 'react-redux'
 
-interface IProps {
-  todos: Todo[]
-  add: (value: string) => TodoAction
-  delete: (id: number) => TodoAction
-}
+function TodoPage() {
+  const todos = useSelector(todo.selectTodos)
+  const dispatch = useDispatch()
 
-function TodoPage(props: IProps) {
   const onAddClick = (value: string) => {
     if (value.trim() === '') {
       return
     }
-    props.add(value)
+    dispatch(todo.add({ id: Math.random() * 1000, value }))
   }
 
   const onItemClick = (index: number) => {
-    props.delete(index)
+    dispatch(todo.remove(index))
   }
 
   return (
@@ -38,19 +34,10 @@ function TodoPage(props: IProps) {
         </div>
       </section>
       <section>
-        <TodoList itemClick={onItemClick} list={props.todos} />
+        <TodoList itemClick={onItemClick} list={todos} />
       </section>
     </div>
   )
 }
 
-const mapStateToProps = (state: State) => ({
-  todos: getTodos(state),
-})
-
-const mapDispatchToProps = {
-  add: addTodo,
-  delete: deleteTodo,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoPage)
+export default TodoPage

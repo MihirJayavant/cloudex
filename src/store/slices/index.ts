@@ -1,1 +1,1 @@
-export * from './todo.slice'
+export * as todo from './todo.slice'

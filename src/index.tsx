@@ -4,17 +4,9 @@ import './index.scss'
 import App from './containers/app/App'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
-import { compose, createStore, applyMiddleware } from 'redux'
-import { reducer, allSagas } from './store'
-import createSagaMiddleware from 'redux-saga'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from './libs/theme'
-
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const sagaMiddleWare = createSagaMiddleware()
-
-export const store = createStore(reducer, composeEnhancers(applyMiddleware(sagaMiddleWare)))
-sagaMiddleWare.run(allSagas)
+import { store } from './store'
 
 const root = createRoot(document.getElementById('root')!)
 

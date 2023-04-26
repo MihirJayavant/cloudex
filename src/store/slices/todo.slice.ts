@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Todo } from '../../models'
+import { RootState } from '../store'
 
 interface TodoState {
   todos: Todo[]
@@ -25,4 +26,6 @@ export const todoSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { add, remove } = todoSlice.actions
 
-export default todoSlice.reducer
+export const selectTodos = (state: RootState) => state.todos.todos
+
+export const reducer = todoSlice.reducer
