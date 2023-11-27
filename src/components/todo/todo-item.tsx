@@ -1,20 +1,18 @@
 import React from 'react'
 import { Todo } from '../../models/todo.model'
+import { Card, CardBody, Text } from '@chakra-ui/react'
 
-interface ITodoItemProps {
-  index: number
+interface IProps {
   data: Todo
   click: (index: number) => void
 }
 
-const todoItem = (props: ITodoItemProps) => {
+export function TodoItem(props: IProps) {
   return (
-    <div className="todoItem" onClick={() => props.click(props.index)}>
-      <div className="react-card">
-        <div>{props.data.value}</div>
-      </div>
-    </div>
+    <Card onClick={() => props.click(props.data.id)} m="5px" variant="outline">
+      <CardBody>
+        <Text>{props.data.value}</Text>
+      </CardBody>
+    </Card>
   )
 }
-
-export default todoItem

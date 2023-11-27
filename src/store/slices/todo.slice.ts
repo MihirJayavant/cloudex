@@ -18,7 +18,8 @@ export const todoSlice = createSlice({
       state.todos.push(action.payload)
     },
     remove: (state, action: PayloadAction<number>) => {
-      state.todos.splice(action.payload, 1)
+      const index = state.todos.findIndex(p => p.id === action.payload)
+      state.todos.splice(index, 1)
     },
   },
 })

@@ -14,7 +14,7 @@ function HomePage() {
 
   return (
     <Flex direction="column">
-      <Header />
+      <Header title="Cloudex" subTitle="Containerize Your Application" />
       <Tabs align="center" variant="solid-rounded" mt={5}>
         <TabList>
           <Tab>Docker</Tab>

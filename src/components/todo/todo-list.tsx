@@ -1,20 +1,18 @@
 import React from 'react'
-import TodoItem from './todo-item'
+import { TodoItem } from './todo-item'
 import { Todo } from '../../models'
+import { Flex } from '@chakra-ui/react'
+import { ForEach } from '../core'
 
-interface ITodoListProps {
+interface IProps {
   list: Todo[]
   itemClick: (index: number) => void
 }
 
-const todoList = (props: ITodoListProps) => {
-  const list = props.list.map((data, index) => <TodoItem click={props.itemClick} data={data} index={index} key={data.id} />)
-
+export function TodoList(props: IProps) {
   return (
-    <div className="flex">
-      <div className="flex-column"> {list} </div>
-    </div>
+    <Flex direction="column">
+      <ForEach list={props.list}>{data => <TodoItem click={props.itemClick} data={data} key={data.id} />}</ForEach>
+    </Flex>
   )
 }
-
-export default React.memo(todoList)

@@ -1,45 +1,26 @@
-import React from 'react'
+import { Wrap, Input, WrapItem, Button } from '@chakra-ui/react'
+import React, { useState } from 'react'
 
-interface ITodoCaptionProps {
+interface IProps {
   onAdd: (value: string) => void
 }
 
-interface ITodoCaptionState {
-  value: string
+export function TodoCaption(props: IProps) {
+  const [text, setText] = useState('')
+  const onAdd = () => {
+    props.onAdd(text)
+    setText('')
+  }
+  return (
+    <Wrap spacing={4}>
+      <WrapItem>
+        <Input placeholder="Enter Todo" onChange={e => setText(e.target.value)} value={text} />
+      </WrapItem>
+      <WrapItem>
+        <Button colorScheme="orange" onClick={onAdd}>
+          Add
+        </Button>
+      </WrapItem>
+    </Wrap>
+  )
 }
-
-class TodoCaption extends React.Component<ITodoCaptionProps, ITodoCaptionState> {
-  state = {
-    value: '',
-  }
-
-  onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      value: event.target.value,
-    })
-  }
-
-  onAdd = (value: string) => {
-    this.setState({ value: '' })
-    this.props.onAdd(value)
-  }
-
-  render() {
-    const value = this.state.value
-
-    return (
-      <div className="field has-addons">
-        <div className="control">
-          <input className="input is-info" type="text" placeholder="Enter Todo" onChange={this.onChange} value={value} />
-        </div>
-        <div className="control">
-          <button className="button is-info" onClick={() => this.onAdd(value)}>
-            Add
-          </button>
-        </div>
-      </div>
-    )
-  }
-}
-
-export default TodoCaption

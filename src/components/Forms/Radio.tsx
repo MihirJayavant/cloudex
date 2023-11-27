@@ -2,7 +2,7 @@ import { FormControl, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { RadioControl } from '../../config/config'
 import React from 'react'
 
-export interface IProps {
+interface IProps {
   control: RadioControl
   name: string
   controlState: any
