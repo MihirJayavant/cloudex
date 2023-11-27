@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
-import * as React from 'react'
+import React from 'react'
 
 export const Header = () => {
   return (

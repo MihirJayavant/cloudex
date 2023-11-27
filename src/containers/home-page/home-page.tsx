@@ -1,5 +1,5 @@
 import { Flex, Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DockerList } from '../../components/dockerlist'
 import { Header } from '../../components/Header'

@@ -1,10 +1,11 @@
-import * as React from 'react'
+import React from 'react'
 import { Route, BrowserRouter, Navigate, Routes } from 'react-router-dom'
 import { TodoPage } from '../todo-page'
 import { PostPage } from '../post-page'
 import { HomePage } from '../home-page'
 import { DockerPage } from '../docker-page'
 import { KuberentesPage } from '../kubernetes-page'
+import { NotFoundPage } from '../NotFoundPage'
 
 class App extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class App extends React.Component {
             <Route path="/kubernetes/:id" element={<KuberentesPage />} />
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/react-demo" element={<Navigate to="/home" />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </BrowserRouter>

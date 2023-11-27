@@ -1,6 +1,6 @@
 import { FormControl, FormLabel, Switch } from '@chakra-ui/react'
 import { ToggleControl } from '../../config/config'
-import * as React from 'react'
+import React from 'react'
 
 export interface IProps {
   control: ToggleControl

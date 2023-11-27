@@ -1,6 +1,6 @@
 import { FormControl, FormLabel, Select } from '@chakra-ui/react'
 import { SelectControl } from '../../config/config'
-import * as React from 'react'
+import React from 'react'
 
 export interface IProps {
   control: SelectControl

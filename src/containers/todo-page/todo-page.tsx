@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { TodoCaption, TodoList } from '../../components/todo'
 import { todo } from '../../store'
 import { useDispatch, useSelector } from 'react-redux'

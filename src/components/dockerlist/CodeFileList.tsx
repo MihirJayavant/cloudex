@@ -1,5 +1,5 @@
 import { Flex, Stack, Text } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 import { IFile } from '../../core/files'
 import CodeFile from './CodeFile'
 

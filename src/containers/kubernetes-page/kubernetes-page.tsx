@@ -1,5 +1,5 @@
 import { Box, Button, Grid, useDisclosure } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
 import { Header } from '../../components/Header'

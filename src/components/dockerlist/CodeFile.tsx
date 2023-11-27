@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 
 declare const hljs: any
 interface IProps {

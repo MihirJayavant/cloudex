@@ -1,14 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 import { PostList } from '../../components/post'
-import { Post, AsyncDataStateType } from '../../models'
 import { post } from '../../store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 function PostPage() {
   const posts = useSelector(post.selectPost)
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
-    post.fetchPost()
+    dispatch<any>(post.fetchPost())
   }, [])
 
   return (

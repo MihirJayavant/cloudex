@@ -11,7 +11,7 @@ import {
   ModalOverlay,
   Divider,
 } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 
 interface IProps {
   isOpen: boolean

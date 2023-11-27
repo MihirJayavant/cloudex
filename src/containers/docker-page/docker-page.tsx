@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Grid, useToast } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import TodoItem from './todo-item'
 import { Todo } from '../../models'
 

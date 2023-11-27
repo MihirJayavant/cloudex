@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { AsyncDataStateType, IAsyncData, Post, Todo, getInitialState } from '../../models'
+import { AsyncDataStateType, IAsyncData, Post, getInitialState } from '../../models'
 import { RootState } from '../store'
 import { PostHttp } from '../../http'
 
@@ -9,7 +9,7 @@ export const initialState: PostState = {
   ...getInitialState<Post[]>([]),
 }
 
-export const fetchPost = createAsyncThunk('post/all', async () => {
+export const fetchPost = createAsyncThunk('post/fetch', async () => {
   const data: Post[] = await PostHttp.get()
   return data
 })

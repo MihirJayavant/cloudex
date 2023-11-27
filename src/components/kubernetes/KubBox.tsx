@@ -1,6 +1,6 @@
 import { AddIcon } from '@chakra-ui/icons'
 import { Box, Flex, Grid, Heading } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 
 interface IProps {
   title: string

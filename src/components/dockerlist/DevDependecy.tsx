@@ -1,5 +1,5 @@
 import { Box, Checkbox, Flex, Image } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 
 interface IProps {
   url: string

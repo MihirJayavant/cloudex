@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import PostItem from './post-item'
 import { Post } from '../../models'
 

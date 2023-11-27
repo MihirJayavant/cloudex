@@ -1,5 +1,5 @@
 import { Button, Flex, FormControl } from '@chakra-ui/react'
-import * as React from 'react'
+import React from 'react'
 import { Control } from '../../config/config'
 import { devDependecyConfig } from '../../config/dockerlist.config'
 import { DevDependency } from '../dockerlist/DevDependecy'
