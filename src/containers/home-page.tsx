@@ -1,8 +1,8 @@
 import { Flex, Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { DockerList } from '../../components/dockerlist'
-import { Header } from '../../components/Header'
+import { DockerList } from '../components/dockerlist'
+import { Header } from '../components/Header'
 import { KubernetesList } from './kubernetes-list'
 
 function HomePage() {
@@ -33,4 +33,8 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export function Component() {
+  return <HomePage />
+}
+
+Component.displayName = 'HomePage'

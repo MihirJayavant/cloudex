@@ -1,9 +1,9 @@
 import React from 'react'
-import { PostList } from '../../components/post'
-import { post } from '../../store'
+import { PostList } from '../components/post'
+import { post } from '../store'
 import { useDispatch, useSelector } from 'react-redux'
 
-function PostPage() {
+export function PostPage() {
   const posts = useSelector(post.selectPost)
   const dispatch = useDispatch()
 
@@ -28,4 +28,8 @@ function PostPage() {
   )
 }
 
-export default PostPage
+export function Component() {
+  return <PostPage />
+}
+
+Component.displayName = 'PostPage'

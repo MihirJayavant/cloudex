@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
-import App from './containers/app/App'
+import App from './containers/App'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'

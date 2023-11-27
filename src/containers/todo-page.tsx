@@ -1,9 +1,9 @@
 import React from 'react'
-import { TodoCaption, TodoList } from '../../components/todo'
-import { todo } from '../../store'
+import { TodoCaption, TodoList } from '../components/todo'
+import { todo } from '../store'
 import { useDispatch, useSelector } from 'react-redux'
 
-function TodoPage() {
+export function TodoPage() {
   const todos = useSelector(todo.selectTodos)
   const dispatch = useDispatch()
 
@@ -40,4 +40,8 @@ function TodoPage() {
   )
 }
 
-export default TodoPage
+export function Component() {
+  return <TodoPage />
+}
+
+Component.displayName = 'TodoPage'

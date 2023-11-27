@@ -15,10 +15,10 @@ import {
   Grid,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { getProjects, kubAddProject, kubLoadProject, KubLoadProjectAction, KubNewProjectAction, State } from '../../store'
+import { getProjects, kubAddProject, kubLoadProject, KubLoadProjectAction, KubNewProjectAction, State } from '../store'
 import { connect } from 'react-redux'
-import { KubernetesProject } from '../../models/kubernetes/project'
-import KubernetesLogo from '../../assets/KubernetesLogo.png'
+import { KubernetesProject } from '../models/kubernetes/project'
+import KubernetesLogo from '../assets/KubernetesLogo.png'
 import { useNavigate } from 'react-router'
 
 interface IProps {

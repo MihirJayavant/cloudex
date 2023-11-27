@@ -2,10 +2,10 @@ import { Box, Button, Grid, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
-import { Header } from '../../components/Header'
-import { KubBox, Secrets, VolumeClaims } from '../../components/kubernetes'
-import { Deployment } from '../../components/kubernetes/deployment'
-import { KubernetesProject } from '../../models/kubernetes'
+import { Header } from '../components/Header'
+import { KubBox, Secrets, VolumeClaims } from '../components/kubernetes'
+import { Deployment } from '../components/kubernetes/deployment'
+import { KubernetesProject } from '../models/kubernetes'
 import {
   getProjects,
   kubAddDeployment,
@@ -19,7 +19,7 @@ import {
   kubLoadProject,
   KubLoadProjectAction,
   State,
-} from '../../store'
+} from '../store'
 
 interface IProps {
   projects: KubernetesProject[]
@@ -134,6 +134,10 @@ const mapDispatchToProps = {
   generate: kubGenerateFiles,
 }
 
-const KuberentesPage = connect(mapStateToProps, mapDispatchToProps)(kuberentesPage)
+export const KuberentesPage = connect(mapStateToProps, mapDispatchToProps)(kuberentesPage)
 
-export default KuberentesPage
+export function Component() {
+  return <KuberentesPage />
+}
+
+Component.displayName = 'KuberentesPage'

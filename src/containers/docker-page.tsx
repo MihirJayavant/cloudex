@@ -1,11 +1,11 @@
 import React from 'react'
 import { Grid, useToast } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import { Header } from '../../components/Header'
-import { CodeFileList } from '../../components/dockerlist'
-import { FormBuilder } from '../../components/Forms/FormBuilder'
-import { FS, IFile } from '../../core/files'
-import { dockerlistConfig } from '../../config/dockerlist.config'
+import { Header } from '../components/Header'
+import { CodeFileList } from '../components/dockerlist'
+import { FormBuilder } from '../components/Forms/FormBuilder'
+import { FS, IFile } from '../core/files'
+import { dockerlistConfig } from '../config/dockerlist.config'
 
 function DockerPage() {
   const params = useParams()
@@ -73,4 +73,8 @@ function DockerPage() {
   )
 }
 
-export default DockerPage
+export function Component() {
+  return <DockerPage />
+}
+
+Component.displayName = 'DockerPage'
