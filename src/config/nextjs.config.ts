@@ -24,18 +24,19 @@ export const nextjsConfig: DockerAppConfig = {
       fileName: 'dockerfile',
       build: (state: any) => new NextjsBuilder(state),
       filetype: 'language-dockerfile',
-      title: 'DockerFile'
+      title: 'DockerFile',
     },
     {
       fileName: 'docker-compose.yml',
       build: () => new NextjsComposeBuilder(),
       filetype: 'language-yml',
-      title: 'DockerFile'
-    }, {
+      title: 'DockerFile',
+    },
+    {
       fileName: '.dockerignore',
       build: () => new JSDockerIgnore(),
       filetype: '',
-      title: 'Docker ignore'
-    }
+      title: 'Docker ignore',
+    },
   ],
 }

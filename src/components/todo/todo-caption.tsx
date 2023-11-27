@@ -10,12 +10,12 @@ interface ITodoCaptionState {
 
 class TodoCaption extends React.Component<ITodoCaptionProps, ITodoCaptionState> {
   state = {
-    value: ''
+    value: '',
   }
 
   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      value: event.target.value
+      value: event.target.value,
     })
   }
 
@@ -30,13 +30,7 @@ class TodoCaption extends React.Component<ITodoCaptionProps, ITodoCaptionState> 
     return (
       <div className="field has-addons">
         <div className="control">
-          <input
-            className="input is-info"
-            type="text"
-            placeholder="Enter Todo"
-            onChange={this.onChange}
-            value={value}
-          />
+          <input className="input is-info" type="text" placeholder="Enter Todo" onChange={this.onChange} value={value} />
         </div>
         <div className="control">
           <button className="button is-info" onClick={() => this.onAdd(value)}>

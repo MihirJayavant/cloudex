@@ -1,5 +1,4 @@
-import { todo } from './slices'
-import * as fromPost from './reducers/post-page.reducer'
+import { todo, post } from './slices'
 import * as fromKubs from './reducers/kubernetes.reducer'
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
@@ -12,7 +11,7 @@ const middleware = [sagaMiddleware]
 export const store = configureStore({
   reducer: {
     todos: todo.reducer,
-    posts: fromPost.postsReducer,
+    posts: post.reducer,
     kuberenetes: fromKubs.kubsReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(middleware),

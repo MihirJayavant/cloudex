@@ -2,7 +2,7 @@
 
 ## Checkout out our website:
 
-http://mihirjayavant.github.io/react-demo
+http://mihirjayavant.github.io
 
 ### Create dockerfile in 5 mins for different frameworks
 

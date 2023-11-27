@@ -9,7 +9,7 @@ function HomePage() {
   const navigate = useNavigate()
 
   function gotoDockerPage(application: string) {
-    navigate(`/react-demo/docker/${application}`)
+    navigate(`/docker/${application}`)
   }
 
   return (

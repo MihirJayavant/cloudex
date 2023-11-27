@@ -4,17 +4,15 @@ import { IBuilder, DockerCreator } from './docker-creator'
 interface IOption {
   node: string
   packageManager: 'npm' | 'yarn'
-  ssr: boolean,
+  ssr: boolean
   mongo: boolean
   rabbitmq: boolean
 }
 export class AngularBuilder implements IBuilder {
-  constructor(private option: IOption) { }
+  constructor(private option: IOption) {}
 
   ssrBuild() {
-    const d = new DockerCreator()
-      .from(this.option.node, 'builder')
-      .workDir('/app').copy('package.json', '.')
+    const d = new DockerCreator().from(this.option.node, 'builder').workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
       d.copy('package-lock.json', '.').run('npm ci')
@@ -29,15 +27,13 @@ export class AngularBuilder implements IBuilder {
       .workDir('/app')
       .copy('/app/dist', '/app/dist', 'builder')
       .expose(80)
-      .cmd("node", "dist/server.js")
+      .cmd('node', 'dist/server.js')
 
     return d.create()
   }
 
   spaBuild() {
-    const d = new DockerCreator()
-      .from(this.option.node, 'builder')
-      .workDir('/app').copy('package.json', '.')
+    const d = new DockerCreator().from(this.option.node, 'builder').workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
       d.copy('package-lock.json', '.').run('npm ci')
@@ -61,7 +57,6 @@ export class AngularBuilder implements IBuilder {
   }
 }
 
-
 export class AngularComposeBuilder implements IBuilder {
   build() {
     const json = {
@@ -71,22 +66,20 @@ export class AngularComposeBuilder implements IBuilder {
           restart: 'always',
           build: {
             context: '.',
-            dockerfile: 'Dockerfile'
+            dockerfile: 'Dockerfile',
           },
-          ports: ['5100:80']
-        }
-      }
+          ports: ['5100:80'],
+        },
+      },
     }
-    return json2yaml(json);
+    return json2yaml(json)
   }
 }
 
 export class AngularDevBuilder implements IBuilder {
-  constructor(private option: IOption) { }
+  constructor(private option: IOption) {}
   build() {
-    const d = new DockerCreator()
-      .from(this.option.node, 'builder')
-      .workDir('/app').copy('package.json', '.')
+    const d = new DockerCreator().from(this.option.node, 'builder').workDir('/app').copy('package.json', '.')
 
     if (this.option.packageManager === 'npm') {
       d.copy('package-lock.json', '.').run('npm ci')
@@ -94,15 +87,14 @@ export class AngularDevBuilder implements IBuilder {
       d.copy('yarn.lock', '.').run('yarn install --immutable --immutable-cache')
     }
 
-    d.copy('.', '.')
-      .cmd('npm', 'start')
+    d.copy('.', '.').cmd('npm', 'start')
 
-    return d.create();
+    return d.create()
   }
 }
 
 export class AngularDevComposeBuilder implements IBuilder {
-  constructor(private option: IOption) { }
+  constructor(private option: IOption) {}
   build() {
     let json: any = {
       version: '3',
@@ -111,13 +103,13 @@ export class AngularDevComposeBuilder implements IBuilder {
           restart: 'always',
           build: {
             context: '.',
-            dockerfile: 'Dockerfile_dev'
+            dockerfile: 'Dockerfile_dev',
           },
           ports: ['4200:4200'],
           volumes: ['.:/app'],
-          depends_on: []
-        }
-      }
+          depends_on: [],
+        },
+      },
     }
 
     if (this.option.mongo) {
@@ -127,9 +119,9 @@ export class AngularDevComposeBuilder implements IBuilder {
           ...json.services,
           mongo: {
             image: 'mongo',
-            volumes: ['./data:/data/db']
-          }
-        }
+            volumes: ['./data:/data/db'],
+          },
+        },
       }
       json.services.webApp.depends_on.push('mongo')
     }
@@ -141,13 +133,12 @@ export class AngularDevComposeBuilder implements IBuilder {
           rabbitmq: {
             image: 'rabbitmq:3.8-management',
             volumes: ['./data:/data/db'],
-            ports: ['8080:15672']
-          }
-        }
+            ports: ['8080:15672'],
+          },
+        },
       }
       json.services.webApp.depends_on.push('rabbitmq')
     }
-    return json2yaml(json);
+    return json2yaml(json)
   }
 }
-

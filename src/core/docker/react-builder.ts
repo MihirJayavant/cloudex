@@ -6,7 +6,7 @@ interface IOption {
   packageManager: 'npm' | 'yarn'
 }
 export class ReactBuilder implements IBuilder {
-  constructor(private option: IOption) { }
+  constructor(private option: IOption) {}
 
   build() {
     const d = new DockerCreator().from(this.option.node, 'builder').workDir('/app').copy('package.json', '.')
@@ -29,7 +29,6 @@ export class ReactBuilder implements IBuilder {
   }
 }
 
-
 export class ReactComposeBuilder implements IBuilder {
   build() {
     const json = {
@@ -39,12 +38,12 @@ export class ReactComposeBuilder implements IBuilder {
           restart: 'always',
           build: {
             context: '.',
-            dockerfile: 'Dockerfile'
+            dockerfile: 'Dockerfile',
           },
-          ports: ['5100:80']
-        }
-      }
+          ports: ['5100:80'],
+        },
+      },
     }
-    return json2yaml(json);
+    return json2yaml(json)
   }
 }

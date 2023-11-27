@@ -15,13 +15,13 @@ export const aspConfig: DockerAppConfig = {
       fileName: 'dockerfile',
       build: (state: any) => new AspBuilder(state),
       filetype: 'language-dockerfile',
-      title: 'DockerFile'
+      title: 'DockerFile',
     },
     {
       fileName: 'docker-compose.yml',
       build: () => new AspComposeBuilder(),
       filetype: 'language-yml',
-      title: 'DockerFile'
+      title: 'DockerFile',
     },
   ],
 }

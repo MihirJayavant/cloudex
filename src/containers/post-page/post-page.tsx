@@ -1,18 +1,14 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { PostList } from '../../components/post'
 import { Post, AsyncDataStateType } from '../../models'
-import { State, getPosts, getPostsDataState, loadPosts, LoadPostsAction } from '../../store'
+import { post } from '../../store'
+import { useSelector } from 'react-redux'
 
-interface IProps {
-  posts: Post[]
-  dataState: AsyncDataStateType
-  load: () => LoadPostsAction
-}
+function PostPage() {
+  const posts = useSelector(post.selectPost)
 
-function PostPage(props: IProps) {
   React.useEffect(() => {
-    props.load()
+    post.fetchPost()
   }, [])
 
   return (
@@ -26,19 +22,10 @@ function PostPage(props: IProps) {
         </div>
       </section>
       <section className="m5">
-        <PostList list={props.posts} />
+        <PostList list={posts.data} />
       </section>
     </div>
   )
 }
 
-const mapStateToProps = (state: State) => ({
-  posts: getPosts(state),
-  dataState: getPostsDataState(state),
-})
-
-const mapDispatchToProps = {
-  load: loadPosts,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage)
+export default PostPage

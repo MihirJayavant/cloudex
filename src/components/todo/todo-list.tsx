@@ -8,9 +8,7 @@ interface ITodoListProps {
 }
 
 const todoList = (props: ITodoListProps) => {
-  const list = props.list.map((data, index) => (
-    <TodoItem click={props.itemClick} data={data} index={index} key={data.id} />
-  ))
+  const list = props.list.map((data, index) => <TodoItem click={props.itemClick} data={data} index={index} key={data.id} />)
 
   return (
     <div className="flex">

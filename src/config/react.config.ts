@@ -24,18 +24,19 @@ export const reactConfig: DockerAppConfig = {
       fileName: 'dockerfile',
       build: (state: any) => new ReactBuilder(state),
       filetype: 'language-dockerfile',
-      title: 'DockerFile'
+      title: 'DockerFile',
     },
     {
       fileName: 'docker-compose.yml',
       build: () => new ReactComposeBuilder(),
       filetype: 'language-yml',
-      title: 'Docker Compose File'
-    }, {
+      title: 'Docker Compose File',
+    },
+    {
       fileName: '.dockerignore',
       build: () => new JSDockerIgnore(),
       filetype: '',
-      title: 'Docker ignore'
-    }
+      title: 'Docker ignore',
+    },
   ],
 }

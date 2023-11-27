@@ -5,7 +5,7 @@ import * as React from 'react'
 export const Header = () => {
   return (
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" h="30%" py={8} px={10} backgroundColor="blue.400">
-      <Link to="/react-demo/home">
+      <Link to="/home">
         <Heading mb={4} color="white">
           Cloudex
         </Heading>

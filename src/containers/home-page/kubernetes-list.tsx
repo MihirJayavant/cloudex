@@ -42,7 +42,7 @@ export function kubernetesList(props: IProps) {
   }, [])
 
   function gotoKubsPage(id: number) {
-    navigate(`/react-demo/kubernetes/${id}`)
+    navigate(`/kubernetes/${id}`)
   }
 
   const list = () =>

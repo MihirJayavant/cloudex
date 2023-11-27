@@ -16,7 +16,7 @@ export class AspBuilder implements IBuilder {
       .run('dotnet restore -r linux-musl-x64 /p:PublishReadyToRun=true')
       .copy('.', '.')
       .run(
-        'dotnet publish -c release -o /app -r linux-musl-x64 --self-contained true --no-restore /p:PublishTrimmed=true /p:PublishReadyToRun=true /p:PublishSingleFile=true'
+        'dotnet publish -c release -o /app -r linux-musl-x64 --self-contained true --no-restore /p:PublishTrimmed=true /p:PublishReadyToRun=true /p:PublishSingleFile=true',
       )
       .from(`mcr.microsoft.com/dotnet/runtime-deps:${this.option.dotnet}-alpine-amd64`)
       .workDir('/app')

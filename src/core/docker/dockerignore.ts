@@ -1,4 +1,4 @@
-import { IBuilder } from "./docker-creator";
+import { IBuilder } from './docker-creator'
 
 export class JSDockerIgnore implements IBuilder {
   build() {
@@ -13,7 +13,8 @@ export class JSDockerIgnore implements IBuilder {
     dist
     .vscode
     e2e
-    `.replaceAll(" ", "").split('\n')
+    `
+      .replaceAll(' ', '')
+      .split('\n')
   }
-
 }

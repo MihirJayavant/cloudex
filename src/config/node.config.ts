@@ -24,18 +24,19 @@ export const nodeConfig: DockerAppConfig = {
       fileName: 'dockerfile',
       build: (state: any) => new NodeBuilder(state),
       filetype: 'language-dockerfile',
-      title: 'DockerFile'
+      title: 'DockerFile',
     },
     {
       fileName: 'docker-compose.yml',
       build: () => new NodeComposeBuilder(),
       filetype: 'language-yml',
-      title: 'DockerFile'
-    }, {
+      title: 'DockerFile',
+    },
+    {
       fileName: '.dockerignore',
       build: () => new JSDockerIgnore(),
       filetype: '',
-      title: 'Docker ignore'
-    }
+      title: 'Docker ignore',
+    },
   ],
 }

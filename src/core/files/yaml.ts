@@ -1,77 +1,75 @@
-
-const spacing = "  ";
+const spacing = '  '
 
 function getType(obj: any) {
-  const type = typeof obj;
+  const type = typeof obj
   if (obj instanceof Array) {
-    return 'array';
+    return 'array'
   } else if (type === 'string') {
-    return 'string';
+    return 'string'
   } else if (type === 'boolean') {
-    return 'boolean';
+    return 'boolean'
   } else if (type === 'number') {
-    return 'number';
+    return 'number'
   } else if (type === 'undefined' || obj === null) {
-    return 'null';
+    return 'null'
   } else {
-    return 'hash';
+    return 'hash'
   }
 }
 
 function convert(obj: any, ret: any[]) {
-  const type = getType(obj);
+  const type = getType(obj)
 
   switch (type) {
     case 'array':
-      convertArray(obj, ret);
-      break;
+      convertArray(obj, ret)
+      break
     case 'hash':
-      convertHash(obj, ret);
-      break;
+      convertHash(obj, ret)
+      break
     case 'string':
-      convertString(obj, ret);
-      break;
+      convertString(obj, ret)
+      break
     case 'null':
-      ret.push('null');
-      break;
+      ret.push('null')
+      break
     case 'number':
-      ret.push(obj.toString());
-      break;
+      ret.push(obj.toString())
+      break
     case 'boolean':
-      ret.push(obj ? 'true' : 'false');
-      break;
+      ret.push(obj ? 'true' : 'false')
+      break
   }
 }
 
 function convertArray(obj: any, ret: any[]) {
   if (obj.length === 0) {
-    ret.push('[]');
+    ret.push('[]')
   }
   for (let i = 0; i < obj.length; i++) {
-
-    const ele = obj[i];
-    const recurse: any = [];
-    convert(ele, recurse);
+    const ele = obj[i]
+    const recurse: any = []
+    convert(ele, recurse)
 
     for (let j = 0; j < recurse.length; j++) {
-      ret.push((j == 0 ? "- " : spacing) + recurse[j]);
+      ret.push((j == 0 ? '- ' : spacing) + recurse[j])
     }
   }
 }
 
 function convertHash(obj: any, ret: any[]) {
   for (const k in obj) {
-    const recurse: any[] = [];
+    const recurse: any[] = []
     if (obj[k]) {
-      const ele = obj[k];
-      convert(ele, recurse);
-      const type = getType(ele);
+      const ele = obj[k]
+      convert(ele, recurse)
+      const type = getType(ele)
       if (type === 'string' || type === 'null' || type === 'number' || type === 'boolean') {
-        ret.push(normalizeString(k) + ': ' + recurse[0]);
+        ret.push(normalizeString(k) + ': ' + recurse[0])
       } else {
-        ret.push(normalizeString(k) + ': ');
+        ret.push(normalizeString(k) + ': ')
         for (let i = 0; i < recurse.length; i++) {
-          ret.push(spacing + recurse[i]);
+          ret.push(spacing + recurse[i])
         }
       }
     }
@@ -80,22 +78,22 @@ function convertHash(obj: any, ret: any[]) {
 
 function normalizeString(str: string) {
   if (str.match(/^[\w]+$/)) {
-    return str;
+    return str
   } else {
-    return '"' + str.replace(/%u/g, '\\u').replace(/%U/g, '\\U').replace(/%/g, '\\x') + '"';
+    return '"' + str.replace(/%u/g, '\\u').replace(/%U/g, '\\U').replace(/%/g, '\\x') + '"'
   }
 }
 
 function convertString(obj: any, ret: any[]) {
-  ret.push(normalizeString(obj));
+  ret.push(normalizeString(obj))
 }
 
 export function json2yaml(obj: any) {
   if (typeof obj === 'string') {
-    obj = JSON.parse(obj);
+    obj = JSON.parse(obj)
   }
 
-  const ret: any[] = [];
-  convert(obj, ret);
+  const ret: any[] = []
+  convert(obj, ret)
   return ret
 }
