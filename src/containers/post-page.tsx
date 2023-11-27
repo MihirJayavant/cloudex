@@ -2,6 +2,8 @@ import React from 'react'
 import { PostList } from '../components/post'
 import { post } from '../store'
 import { useDispatch, useSelector } from 'react-redux'
+import { Flex } from '@chakra-ui/react'
+import { Header } from '../components/Header'
 
 export function PostPage() {
   const posts = useSelector(post.selectPost)
@@ -13,17 +15,12 @@ export function PostPage() {
 
   return (
     <div className="scroll-y page">
-      <section className="hero is-info">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="title">Posts Page</h1>
-            <h2 className="subtitle">see all the posts</h2>
-          </div>
-        </div>
-      </section>
-      <section className="m5">
-        <PostList list={posts.data} />
-      </section>
+      <Flex direction="column">
+        <Header title="Posts" subTitle="See all Posts" />
+        <section className="m5">
+          <PostList list={posts.data} />
+        </section>
+      </Flex>
     </div>
   )
 }

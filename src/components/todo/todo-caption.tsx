@@ -5,8 +5,9 @@ interface IProps {
   onAdd: (value: string) => void
 }
 
-export function TodoCaption(props: IProps) {
+export function todoCaption(props: IProps) {
   const [text, setText] = useState('')
+  console.log('heyyy')
   const onAdd = () => {
     props.onAdd(text)
     setText('')
@@ -24,3 +25,5 @@ export function TodoCaption(props: IProps) {
     </Wrap>
   )
 }
+
+export const TodoCaption = React.memo(todoCaption)

@@ -1,19 +1,25 @@
 import React from 'react'
-import PostItem from './post-item'
+import { PostItem } from './post-item'
 import { Post } from '../../models'
+import { SimpleGrid } from '@chakra-ui/react'
+import { ForEach } from '../core'
 
 interface IPostListProps {
   list: Post[]
 }
 
-const postList = (props: IPostListProps) => {
-  const list = props.list.map(post => (
-    <div className="column is-4" key={post.id}>
-      <PostItem title={post.title} body={post.body} />
-    </div>
-  ))
-
-  return <div className="columns is-multiline">{list}</div>
+function postList(props: IPostListProps) {
+  return (
+    <SimpleGrid spacing={5} columns={3}>
+      <ForEach list={props.list}>
+        {post => (
+          <div key={post.id}>
+            <PostItem title={post.title} body={post.body} />
+          </div>
+        )}
+      </ForEach>
+    </SimpleGrid>
+  )
 }
 
-export default React.memo(postList)
+export const PostList = React.memo(postList)

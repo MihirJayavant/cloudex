@@ -7,7 +7,7 @@ interface IProps {
   click: (index: number) => void
 }
 
-export function TodoItem(props: IProps) {
+function todoItem(props: IProps) {
   return (
     <Card onClick={() => props.click(props.data.id)} m="5px" variant="outline">
       <CardBody>
@@ -16,3 +16,5 @@ export function TodoItem(props: IProps) {
     </Card>
   )
 }
+
+export const TodoItem = React.memo(todoItem, (prev, next) => prev.data === next.data)

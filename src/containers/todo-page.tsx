@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { TodoCaption, TodoList } from '../components/todo'
 import { todo } from '../store'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,16 +9,16 @@ export function TodoPage() {
   const todos = useSelector(todo.selectTodos)
   const dispatch = useDispatch()
 
-  const onAddClick = (value: string) => {
+  const onAddClick = useCallback((value: string) => {
     if (value.trim() === '') {
       return
     }
     dispatch(todo.add({ id: Math.random() * 1000, value }))
-  }
+  }, [])
 
-  const onItemClick = (id: number) => {
+  const onItemClick = useCallback((id: number) => {
     dispatch(todo.remove(id))
-  }
+  }, [])
 
   return (
     <Flex direction="column">
