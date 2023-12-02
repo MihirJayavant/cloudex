@@ -7,7 +7,6 @@ interface IProps {
 
 export function todoCaption(props: IProps) {
   const [text, setText] = useState('')
-  console.log('heyyy')
   const onAdd = () => {
     props.onAdd(text)
     setText('')

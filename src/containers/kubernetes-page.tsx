@@ -27,7 +27,6 @@ function KuberentesPage() {
   }, [])
 
   const deploymentSubmit = (data: any) => {
-    console.log({ deploymentIndex })
     if (deploymentIndex !== undefined) {
       dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: deploymentIndex }))
     } else {
@@ -38,7 +37,6 @@ function KuberentesPage() {
 
   const secretSubmit = (data: any) => {
     if (secretIndex !== undefined) {
-      console.log({ secretIndex })
       dispatch<any>(kubernetes.updateSecret({ id: Number(params.id), secret: data, index: secretIndex }))
     } else {
       dispatch<any>(kubernetes.addSecret({ id: Number(params.id), secret: data }))
