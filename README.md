@@ -11,6 +11,11 @@
 
 ## Screenshots
 
+![docker_dashboard](https://github.com/MihirJayavant/react-demo/assets/20705365/b01dedd9-40bb-403b-91c5-57b57e148f7f)
+![angular_docker](https://github.com/MihirJayavant/react-demo/assets/20705365/de4e91fe-6264-4638-b58c-46f504cb7cbc)
+![kubs](https://github.com/MihirJayavant/react-demo/assets/20705365/7b5b348c-0371-455e-9b9e-41a0baa325d4)
+![Kubs_demo](https://github.com/MihirJayavant/react-demo/assets/20705365/a6cfe748-7edf-4f96-82e7-815c0e2d8356)
+
 ## Getting Started
 
 ```bash
