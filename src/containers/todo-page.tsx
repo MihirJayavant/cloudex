@@ -6,7 +6,7 @@ import { Flex } from '@chakra-ui/react'
 import { Header } from '../components/Header'
 
 export function TodoPage() {
-  const todos = useSelector(todo.selectTodos)
+  const todos = useSelector(todo.select)
   const dispatch = useDispatch()
 
   const onAddClick = useCallback((value: string) => {

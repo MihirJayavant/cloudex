@@ -63,7 +63,7 @@ function DockerPage() {
 
   return (
     <div>
-      <Header />
+      <Header title="Docker" subTitle="Create Your Container" />
 
       <Grid templateColumns="0.5fr 1fr" gap={10}>
         <FormBuilder form={getConfig()} generate={generateDockerfile} clear={clearFiles} />

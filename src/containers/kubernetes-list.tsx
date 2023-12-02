@@ -15,30 +15,25 @@ import {
   Grid,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import { getProjects, kubAddProject, kubLoadProject, KubLoadProjectAction, KubNewProjectAction, State } from '../store'
-import { connect } from 'react-redux'
-import { KubernetesProject } from '../models/kubernetes/project'
+import { kubernetes, kubernetesEffect } from '../store'
 import KubernetesLogo from '../assets/KubernetesLogo.png'
 import { useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
 
-interface IProps {
-  addProject: (name: string) => KubNewProjectAction
-  projects: KubernetesProject[]
-  loadProject: () => KubLoadProjectAction
-}
-
-export function kubernetesList(props: IProps) {
+export function KubernetesList() {
+  const projects = useSelector(kubernetes.select)
+  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [name, setName] = React.useState('')
   const navigate = useNavigate()
 
   const create = () => {
-    props.addProject(name)
+    dispatch<any>(kubernetesEffect.addNewProject(name))
     onClose()
   }
 
   React.useEffect(() => {
-    props.loadProject()
+    dispatch<any>(kubernetesEffect.loadProjects())
   }, [])
 
   function gotoKubsPage(id: number) {
@@ -46,7 +41,7 @@ export function kubernetesList(props: IProps) {
   }
 
   const list = () =>
-    props.projects.map(p => (
+    projects.data.map(p => (
       <Box className="box" maxW="sm" borderWidth="1px" borderRadius="lg" maxWidth="220px" key={p.id} onClick={() => gotoKubsPage(p.id)}>
         <Image fit="cover" src={KubernetesLogo} alt="Angular" height="125px" width="125px" margin={'5px'} />
         <Box margin={'5px'}>
@@ -94,14 +89,3 @@ export function kubernetesList(props: IProps) {
     </div>
   )
 }
-
-const mapStateToProps = (state: State) => ({
-  projects: getProjects(state),
-})
-
-const mapDispatchToProps = {
-  addProject: kubAddProject,
-  loadProject: kubLoadProject,
-}
-
-export const KubernetesList = connect(mapStateToProps, mapDispatchToProps)(kubernetesList)

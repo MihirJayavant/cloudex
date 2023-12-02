@@ -1,10 +1,6 @@
-import axios from 'axios'
-
 export class Http {
-  private baseUrl = 'https://jsonplaceholder.typicode.com/'
-
-  async get<T>(endpoint: string) {
-    const res = await axios.get<T>(this.baseUrl + endpoint)
-    return res.data
+  static async get<T>(url: string) {
+    const res = await fetch(url)
+    return res.json() as Promise<T>
   }
 }

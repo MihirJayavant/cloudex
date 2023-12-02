@@ -2,31 +2,31 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Todo } from '../../models'
 import { RootState } from '../store'
 
-interface TodoState {
-  todos: Todo[]
+interface State {
+  data: Todo[]
 }
 
-const initialState: TodoState = {
-  todos: [],
+const initialState: State = {
+  data: [],
 }
 
-export const todoSlice = createSlice({
+export const slice = createSlice({
   name: 'todo',
   initialState: initialState,
   reducers: {
     add: (state, action: PayloadAction<Todo>) => {
-      state.todos.push(action.payload)
+      state.data.push(action.payload)
     },
     remove: (state, action: PayloadAction<number>) => {
-      const index = state.todos.findIndex(p => p.id === action.payload)
-      state.todos.splice(index, 1)
+      const index = state.data.findIndex(p => p.id === action.payload)
+      state.data.splice(index, 1)
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { add, remove } = todoSlice.actions
+export const { add, remove } = slice.actions
 
-export const selectTodos = (state: RootState) => state.todos.todos
+export const select = (state: RootState) => state.todos.data
 
-export const reducer = todoSlice.reducer
+export const reducer = slice.reducer

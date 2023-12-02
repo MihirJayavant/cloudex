@@ -1,63 +1,55 @@
 import { Box, Button, Grid, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { Header } from '../components/Header'
 import { KubBox, Secrets, VolumeClaims } from '../components/kubernetes'
 import { Deployment } from '../components/kubernetes/deployment'
+import { kubernetes, kubernetesEffect } from '../store'
 import { KubernetesProject } from '../models/kubernetes'
-import {
-  getProjects,
-  kubAddDeployment,
-  KubAddDeploymentAction,
-  kubAddSecret,
-  KubAddSecretAction,
-  kubAddVolumeClaims,
-  KubAddVolumeClaimsAction,
-  kubGenerateFiles,
-  KubGenerateFilesAction,
-  kubLoadProject,
-  KubLoadProjectAction,
-  State,
-} from '../store'
 
-interface IProps {
-  projects: KubernetesProject[]
-  addDeployment: (id: number, data: any, index?: number) => KubAddDeploymentAction
-  loadProject: () => KubLoadProjectAction
-  addSecret: (id: number, data: any, index?: number | undefined) => KubAddSecretAction
-  addVolumeClaim: (id: number, data: any, index?: number | undefined) => KubAddVolumeClaimsAction
-  generate: (data: any) => KubGenerateFilesAction
-}
-
-function kuberentesPage(props: IProps) {
+function KuberentesPage() {
+  const projects = useSelector(kubernetes.select)
+  const dispatch = useDispatch()
   const deploymentModal = useDisclosure()
   const secretModal = useDisclosure()
   const volumeClaimsModal = useDisclosure()
   const params = useParams()
-  const [deploymentIndex, setDeploymentIndex] = React.useState<number | number>()
-  const [secretIndex, setSecretIndex] = React.useState<number | number>()
-  const [volumeClaimsIndex, setVolumeClaimsIndex] = React.useState<number | number>()
-  const project = props.projects.find(p => p.id === Number(params.id))
+  const [deploymentIndex, setDeploymentIndex] = React.useState<number | undefined>()
+  const [secretIndex, setSecretIndex] = React.useState<number | undefined>()
+  const [volumeClaimsIndex, setVolumeClaimsIndex] = React.useState<number | undefined>()
+  const project = projects.data.find(p => p.id === Number(params.id))
 
   React.useEffect(() => {
     if (!project) {
-      props.loadProject()
+      dispatch<any>(kubernetesEffect.loadProjects())
     }
   }, [])
 
   const deploymentSubmit = (data: any) => {
-    props.addDeployment(Number(params.id), data, deploymentIndex)
+    if (deploymentIndex) {
+      dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: deploymentIndex }))
+    } else {
+      dispatch<any>(kubernetes.addDeployment({ id: Number(params.id), deployment: data }))
+    }
     deploymentModal.onClose()
   }
 
   const secretSubmit = (data: any) => {
-    props.addSecret(Number(params.id), data, secretIndex)
+    if (secretIndex) {
+      dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: secretIndex }))
+    } else {
+      dispatch<any>(kubernetes.addDeployment({ id: Number(params.id), deployment: data }))
+    }
     secretModal.onClose()
   }
 
   const volumeClaimsSubmit = (data: any) => {
-    props.addVolumeClaim(Number(params.id), data, volumeClaimsIndex)
+    if (volumeClaimsIndex) {
+      dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: volumeClaimsIndex }))
+    } else {
+      dispatch<any>(kubernetes.addDeployment({ id: Number(params.id), deployment: data }))
+    }
     volumeClaimsModal.onClose()
   }
 
@@ -76,13 +68,17 @@ function kuberentesPage(props: IProps) {
     volumeClaimsModal.onOpen()
   }
 
+  const generate = (project: KubernetesProject) => {
+    dispatch<any>(kubernetesEffect.generateFiles(project))
+  }
+
   if (!project) {
     return <div></div>
   }
 
   return (
     <div className="kubbox">
-      <Header />
+      <Header title="Kubernetes" subTitle="Manage yor containers" />
       <Grid templateColumns="repeat(4, 1fr)" gap={5} padding={10}>
         <div className="ingress">
           <Box bgColor="gray.200" p={5} borderRadius="md" textAlign={'center'} fontWeight="bold" fontSize={20}>
@@ -115,26 +111,12 @@ function kuberentesPage(props: IProps) {
         onClose={volumeClaimsModal.onClose}
         onSubmit={volumeClaimsSubmit}
       />
-      <Button colorScheme="blue" onClick={() => props.generate(project)} mb={5} ml={5}>
+      <Button colorScheme="blue" onClick={() => generate(project)} mb={5} ml={5}>
         Generate Files
       </Button>
     </div>
   )
 }
-
-const mapStateToProps = (state: State) => ({
-  projects: getProjects(state),
-})
-
-const mapDispatchToProps = {
-  addDeployment: kubAddDeployment,
-  addSecret: kubAddSecret,
-  addVolumeClaim: kubAddVolumeClaims,
-  loadProject: kubLoadProject,
-  generate: kubGenerateFiles,
-}
-
-export const KuberentesPage = connect(mapStateToProps, mapDispatchToProps)(kuberentesPage)
 
 export function Component() {
   return <KuberentesPage />

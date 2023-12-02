@@ -6,7 +6,7 @@ import { Flex } from '@chakra-ui/react'
 import { Header } from '../components/Header'
 
 export function PostPage() {
-  const posts = useSelector(post.selectPost)
+  const posts = useSelector(post.select)
   const dispatch = useDispatch()
 
   React.useEffect(() => {

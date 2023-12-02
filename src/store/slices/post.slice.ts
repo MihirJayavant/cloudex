@@ -3,9 +3,9 @@ import { AsyncDataStateType, IAsyncData, Post, getInitialState } from '../../mod
 import { RootState } from '../store'
 import { PostHttp } from '../../http'
 
-interface PostState extends IAsyncData<Post[]> {}
+interface State extends IAsyncData<Post[]> {}
 
-const initialState: PostState = {
+const initialState: State = {
   ...getInitialState<Post[]>([]),
 }
 
@@ -14,7 +14,7 @@ export const fetchPost = createAsyncThunk('post/fetch', async () => {
   return data
 })
 
-export const postSlice = createSlice({
+export const slice = createSlice({
   name: 'post',
   initialState: initialState,
   reducers: {},
@@ -33,6 +33,6 @@ export const postSlice = createSlice({
   },
 })
 
-export const selectPost = (state: RootState) => state.posts
+export const select = (state: RootState) => state.posts
 
-export const reducer = postSlice.reducer
+export const reducer = slice.reducer

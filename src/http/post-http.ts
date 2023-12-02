@@ -2,9 +2,8 @@ import { Http } from './http'
 import { Post } from '../models'
 
 export class PostHttp {
-  private static http = new Http()
-
+  private static baseUrl = 'https://jsonplaceholder.typicode.com/'
   static get() {
-    return this.http.get<Post[]>('posts')
+    return Http.get<Post[]>(this.baseUrl + 'posts')
   }
 }

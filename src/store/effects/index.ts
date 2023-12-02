@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, AsyncThunk } from '@reduxjs/toolkit'
 import { AsyncDataStateType, IAsyncData } from '../../models'
 
-export * as kubernetes from './kubernetes.effects'
+export * as kubernetesEffect from './kubernetes.effects'
 
 export function addBuilders<T, U extends IAsyncData<T>>(builder: ActionReducerMapBuilder<U>, thunks: AsyncThunk<any, any, any>) {
   builder.addCase(thunks.pending, state => {
