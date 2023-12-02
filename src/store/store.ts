@@ -1,23 +1,14 @@
-import { todo, post } from './slices'
-import * as fromKubs from './reducers/kubernetes.reducer'
+import { todo, post, kubernetes } from './slices'
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import createSagaMiddleware from 'redux-saga'
-import { allSagas } from './effects'
-
-const sagaMiddleware = createSagaMiddleware()
-const middleware = [sagaMiddleware]
 
 export const store = configureStore({
   reducer: {
     todos: todo.reducer,
     posts: post.reducer,
-    kuberenetes: fromKubs.kubsReducer,
+    kuberenetes: kubernetes.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(middleware),
 })
-
-sagaMiddleware.run(allSagas)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

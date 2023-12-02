@@ -1,54 +1,47 @@
-import { put, select } from 'redux-saga/effects'
-import { getProjects } from '../selectors'
 import { Database } from '../../db'
 import { Ingress, KubernetesProject } from '../../models/kubernetes'
-import {
-  KubAddDeploymentAction,
-  KubGenerateFilesAction,
-  KubLoadProjectSuccessAction,
-  KubNewProjectAction,
-  KubNewProjectEffectAction,
-  KubProjectTypes,
-} from '../actions'
 import { FS, json2yaml } from '../../core/files'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export function* addNewKubsProjectEffect(action: KubNewProjectAction) {
-  const database: Database = yield new Database()
+export const addNewProject = createAsyncThunk('kubernetes/addNewProject', async (name: string) => {
+  const database: Database = new Database()
   if (database.isAvailable) {
-    yield database.open()
+    await database.open()
     const ingress = {
       redirects: [],
     }
-    const data = { name: action.name, ingress, deployment: [], secrets: [], volumeClaims: [] }
-    const id: IDBValidKey = yield database.add('kubernetes', data)
-    yield put<KubNewProjectEffectAction>({ type: KubProjectTypes.ADD_NEW_PROJECT_EFFECT, data: { id, ...data } })
+    const data: Omit<KubernetesProject, 'id'> = { name, ingress, deployment: [], secrets: [], volumeClaims: [] }
+    const id: any = await database.add('kubernetes', data)
+    return { id, ...data }
   }
-}
+  throw new Error('IndexedDb not found')
+})
 
-export function* loadKubsProjectEffect() {
-  const database: Database = yield new Database()
+export const loadProjects = createAsyncThunk('kubernetes/loadProject', async () => {
+  const database: Database = new Database()
   if (database.isAvailable) {
-    yield database.open()
-    const result: KubernetesProject[] = yield database.getAll('kubernetes')
-    yield put<KubLoadProjectSuccessAction>({ type: KubProjectTypes.LOAD_PROJECTS_SUCCESS, data: result })
+    await database.open()
+    const result = await database.getAll<KubernetesProject>('kubernetes')
+    return result
   }
-}
 
-export function* KubsAllUpdateEffect(action: KubAddDeploymentAction) {
-  const database: Database = yield new Database()
+  throw new Error('IndexedDb not found')
+})
+
+export const updateProject = createAsyncThunk('kubernetes/updateProject', async (project: KubernetesProject) => {
+  const database: Database = new Database()
   if (database.isAvailable) {
-    yield database.open()
-    const projects: KubernetesProject[] = yield select(getProjects)
-    const data = projects.find(p => p.id === action.id)
-    yield database.update('kubernetes', data)
+    await database.open()
+    await database.update('kubernetes', project)
+    return project
   }
-}
+  throw new Error('IndexedDb not found')
+})
 
-export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
-  const project: KubernetesProject = yield action.data
+export const generateFiles = createAsyncThunk('kubernetes/generateFiles', async (project: KubernetesProject) => {
   const fs = new FS()
   if (fs.isAvailable()) {
-    yield fs.openOrCreateDir()
+    await fs.openOrCreateDir()
     const ingress: Ingress = {
       apiVersion: 'networking.k8s.io/v1',
       kind: 'Ingress',
@@ -63,7 +56,7 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
         rules: [{ http: { paths: [] } }],
       },
     }
-    yield fs.fileWrite(`ingress-service.yaml`, json2yaml(ingress))
+    await fs.fileWrite(`ingress-service.yaml`, json2yaml(ingress))
     for (const item of project.deployment) {
       const depData = {
         apiVersion: 'apps/v1',
@@ -119,8 +112,8 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
           ],
         },
       }
-      yield fs.fileWrite(`${item.metadataName}-deployment.yaml`, json2yaml(depData))
-      yield fs.fileWrite(`${item.metadataName}-ip-cluster-service.yaml`, json2yaml(ipData))
+      await fs.fileWrite(`${item.metadataName}-deployment.yaml`, json2yaml(depData))
+      await fs.fileWrite(`${item.metadataName}-ip-cluster-service.yaml`, json2yaml(ipData))
     }
 
     for (const volume of project.volumeClaims) {
@@ -139,7 +132,7 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
           },
         },
       }
-      yield fs.fileWrite(`${volume.metadataName}-volume-claim.yaml`, json2yaml(volData))
+      await fs.fileWrite(`${volume.metadataName}-volume-claim.yaml`, json2yaml(volData))
     }
 
     const cloudex = {
@@ -147,6 +140,7 @@ export function* KubsGenerateFilesEffect(action: KubGenerateFilesAction) {
       kind: 'kubernetes',
       kubernetes: project,
     }
-    yield fs.fileWrite(`cloudex.json`, [JSON.stringify(cloudex, undefined, 2)])
+    await fs.fileWrite(`cloudex.json`, [JSON.stringify(cloudex, undefined, 2)])
   }
-}
+  throw new Error('FileSystem not found')
+})

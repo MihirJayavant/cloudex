@@ -5,7 +5,7 @@ import { PostHttp } from '../../http'
 
 interface PostState extends IAsyncData<Post[]> {}
 
-export const initialState: PostState = {
+const initialState: PostState = {
   ...getInitialState<Post[]>([]),
 }
 
