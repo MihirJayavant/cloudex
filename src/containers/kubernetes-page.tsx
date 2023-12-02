@@ -27,7 +27,8 @@ function KuberentesPage() {
   }, [])
 
   const deploymentSubmit = (data: any) => {
-    if (deploymentIndex) {
+    console.log({ deploymentIndex })
+    if (deploymentIndex !== undefined) {
       dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: deploymentIndex }))
     } else {
       dispatch<any>(kubernetes.addDeployment({ id: Number(params.id), deployment: data }))
@@ -36,19 +37,20 @@ function KuberentesPage() {
   }
 
   const secretSubmit = (data: any) => {
-    if (secretIndex) {
-      dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: secretIndex }))
+    if (secretIndex !== undefined) {
+      console.log({ secretIndex })
+      dispatch<any>(kubernetes.updateSecret({ id: Number(params.id), secret: data, index: secretIndex }))
     } else {
-      dispatch<any>(kubernetes.addDeployment({ id: Number(params.id), deployment: data }))
+      dispatch<any>(kubernetes.addSecret({ id: Number(params.id), secret: data }))
     }
     secretModal.onClose()
   }
 
   const volumeClaimsSubmit = (data: any) => {
-    if (volumeClaimsIndex) {
-      dispatch<any>(kubernetes.updateDeployment({ id: Number(params.id), deployment: data, index: volumeClaimsIndex }))
+    if (volumeClaimsIndex !== undefined) {
+      dispatch<any>(kubernetes.updateVolume({ id: Number(params.id), volume: data, index: volumeClaimsIndex }))
     } else {
-      dispatch<any>(kubernetes.addDeployment({ id: Number(params.id), deployment: data }))
+      dispatch<any>(kubernetes.addVolume({ id: Number(params.id), volume: data }))
     }
     volumeClaimsModal.onClose()
   }
